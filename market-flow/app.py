@@ -36,7 +36,6 @@ pages = {
     ],
     "수급": [
         P(flows.investors, title="투자자별 매매", icon="👥", url_path="investors"),
-        P(flows.credit, title="신용잔고 (빚투)", icon="💳", url_path="credit"),
     ],
     "심리·가격 수준": [
         P(sentiment.overheat, title="과열·과매도 (RSI)", icon="🌡️", url_path="rsi"),

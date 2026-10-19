@@ -2,7 +2,7 @@
 
 - 지수·금리·환율·유가·업종 ETF: yfinance (무료, 회원가입 없음)
 - 한국 수급·시장 폭·거래대금·업종·PER·VKOSPI: pykrx (실패해도 앱은 동작)
-- 신용잔고·일정·미국 경제 보고서: 저장소의 data/ 폴더 파일
+- 일정·미국 경제 보고서: 저장소의 data/ 폴더 파일
 - 인터넷이 안 되거나 MARKET_FLOW_DEMO=1 이면 샘플 데이터로 동작해요.
 
 모든 함수는 (데이터 또는 None, 출처 설명) 을 돌려줘요.
@@ -255,15 +255,6 @@ def load_vkospi(days: int = 500):
 
 
 # ── 저장소 data/ 폴더 파일 ───────────────────────────────
-def load_credit_balance():
-    """data/credit_balance.csv (열: date, 코스피, 코스닥 — 단위 억 원)."""
-    f = DATA_DIR / "credit_balance.csv"
-    if not f.exists():
-        return None, "data/credit_balance.csv 파일이 아직 없어요"
-    df = pd.read_csv(f, parse_dates=["date"]).set_index("date").sort_index()
-    return df, "금융투자협회 공시 자료를 정리한 파일 (data/credit_balance.csv)"
-
-
 def load_events() -> tuple[pd.DataFrame | None, str]:
     """data/events.csv (열: date, when, title, category, importance, note)."""
     f = DATA_DIR / "events.csv"

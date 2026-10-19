@@ -1,4 +1,4 @@
-"""수급: 투자자별 매매 / 신용잔고."""
+"""수급: 투자자별 매매."""
 from __future__ import annotations
 
 import plotly.express as px
@@ -6,7 +6,6 @@ import plotly.graph_objects as go
 import streamlit as st
 
 import common as cm
-import data as dt
 
 
 def _streak(s) -> int:
@@ -56,30 +55,3 @@ def investors():
     st.markdown(" · ".join(f"최근 20일 {k} **{v:+,.0f}억 원**" for k, v in s20.items()))
     cm.source(note)
 
-
-def credit():
-    st.title("신용잔고 (빚투)")
-    cm.explain("""
-- **신용거래융자 잔고**는 투자자가 증권사에서 돈을 빌려 주식을 산 금액이에요.
-- 잔고가 빠르게 불어나면 시장이 과열됐다는 신호예요. 이 상태에서 급락이 오면 **반대매매**(담보 부족으로 강제 매도)가 쏟아져 낙폭이 커져요.
-- 지수가 내려가는데 잔고가 줄지 않으면 아직 정리가 덜 됐다는 뜻이에요.
-""")
-    df, note = dt.load_credit_balance()
-    if df is None:
-        st.info(
-            "신용잔고는 무료로 자동 수집할 수 있는 공개 API가 없어요. 대신 아래 방법으로 볼 수 있어요.\n\n"
-            "1. 금융투자협회 통계 사이트 [FreeSIS](https://freesis.kofia.or.kr) → 주식 → 신용공여 현황에서 직접 확인\n"
-            "2. 저장소의 `market-flow/data/credit_balance.csv`에 `date,코스피,코스닥`(단위 억 원) 형식으로 값을 넣으면 이 화면에 차트가 그려져요. "
-            "Claude에게 \"신용잔고 업데이트해줘\"라고 요청하면 최신 수치를 찾아 넣어 드려요."
-        )
-        return
-    fig = go.Figure()
-    for col, color in [("코스피", cm.BLUE), ("코스닥", cm.ORANGE)]:
-        if col in df:
-            fig.add_trace(go.Scatter(x=df.index, y=df[col] / 1e4, name=col, line=dict(color=color, width=2)))
-    fig.update_yaxes(title="조 원")
-    cm.show(fig, 360)
-    total = df.sum(axis=1) / 1e4
-    st.metric("전체 신용잔고", f"{total.iloc[-1]:.1f}조 원",
-              f"{total.iloc[-1] - total.iloc[-2]:+.2f}조 원 (직전 대비)" if len(total) > 1 else None)
-    cm.source(note)
