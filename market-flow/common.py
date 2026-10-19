@@ -9,7 +9,8 @@ import analysis as an
 import data as dt
 from config import CACHE_TTL, FORWARD_DAYS, SCORE_TARGETS
 
-UP, DOWN, MUTED, BLUE, ORANGE = "#2E7D5B", "#C0392B", "#8A8F98", "#3B6FB6", "#E39B2D"
+# 다크 배경에서 잘 보이도록 밝은 색을 써요.
+UP, DOWN, MUTED, BLUE, ORANGE = "#3FB97F", "#E5534B", "#9AA0A6", "#5B9BF0", "#F0A33A"
 SPAN = {"1개월": 21, "3개월": 63, "6개월": 126, "1년": 252, "3년": 756}
 
 
