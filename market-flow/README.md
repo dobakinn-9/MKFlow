@@ -82,7 +82,11 @@ $env:MARKET_FLOW_DEMO="1"; streamlit run app.py
 
 ## 3. AI 예측 일기장 (자동 기록·채점)
 
-저장소의 `.github/workflows/daily_predict.yml`이 **평일 한국 시간 오전 7:40**마다 GitHub에서 자동으로 실행돼요.
+저장소의 `.github/workflows/daily_predict.yml`이 **하루 2번** GitHub에서 자동으로 실행돼요.
+- **오전 7:40** (화~토): 미국 장 마감 직후 → S&P 500 최신 종가로 예측
+- **오후 4:10** (월~금): 한국 장 마감 직후 → 코스피 당일 종가로 예측
+
+시장마다 실제로 장이 열린 날 기준으로 기록해서, 같은 거래일이 두 번 기록되지 않아요.
 
 1. 코스피·S&P 500의 5거래일·20거래일 뒤 상승 확률을 계산해 `data/predictions.csv`에 기록
 2. 만기가 된 예측을 실제 결과와 비교해 채점

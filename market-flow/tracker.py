@@ -23,6 +23,7 @@ from config import SCORE_TARGETS
 PRED_FILE = dt.DATA_DIR / "predictions.csv"
 OUTLOOK_FILE = dt.DATA_DIR / "outlook_log.csv"
 HORIZONS = [5, 20]  # 1주, 1개월
+# 하루 2번 실행: 한국 07:40(미국 장 마감 후) · 16:10(한국 장 마감 후). 같은 거래일은 한 번만 기록돼요.
 OUTLOOK_TICKERS = {"kospi": "^KS11", "spx": "^GSPC"}
 OUTLOOK_DAYS = 21   # Claude 전망은 약 1개월(21거래일) 뒤 채점
 OUTLOOK_BAND = 3.0  # ±3% 이내면 '기본(박스권)' 시나리오가 맞은 것으로 봐요
@@ -90,9 +91,23 @@ def live_report(preds: pd.DataFrame, target: str, horizon: int) -> dict:
 
 
 # ── 채점 ─────────────────────────────────────────────────
+def trading_days(s: pd.Series) -> pd.Series:
+    """실제로 장이 열린 날만 남겨요.
+
+    가격표는 한국·미국 휴장일 차이 때문에 빈칸을 직전 값으로 채워 두는데(예: 미국 장이 열리기 전 한국 시간 오후),
+    그런 '채워 넣은 날'은 그 시장의 거래일이 아니므로 기록·채점에서 빼요.
+    """
+    s = s.dropna()
+    return s[s.diff().fillna(1) != 0]
+
+
+def last_trading_day(s: pd.Series) -> pd.Timestamp:
+    return trading_days(s).index[-1]
+
+
 def _due(prices: pd.Series, asof: pd.Timestamp, n: int):
     """asof 이후 n거래일째 가격. 아직 그날이 안 왔으면 None."""
-    s = prices.dropna()
+    s = trading_days(prices)
     after = s[s.index > asof]
     if len(after) < n:
         return None
@@ -124,21 +139,24 @@ def record_predictions(preds: pd.DataFrame, prices: pd.DataFrame) -> tuple[pd.Da
     for t in SCORE_TARGETS:
         if t not in prices or prices[t].dropna().empty:
             continue
-        score = an.flow_score(an.build_factors(prices, t))
+        # 그 시장이 실제로 마지막으로 열린 날까지의 데이터로만 예측해요.
+        day = last_trading_day(prices[t])
+        px_t = prices.loc[:day]
+        score = an.flow_score(an.build_factors(px_t, t))
         for h in HORIZONS:
-            res = ml.predict_today(prices, t, score, h)
-            if res is None:
-                continue
-            asof = pd.Timestamp(res["asof"]).normalize()
+            asof = pd.Timestamp(day).normalize()
             dup = (preds["target"] == t) & (preds["horizon"] == h) & (pd.to_datetime(preds["asof"]) == asof)
             if dup.any():
+                continue
+            res = ml.predict_today(px_t, t, score, h)
+            if res is None:
                 continue
             w = live_weights(preds, t, h)["w_lr"]
             prob = w * res["p_lr"] + (1 - w) * res["p_gb"]
             sc = float(score.loc[:asof].dropna().iloc[-1])
             rows.append({"asof": asof, "target": t, "horizon": h, "p_lr": round(res["p_lr"], 4),
                          "p_gb": round(res["p_gb"], 4), "w_lr": round(w, 3), "prob": round(prob, 4),
-                         "price": round(float(prices[t].loc[:asof].dropna().iloc[-1]), 4), "score": sc,
+                         "price": round(float(px_t[t].dropna().iloc[-1]), 4), "score": sc,
                          "regime": an.regime(sc), "created_utc": datetime.now(timezone.utc).isoformat(timespec="minutes")})
             added += 1
     if rows:
