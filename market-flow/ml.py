@@ -88,23 +88,46 @@ def _models():
     return lr, gb
 
 
-def _fit_predict(X_tr, y_tr, X_te):
+def _fit_predict(X_tr, y_tr, X_te, w_lr: float = 0.5):
+    """두 모델을 학습하고 가중 평균 확률을 돌려줘요. (앙상블 확률, 로지스틱 모델, 로지스틱 확률, 부스팅 확률)"""
     lr, gb = _models()
     lr.fit(X_tr, y_tr)
     gb.fit(X_tr, y_tr)
-    return (lr.predict_proba(X_te)[:, 1] + gb.predict_proba(X_te)[:, 1]) / 2, lr
+    p_lr, p_gb = lr.predict_proba(X_te)[:, 1], gb.predict_proba(X_te)[:, 1]
+    return w_lr * p_lr + (1 - w_lr) * p_gb, lr, p_lr, p_gb
 
 
-def run(prices: pd.DataFrame, target: str, score: pd.Series, fwd: int,
-        min_train: int = 500, step: int = 21) -> dict:
-    """워크포워드 검증 + 오늘 예측. 결과는 dict로 돌려줘요."""
+def _labeled(prices: pd.DataFrame, target: str, score: pd.Series, fwd: int):
     feats = build_features(prices, target, score)
     p = prices[target]
     fwd_ret = p.shift(-fwd) / p - 1
     data = feats.copy()
     data["y"] = (fwd_ret > 0).astype(float).where(fwd_ret.notna())
     data["fwd_ret"] = fwd_ret
-    data = data.dropna(subset=list(feats.columns))
+    return feats, data.dropna(subset=list(feats.columns))
+
+
+def predict_today(prices: pd.DataFrame, target: str, score: pd.Series, fwd: int) -> dict | None:
+    """정답이 확정된 전체 데이터로 학습해 오늘의 두 모델 확률을 따로 돌려줘요 (예측 일기장용)."""
+    feats, data = _labeled(prices, target, score, fwd)
+    cols = list(feats.columns)
+    lab = data["y"].notna().values
+    if lab.sum() < 300:
+        return None
+    X, y = data[cols].values, data["y"].values
+    last = feats[cols].dropna()
+    _, _, p_lr, p_gb = _fit_predict(X[lab], y[lab], last.iloc[[-1]].values)
+    return {"asof": last.index[-1], "p_lr": float(p_lr[0]), "p_gb": float(p_gb[0])}
+
+
+def run(prices: pd.DataFrame, target: str, score: pd.Series, fwd: int,
+        min_train: int = 500, step: int = 21, w_lr: float = 0.5) -> dict:
+    """워크포워드 검증 + 오늘 예측. 결과는 dict로 돌려줘요.
+
+    w_lr: 오늘 예측에서 로지스틱 회귀에 줄 가중치(나머지는 부스팅). 실전 성적으로 정해져요.
+    """
+    feats, data = _labeled(prices, target, score, fwd)
+    p = prices[target]
     if len(data) < min_train + step + fwd:
         return {"ok": False, "reason": f"학습할 데이터가 부족해요 ({len(data)}일). 사이드바에서 불러올 기간을 늘려 보세요."}
 
@@ -120,7 +143,7 @@ def run(prices: pd.DataFrame, target: str, score: pd.Series, fwd: int,
         if mask.sum() < 200 or len(np.unique(y[:tr_end][mask])) < 2:
             continue
         te = slice(i, min(i + step, len(data)))
-        pr, _ = _fit_predict(X[:tr_end][mask], y[:tr_end][mask], X[te])
+        pr, *_ = _fit_predict(X[:tr_end][mask], y[:tr_end][mask], X[te])
         preds.iloc[te] = pr
 
     hist = pd.DataFrame({"prob": preds, "y": data["y"], "fwd_ret": data["fwd_ret"]}).dropna()
@@ -148,7 +171,7 @@ def run(prices: pd.DataFrame, target: str, score: pd.Series, fwd: int,
     # 오늘 예측: 정답이 확정된 전체 데이터로 학습
     lab = ~np.isnan(y)
     last_x = feats[cols].dropna().iloc[[-1]].values
-    today_prob, lr_model = _fit_predict(X[lab], y[lab], last_x)
+    today_prob, lr_model, p_lr, p_gb = _fit_predict(X[lab], y[lab], last_x, w_lr)
     today_prob = float(today_prob[0])
 
     # 오늘 예측에 각 특성이 기여한 방향 (로지스틱 회귀 계수 × 표준화 값)
@@ -158,7 +181,8 @@ def run(prices: pd.DataFrame, target: str, score: pd.Series, fwd: int,
                             "기여": logit.coef_[0] * z}).sort_values("기여", key=abs, ascending=False)
 
     return {
-        "ok": True, "prob": today_prob, "asof": feats[cols].dropna().index[-1],
+        "ok": True, "prob": today_prob, "p_lr": float(p_lr[0]), "p_gb": float(p_gb[0]), "w_lr": w_lr,
+        "asof": feats[cols].dropna().index[-1],
         "hit": hit, "naive": naive, "base_up": base_up, "brier": brier, "auc": auc,
         "n_oos": int(len(hist)), "calib": calib, "contrib": contrib,
         "history": hist[["prob"]].join(p.rename("price")),
