@@ -1,0 +1,3 @@
+asof,market,stance,p_up,p_base,p_down,start_price,end_price,ret_pct,outcome,prob_on_outcome,top_hit,graded_on
+2026-10-19,kospi,경계 (약세 우위),25,50,25,5768.009765625,,,,,,
+2026-10-19,spx,중립 (순환매 장세),25,50,25,7659.43994140625,,,,,,
