@@ -188,3 +188,49 @@ def rolling_corr(prices: pd.DataFrame, base: str, others: list[str], window: int
         if t in ret and t != base:
             out[name(t)] = ret[base].rolling(window).corr(ret[t])
     return pd.DataFrame(out).dropna(how="all")
+
+
+def realized_vol(s: pd.Series, window: int = 20) -> pd.Series:
+    """최근 window일 일간 수익률의 연율화 표준편차(%). VIX·VKOSPI가 없을 때 대체 지표."""
+    return s.pct_change().rolling(window).std() * np.sqrt(252) * 100
+
+
+def period_returns(prices: pd.DataFrame, tickers: list[str], periods: dict[str, int]) -> pd.DataFrame:
+    """티커별 여러 기간 수익률(%)."""
+    rows = []
+    for t in tickers:
+        if t not in prices or prices[t].dropna().empty:
+            continue
+        s = prices[t].dropna()
+        row = {"티커": t, "이름": name(t)}
+        for label, n in periods.items():
+            row[label] = (s.iloc[-1] / s.iloc[-1 - n] - 1) * 100 if len(s) > n else np.nan
+        rows.append(row)
+    return pd.DataFrame(rows)
+
+
+def share_above_ma(prices: pd.DataFrame, tickers: list[str], window: int = 50) -> pd.Series:
+    """여러 티커 중 window일 이동평균 위에 있는 비율(%) — 시장의 폭 지표."""
+    sub = prices[[t for t in tickers if t in prices]].dropna(how="all")
+    above = sub > sub.rolling(window).mean()
+    valid = sub.rolling(window).mean().notna()
+    return (above & valid).sum(axis=1) / valid.sum(axis=1).replace(0, np.nan) * 100
+
+
+def ratio(a: pd.Series, b: pd.Series) -> pd.Series:
+    """두 가격의 비율을 시작점=100으로 맞춘 값. 오르면 a가 b보다 강하다는 뜻."""
+    r = (a / b).dropna()
+    return r / r.iloc[0] * 100 if not r.empty else r
+
+
+def ad_line(breadth: pd.DataFrame) -> pd.Series:
+    """상승-하락 종목 수 누적선(ADL)."""
+    return (breadth["상승"] - breadth["하락"]).cumsum()
+
+
+def percentile_rank(s: pd.Series) -> float:
+    """현재 값이 과거 분포에서 몇 % 위치인지(0~100)."""
+    s = s.dropna()
+    if s.empty:
+        return np.nan
+    return float((s < s.iloc[-1]).mean() * 100)
