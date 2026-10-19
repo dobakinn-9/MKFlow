@@ -52,8 +52,8 @@ def _synthetic_prices(years: int = 6, seed: int = 7) -> pd.DataFrame:
     for t in ALL_YF:
         if t == "^VIX":
             out[t] = np.clip(18 - common.cumsum() * 25 + np.cumsum(rng.normal(0, 0.3, len(idx))) * 0.2, 10, 60)
-        elif t in ("^TNX", "^IRX"):
-            base = 4.0 if t == "^TNX" else 4.5
+        elif t in ("^TNX", "^IRX", "^FVX", "^TYX"):
+            base = {"^TNX": 4.0, "^IRX": 4.5, "^FVX": 3.9, "^TYX": 4.3}[t]
             out[t] = np.clip(base + np.cumsum(rng.normal(0, 0.03, len(idx))), 0.5, 7)
         else:
             r = beta.get(t, 1.0) * common + rng.normal(0, 0.007, len(idx))
@@ -91,7 +91,7 @@ def load_prices(period: str = "6y") -> tuple[pd.DataFrame, pd.DataFrame, str]:
         close = close[close.index.dayofweek < 5].ffill()
         vol = vol.reindex(close.index)
         # 예전 야후 데이터는 금리를 10배(예: 45.0 = 4.5%)로 주기도 해서 보정해요.
-        for t in ("^TNX", "^IRX"):
+        for t in ("^TNX", "^IRX", "^FVX", "^TYX"):
             if t in close and close[t].median() > 20:
                 close[t] = close[t] / 10
         missing = [t for t in ALL_YF if t not in close.columns or close[t].dropna().empty]
@@ -281,3 +281,58 @@ def load_us_reports() -> tuple[list | None, str]:
     if not f.exists():
         return None, "data/us_reports.json 파일이 없어요"
     return json.loads(f.read_text(encoding="utf-8")), "BLS·연준·BEA 등 공식 보고서 요약 (data/us_reports.json)"
+
+
+# ── 미국 물가: FRED (세인트루이스 연은 공개 통계, 키 없이 CSV로 받기) ─────
+def _synthetic_fred() -> dict[str, pd.Series]:
+    rng = np.random.default_rng(21)
+    m = pd.date_range("2012-01-01", pd.Timestamp.today().normalize() - pd.offsets.MonthBegin(1), freq="MS")
+    oil_m = 70 * np.exp(np.cumsum(rng.normal(0, 0.06, len(m))))
+    oil_ch = np.r_[0, np.diff(np.log(oil_m))]
+    core_mm = 0.0025 + 0.0006 * np.sin(np.arange(len(m)) / 9) + rng.normal(0, 0.0012, len(m))
+    head_mm = core_mm + 0.05 * oil_ch + rng.normal(0, 0.0015, len(m))
+    d = pd.bdate_range(m[0], pd.Timestamp.today().normalize())
+    oil_d = pd.Series(oil_m, index=m).reindex(d, method="ffill") * np.exp(rng.normal(0, 0.01, len(d)))
+    be = 2.3 + pd.Series(np.cumsum(rng.normal(0, 0.01, len(d))), index=d) * 0.3
+    return {
+        "CPIAUCSL": pd.Series(250 * np.exp(np.cumsum(head_mm)), index=m),
+        "CPILFESL": pd.Series(255 * np.exp(np.cumsum(core_mm)), index=m),
+        "PCEPILFE": pd.Series(110 * np.exp(np.cumsum(core_mm * 0.85)), index=m),
+        "T10YIE": be, "T5YIE": be + 0.1,
+        "MICH": pd.Series(3 + rng.normal(0, 0.3, len(m)), index=m),
+        "DCOILWTICO": oil_d,
+    }
+
+
+def load_fred(series: list[str]) -> tuple[dict[str, pd.Series], str]:
+    """FRED 시계열 여러 개. 실패한 것은 빠져요. (값, 출처 설명)"""
+    if demo_mode():
+        syn = _synthetic_fred()
+        return {k: syn[k] for k in series if k in syn}, SAMPLE
+    out, failed = {}, []
+    try:
+        import io
+        import requests
+
+        for sid in series:
+            try:
+                r = requests.get("https://fred.stlouisfed.org/graph/fredgraph.csv", params={"id": sid},
+                                 headers={"User-Agent": "Mozilla/5.0 market-flow"}, timeout=20)
+                r.raise_for_status()
+                df = pd.read_csv(io.StringIO(r.text))
+                date_col = df.columns[0]
+                s = pd.to_numeric(df[sid], errors="coerce")
+                s.index = pd.to_datetime(df[date_col])
+                out[sid] = s.dropna()
+            except Exception:
+                failed.append(sid)
+    except Exception as e:
+        failed = series
+        note = f"FRED 접속 실패 ({e})"
+    if not out:
+        syn = _synthetic_fred()
+        return {k: syn[k] for k in series if k in syn}, "FRED에 접속하지 못해 샘플 데이터를 표시해요"
+    note = "미국 노동통계국·경제분석국 통계 (FRED, 세인트루이스 연은)"
+    if failed:
+        note += f" · 불러오지 못한 항목: {', '.join(failed)}"
+    return out, note

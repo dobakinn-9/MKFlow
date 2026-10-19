@@ -92,7 +92,26 @@ MACRO = ["^VIX"] + RATES + FX + COMMOD
 
 HIDDEN_TICKERS = ["HG=F", "HYG", "IEF", "^DJT", "EEM", "JPY=X", "^MOVE", "BTC-USD"]
 
-ALL_YF = list(dict.fromkeys(list(TICKERS) + list(US_SECTORS) + list(BREADTH_US) + list(WORLD) + HIDDEN_TICKERS))
+# 채권: 만기별 미국 국채 금리와 채권 ETF
+BOND_TICKERS = {"^IRX": "3개월물", "^FVX": "5년물", "^TNX": "10년물", "^TYX": "30년물"}
+BOND_ETFS = {"SHY": "단기 국채 ETF (1~3년)", "IEF": "중기 국채 ETF (7~10년)", "TLT": "장기 국채 ETF (20년+)",
+             "TIP": "물가연동 국채 ETF"}
+# 대략적인 듀레이션(금리 1%p 변할 때 가격이 몇 % 움직이는지)
+DURATION = {"SHY": 1.9, "IEF": 7.3, "TLT": 16.5, "10년 국채": 8.5}
+
+# 미국 물가: 연준(세인트루이스 연은) FRED 공개 통계
+FRED_SERIES = {
+    "CPIAUCSL": "CPI (전체)",
+    "CPILFESL": "근원 CPI (식품·에너지 제외)",
+    "PCEPILFE": "근원 PCE (연준이 가장 중시)",
+    "T10YIE": "10년 기대인플레이션 (채권시장)",
+    "T5YIE": "5년 기대인플레이션 (채권시장)",
+    "MICH": "소비자 기대인플레이션 (미시간대, 1년)",
+    "DCOILWTICO": "WTI 유가 (일별)",
+}
+
+ALL_YF = list(dict.fromkeys(list(TICKERS) + list(US_SECTORS) + list(BREADTH_US) + list(WORLD) + HIDDEN_TICKERS
+                            + list(BOND_TICKERS) + list(BOND_ETFS)))
 
 # 흐름 점수를 계산할 기준 지수
 SCORE_TARGETS = {"^KS11": "코스피", "^GSPC": "S&P 500"}
@@ -117,5 +136,7 @@ def name(ticker: str) -> str:
     if ticker in WORLD:
         return WORLD[ticker]
     extra = {"HG=F": "구리", "HYG": "하이일드 채권 ETF", "IEF": "미 중기 국채 ETF", "^DJT": "다우 운송",
-             "EEM": "신흥국 주식 ETF", "JPY=X": "엔/달러", "^MOVE": "MOVE 지수", "BTC-USD": "비트코인"}
+             "EEM": "신흥국 주식 ETF", "JPY=X": "엔/달러", "^MOVE": "MOVE 지수", "BTC-USD": "비트코인",
+             "^FVX": "미 5년물 금리", "^TYX": "미 30년물 금리", "SHY": "단기 국채 ETF", "TLT": "장기 국채 ETF",
+             "TIP": "물가연동 국채 ETF"}
     return extra.get(ticker, ticker)
