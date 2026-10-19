@@ -3,7 +3,7 @@
 실행:  streamlit run app.py
 
 왼쪽 메뉴는 6개 분류와 그 아래 세부 메뉴로 나뉘어 있어요.
-  종합 / 시장 보고서 / 돈의 가격 / 시장의 체력 / 수급 / 심리·가격 수준 / 일정
+  종합 / AI 예측 / 시장 보고서 / 돈의 가격 / 시장의 체력 / 수급 / 심리·가격 수준 / 일정
 """
 from __future__ import annotations
 
@@ -13,12 +13,12 @@ import streamlit as st
 
 # Streamlit Cloud는 코드를 새로 올려도 예전에 불러온 모듈을 기억해 둘 때가 있어요.
 # 그러면 새로 추가한 설정을 못 찾아 ImportError가 나요. 매번 우리 파일을 새로 읽도록 지워 둬요.
-_LOCAL = {"config", "data", "analysis", "common", "views"}
+_LOCAL = {"config", "data", "analysis", "common", "ml", "views"}
 for _m in [m for m in list(sys.modules) if m.split(".")[0] in _LOCAL]:
     del sys.modules[_m]
 
 from config import FORWARD_DAYS, SCORE_TARGETS  # noqa: E402
-from views import calendar, flows, money, overview, reports, sentiment, strength
+from views import ai, calendar, flows, money, overview, reports, sentiment, strength
 
 st.set_page_config(page_title="한·미 시장 흐름", page_icon="📈", layout="wide")
 
@@ -28,6 +28,10 @@ pages = {
     "종합": [
         P(overview.today, title="오늘의 시장", icon="🏠", url_path="today", default=True),
         P(overview.score, title="흐름 점수·전망", icon="🧭", url_path="score"),
+    ],
+    "AI 예측": [
+        P(ai.model, title="AI 모델 예측", icon="🤖", url_path="ai-model"),
+        P(ai.outlook, title="Claude 시장 전망", icon="🔮", url_path="ai-outlook"),
     ],
     "시장 보고서": [
         P(reports.world, title="세계 동향 브리핑", icon="🌍", url_path="world"),
