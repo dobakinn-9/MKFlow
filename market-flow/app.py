@@ -55,8 +55,9 @@ pages = {
         P(flows.investors, title="투자자별 매매", icon="👥", url_path="investors"),
     ],
     "심리·가격 수준": [
-        P(sentiment.overheat, title="과열·과매도 (RSI)", icon="🌡️", url_path="rsi"),
-        P(sentiment.valuation, title="밸류에이션 (PER·PBR)", icon="⚖️", url_path="valuation"),
+        P(sentiment.fear_greed, title="공포·탐욕 지수", icon="😱", url_path="fear-greed"),
+        P(sentiment.overheat, title="과열·과매도", icon="🌡️", url_path="rsi"),
+        P(sentiment.valuation, title="밸류에이션 (비싼가·싼가)", icon="⚖️", url_path="valuation"),
         P(sentiment.links, title="시장 간 연결", icon="🔗", url_path="links"),
     ],
     "일정": [

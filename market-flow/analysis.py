@@ -234,3 +234,125 @@ def percentile_rank(s: pd.Series) -> float:
     if s.empty:
         return np.nan
     return float((s < s.iloc[-1]).mean() * 100)
+
+
+# ── 공포·탐욕 지수 ───────────────────────────────────────
+def rolling_pct(s: pd.Series, window: int = 252) -> pd.Series:
+    """각 날짜의 값이 직전 window일 중 몇 % 위치였는지(0~100). 1년 기준 '상대적 높이'."""
+    return s.rolling(window, min_periods=window // 2).apply(lambda x: (x[:-1] < x[-1]).mean() * 100, raw=True)
+
+
+def fear_greed(prices: pd.DataFrame, market: str) -> pd.DataFrame:
+    """시장별 공포·탐욕 구성요소(각 0~100)와 종합 지수.
+
+    0에 가까울수록 공포, 100에 가까울수록 탐욕. 구성요소는 각자의 1년 분포 안에서 위치로 환산해요.
+    market: "US" 또는 "KR"
+    """
+    comp: dict[str, pd.Series] = {}
+
+    def has(*ts):
+        return all(t in prices and prices[t].notna().mean() > 0.5 for t in ts)
+
+    if market == "US":
+        if has("^GSPC"):
+            sp = prices["^GSPC"]
+            comp["주가 모멘텀 (125일선 대비)"] = rolling_pct(sp / sp.rolling(125).mean())
+        if has("^VIX"):
+            v = prices["^VIX"]
+            comp["변동성 (VIX, 낮을수록 탐욕)"] = 100 - rolling_pct(v / v.rolling(50).mean())
+        if has("HYG", "IEF"):
+            comp["정크본드 수요 (하이일드÷국채)"] = rolling_pct((prices["HYG"] / prices["IEF"]).pct_change(20))
+        if has("SPY", "IEF"):
+            comp["안전자산 회피 (주식−국채 수익률)"] = rolling_pct(prices["SPY"].pct_change(20) - prices["IEF"].pct_change(20))
+        if has("RSP", "SPY"):
+            comp["시장의 폭 (동일가중÷시총가중)"] = rolling_pct((prices["RSP"] / prices["SPY"]).pct_change(20))
+        sectors = [t for t in ("XLK", "XLC", "XLY", "XLF", "XLI", "XLE", "XLB", "XLV", "XLP", "XLU", "XLRE") if t in prices]
+        if len(sectors) >= 5:
+            comp["주가 강도 (업종 50일선 위 비율)"] = share_above_ma(prices, sectors, 50)
+    else:
+        if has("^KS11"):
+            k = prices["^KS11"]
+            comp["주가 모멘텀 (125일선 대비)"] = rolling_pct(k / k.rolling(125).mean())
+            comp["변동성 (실제 변동성, 낮을수록 탐욕)"] = 100 - rolling_pct(realized_vol(k))
+            comp["과열 (RSI)"] = rsi(k)
+        if has("KRW=X"):
+            comp["환율 (원화 강세일수록 탐욕)"] = 100 - rolling_pct(prices["KRW=X"].pct_change(20))
+        if has("EEM", "SPY"):
+            comp["신흥국 자금 (신흥국÷미국)"] = rolling_pct((prices["EEM"] / prices["SPY"]).pct_change(20))
+        if has("^SOX"):
+            sx = prices["^SOX"]
+            comp["반도체 심리 (SOX 125일선 대비)"] = rolling_pct(sx / sx.rolling(125).mean())
+
+    df = pd.DataFrame(comp)
+    if df.empty:
+        return df
+    df["종합"] = df.mean(axis=1, skipna=True)
+    return df.dropna(subset=["종합"])
+
+
+def fg_label(v: float) -> str:
+    if v < 25:
+        return "극단적 공포"
+    if v < 45:
+        return "공포"
+    if v <= 55:
+        return "중립"
+    if v <= 75:
+        return "탐욕"
+    return "극단적 탐욕"
+
+
+def fg_buckets(price: pd.Series, fg: pd.Series, fwd: int) -> pd.DataFrame:
+    """공포·탐욕 구간별 이후 fwd거래일 평균 수익률 — '공포에 사라'가 실제로 통했는지."""
+    fr = (price.shift(-fwd) / price - 1) * 100
+    d = pd.DataFrame({"fg": fg, "fwd": fr}).dropna()
+    labels = ["극단적 공포", "공포", "중립", "탐욕", "극단적 탐욕"]
+    d["구간"] = pd.cut(d["fg"], bins=[-0.01, 25, 45, 55, 75, 100.01], labels=labels)
+    g = d.groupby("구간", observed=False)["fwd"]
+    return pd.DataFrame({"일수": g.size(), "평균 수익률(%)": g.mean(),
+                         "상승 확률(%)": g.apply(lambda x: (x > 0).mean() * 100 if len(x) else np.nan)}).reset_index()
+
+
+def stretch_table(prices: pd.DataFrame, tickers: list[str]) -> pd.DataFrame:
+    """과열 판단표: 이격도, 52주 고점·저점 대비, 연속 상승·하락일, RSI."""
+    rows = []
+    for t in tickers:
+        if t not in prices or prices[t].dropna().empty:
+            continue
+        s = prices[t].dropna()
+        last = s.iloc[-1]
+        y = s.tail(252)
+        ch = np.sign(s.diff()).dropna()
+        streak = 0
+        if len(ch):
+            lastsign = ch.iloc[-1]
+            for v in reversed(ch.tolist()):
+                if v == lastsign and v != 0:
+                    streak += 1
+                else:
+                    break
+            streak *= int(lastsign)
+        rows.append({
+            "지표": name(t),
+            "이격도 20일": last / s.rolling(20).mean().iloc[-1] * 100,
+            "이격도 60일": last / s.rolling(60).mean().iloc[-1] * 100,
+            "52주 고점 대비(%)": (last / y.max() - 1) * 100,
+            "52주 저점 대비(%)": (last / y.min() - 1) * 100,
+            "연속(일)": streak,
+            "RSI": rsi(s).iloc[-1],
+        })
+    return pd.DataFrame(rows)
+
+
+def price_position(prices: pd.DataFrame, tickers: list[str], years: int = 5) -> pd.DataFrame:
+    """PER을 못 구할 때 쓰는 대체 지표: 5년 가격 범위 중 위치, 200일선 대비 거리."""
+    rows = []
+    for t in tickers:
+        if t not in prices or prices[t].dropna().empty:
+            continue
+        s = prices[t].dropna().tail(252 * years)
+        ma200 = s.rolling(200).mean().iloc[-1]
+        rows.append({"지표": name(t),
+                     "5년 범위 중 위치(%)": (s.iloc[-1] - s.min()) / (s.max() - s.min()) * 100 if s.max() > s.min() else np.nan,
+                     "200일선 대비(%)": (s.iloc[-1] / ma200 - 1) * 100 if pd.notna(ma200) else np.nan})
+    return pd.DataFrame(rows)
