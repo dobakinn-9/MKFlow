@@ -44,9 +44,10 @@ def _synthetic_prices(years: int = 6, seed: int = 7) -> pd.DataFrame:
     idx = _bdays(252 * years)
     common = rng.normal(0.0003, 0.01, len(idx))
     start = {"^KS11": 2500, "^KQ11": 800, "^GSPC": 4500, "^IXIC": 14000, "^DJI": 35000,
-             "^RUT": 2000, "^SOX": 3500, "KRW=X": 1300, "DX-Y.NYB": 102, "CL=F": 75, "GC=F": 1900}
+             "^RUT": 2000, "^SOX": 3500, "KRW=X": 1300, "DX-Y.NYB": 102, "CL=F": 75, "GC=F": 1900,
+             "^MOVE": 100, "JPY=X": 150, "BTC-USD": 60000, "HG=F": 4}
     beta = {"^SOX": 1.6, "^IXIC": 1.2, "^KQ11": 1.3, "KRW=X": -0.3, "DX-Y.NYB": -0.2, "CL=F": 0.5,
-            "GC=F": -0.1, "XLK": 1.3, "XLU": 0.4, "XLP": 0.5, "XLE": 0.8, "RSP": 0.9}
+            "GC=F": -0.1, "^MOVE": -0.8, "JPY=X": 0.3, "BTC-USD": 2.0, "HYG": 0.3, "IEF": -0.1, "XLK": 1.3, "XLU": 0.4, "XLP": 0.5, "XLE": 0.8, "RSP": 0.9}
     out = {}
     for t in ALL_YF:
         if t == "^VIX":
@@ -85,7 +86,9 @@ def load_prices(period: str = "6y") -> tuple[pd.DataFrame, pd.DataFrame, str]:
         vol = raw["Volume"].copy() if "Volume" in raw.columns.get_level_values(0) else pd.DataFrame(index=close.index)
         for df in (close, vol):
             df.index = pd.to_datetime(df.index).tz_localize(None)
-        close = close.dropna(how="all").ffill()
+        close = close.dropna(how="all")
+        # 비트코인처럼 주말에도 거래되는 자산 때문에 생긴 토·일요일 행은 빼요.
+        close = close[close.index.dayofweek < 5].ffill()
         vol = vol.reindex(close.index)
         # 예전 야후 데이터는 금리를 10배(예: 45.0 = 4.5%)로 주기도 해서 보정해요.
         for t in ("^TNX", "^IRX"):
@@ -262,6 +265,14 @@ def load_events() -> tuple[pd.DataFrame | None, str]:
         return None, "data/events.csv 파일이 없어요"
     df = pd.read_csv(f, parse_dates=["date"]).sort_values("date")
     return df, "공개 일정 보도를 정리한 파일 (data/events.csv)"
+
+
+def load_world_brief() -> tuple[list | None, str]:
+    """data/world_brief.json — 지역별 세계 동향 한국어 브리핑."""
+    f = DATA_DIR / "world_brief.json"
+    if not f.exists():
+        return None, "data/world_brief.json 파일이 없어요"
+    return json.loads(f.read_text(encoding="utf-8")), "뉴스·공식 발표를 조사해 정리한 브리핑 (data/world_brief.json)"
 
 
 def load_us_reports() -> tuple[list | None, str]:

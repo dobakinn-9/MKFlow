@@ -3,14 +3,14 @@
 실행:  streamlit run app.py
 
 왼쪽 메뉴는 6개 분류와 그 아래 세부 메뉴로 나뉘어 있어요.
-  종합 / 돈의 가격 / 시장의 체력 / 수급 / 심리·가격 수준 / 일정
+  종합 / 시장 보고서 / 돈의 가격 / 시장의 체력 / 수급 / 심리·가격 수준 / 일정
 """
 from __future__ import annotations
 
 import streamlit as st
 
 from config import FORWARD_DAYS, SCORE_TARGETS
-from views import calendar, flows, money, overview, sentiment, strength
+from views import calendar, flows, money, overview, reports, sentiment, strength
 
 st.set_page_config(page_title="한·미 시장 흐름", page_icon="📈", layout="wide")
 
@@ -21,11 +21,15 @@ pages = {
         P(overview.today, title="오늘의 시장", icon="🏠", url_path="today", default=True),
         P(overview.score, title="흐름 점수·전망", icon="🧭", url_path="score"),
     ],
+    "시장 보고서": [
+        P(reports.world, title="세계 동향 브리핑", icon="🌍", url_path="world"),
+        P(reports.hidden, title="숨은 지표", icon="🔎", url_path="hidden"),
+        P(money.us_reports, title="미국 경제 보고서", icon="📰", url_path="us-reports"),
+    ],
     "돈의 가격": [
         P(money.rates, title="금리", icon="🏦", url_path="rates"),
         P(money.fx, title="환율·달러", icon="💱", url_path="fx"),
         P(money.commodities, title="유가·금", icon="🛢️", url_path="commodities"),
-        P(money.us_reports, title="미국 경제 보고서", icon="📰", url_path="us-reports"),
     ],
     "시장의 체력": [
         P(strength.trend, title="추세·이동평균", icon="📈", url_path="trend"),
