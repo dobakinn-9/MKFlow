@@ -23,6 +23,24 @@ DATA_DIR = Path(__file__).parent / "data"
 SAMPLE = "샘플 데이터 (데모 모드)"
 
 
+# ── GitHub 자동 수집 파일(data/kr/) ──────────────────────
+KR_DIR = DATA_DIR / "kr"
+
+
+def _kr_cache(name: str) -> tuple[pd.DataFrame | None, str]:
+    """GitHub Actions(fetch_kr.py)가 네이버 증권에서 받아 둔 파일을 읽어요."""
+    f = KR_DIR / f"{name}.csv"
+    if not f.exists():
+        return None, ""
+    try:
+        df = pd.read_csv(f, parse_dates=["date"]).set_index("date").sort_index()
+    except Exception:
+        return None, ""
+    if df.empty:
+        return None, ""
+    return df, f"네이버 증권 (GitHub 자동 수집 · 마지막 {df.index.max():%Y-%m-%d})"
+
+
 def demo_mode() -> bool:
     return os.environ.get("MARKET_FLOW_DEMO") == "1"
 
@@ -111,6 +129,9 @@ def load_investor_flows(market: str = "KOSPI", days: int = 60):
         rng = np.random.default_rng(3 if market == "KOSPI" else 4)
         f, i = rng.normal(-2e11, 6e11, days), rng.normal(5e10, 4e11, days)
         return pd.DataFrame({"외국인": f, "기관": i, "개인": -(f + i)}, index=_bdays(days)), SAMPLE
+    cached, note = _kr_cache(f"flows_{market}")
+    if cached is not None:
+        return cached[["외국인", "기관", "개인"]].tail(days), note
     try:
         from pykrx import stock
 
@@ -139,6 +160,9 @@ def load_kr_breadth(market: str = "KOSPI", days: int = 20):
         up = rng.integers(200, 700, days)
         down = 900 - up - rng.integers(20, 60, days)
         return pd.DataFrame({"상승": up, "하락": down, "보합": 900 - up - down}, index=_bdays(days)), SAMPLE
+    cached, note = _kr_cache("breadth_ALL")
+    if cached is not None:
+        return cached[["상승", "하락", "보합"]].tail(days), note + " · 코스피·코스닥 전체 업종 합계 (수집한 날부터 쌓여요)"
     try:
         from pykrx import stock
 
@@ -170,6 +194,10 @@ def load_kr_index(name: str = "코스피", days: int = 250):
         close = 2500 * np.exp(np.cumsum(rng.normal(0.0003, 0.01, days)))
         val = 1.2e13 * np.exp(rng.normal(0, 0.25, days))
         return pd.DataFrame({"종가": close, "거래대금": val}, index=idx), SAMPLE
+    key = {"코스피": "KOSPI", "코스닥": "KOSDAQ"}.get(name, name)
+    cached, note = _kr_cache(f"index_{key}")
+    if cached is not None and "거래대금" in cached and cached["거래대금"].notna().any():
+        return cached.tail(days), note + " · 거래대금은 수집한 날부터 쌓여요"
     try:
         from pykrx import stock
 
@@ -189,6 +217,12 @@ def load_kr_sectors(days: int = 20):
         rng = np.random.default_rng(8)
         names = ["전기전자", "운수장비", "화학", "금융업", "의약품", "철강금속", "건설업", "유통업", "통신업", "음식료품", "기계", "보험"]
         return pd.DataFrame({"업종": names, "등락률": rng.normal(0, 4, len(names))}), SAMPLE
+    f = KR_DIR / "sectors.csv"
+    if f.exists():
+        sec = pd.read_csv(f)
+        if not sec.empty:
+            stamp = pd.read_csv(KR_DIR / "index_KOSPI.csv")["date"].max() if (KR_DIR / "index_KOSPI.csv").exists() else ""
+            return sec[["업종", "등락률"]], f"네이버 증권 업종 (GitHub 자동 수집 · {stamp} 하루 등락률)"
     try:
         from pykrx import stock
 

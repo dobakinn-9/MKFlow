@@ -105,15 +105,18 @@ def turnover():
     nm = st.radio("지수", ["코스피", "코스닥"], horizontal=True, key="to_idx")
     df, note = cm.kr_index(nm)
     if df is not None and "거래대금" in df:
-        v = df["거래대금"] / 1e12
-        ma = v.rolling(20).mean()
+        v = (df["거래대금"] / 1e12).dropna()
+        ma = v.rolling(20, min_periods=1).mean()
+        if len(v) < 20:
+            st.caption(f"거래대금은 매일 자동으로 쌓이는 중이에요 (현재 {len(v)}일치). 20일이 모이면 평균선이 정확해져요.")
         fig = go.Figure()
         fig.add_trace(go.Bar(x=v.index, y=v, name="거래대금", marker_color=cm.BLUE, opacity=0.6))
         fig.add_trace(go.Scatter(x=ma.index, y=ma, name="20일 평균", line=dict(color=cm.ORANGE, width=2)))
         fig.update_yaxes(title="조 원")
         cm.show(fig, 360)
         c1, c2 = st.columns(2)
-        c1.metric("최근 거래대금", f"{v.iloc[-1]:.1f}조 원", f"20일 평균 대비 {(v.iloc[-1] / ma.iloc[-1] - 1) * 100:+.0f}%")
+        c1.metric("최근 거래대금", f"{v.iloc[-1]:.1f}조 원",
+                  f"20일 평균 대비 {(v.iloc[-1] / ma.iloc[-1] - 1) * 100:+.0f}%" if len(v) >= 5 else None)
         if "종가" in df:
             c2.metric(f"{nm} 종가", f"{df['종가'].iloc[-1]:,.2f}",
                       cm.fmt_change((df["종가"].iloc[-1] / df["종가"].iloc[-2] - 1) * 100))
