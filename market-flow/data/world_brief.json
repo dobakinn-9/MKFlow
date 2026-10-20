@@ -1,5 +1,5 @@
 {
-  "asof": "2026-10-19",
+  "asof": "2026-10-21",
   "summary": "세계 경제는 '중동발 유가 충격 → 물가 재상승 → 주요국 금리 인상'이라는 한 줄기로 묶여 있어요. 미국·유럽은 다시 금리를 올리는 중이고, AI 투자에 들어간 막대한 빚이 흔들리기 시작했어요. 중국은 수출로 버티지만 내수와 부동산은 여전히 약해요.",
   "items": [
     {
@@ -7,18 +7,24 @@
       "region": "중동·원유",
       "icon": "🛢️",
       "tone": "부정",
-      "title": "호르무즈 해협 봉쇄 232일째(10/19 기준), 유가 100달러대 고착",
+      "title": "호르무즈 해협 봉쇄 234일째(10/20 기준), 브렌트 장중 112달러",
       "points": [
         "2월 28일 미국·이스라엘의 이란 공습 이후 세계 해상 원유의 약 20~25%가 지나던 호르무즈 해협이 사실상 막혀 있어요.",
-        "평소 하루 약 85척이 지나던 해협을 10월 11일에는 2척만 통과했어요(AIS 신호 기준).",
-        "브렌트유는 배럴당 약 108달러 수준이에요. 3월에는 126달러까지 치솟았어요.",
-        "이란은 제재 완화와 자산 동결 해제를 조건으로 '7일 안 재개방' 안을 제시했지만, 10월 17~18일에도 유조선 기뢰 피격·컨테이너선 침몰 보도가 이어졌어요."
+        "영국 해사무역기구(UKMTO) 주간 집계로 통항량이 전쟁 전보다 약 70% 적고, 10월 들어서만 선박 공격이 23건 이상이에요.",
+        "브렌트유는 10/20 장중 111.99달러로 5개월 최고를 찍은 뒤, 파키스탄을 통한 미·이란 중재 소식에 108.79달러로 마감했어요.",
+        "트럼프 대통령은 11월 3일 중간선거 전에는 이란을 공격하지 않겠다고 했지만, 이란 대통령은 대미 협상을 '무의미하다'고 했어요."
       ],
       "hidden": "예측 시장(폴리마켓)은 연말까지 해협 통행이 정상화될 확률을 약 13%로 보고 있어요. 해운사 머스크는 호르무즈를 거친 화물에 컨테이너당 1,000달러의 추가 요금을 받고 있고, 걸프 안에 갇힌 선원은 약 6,000명이에요.",
       "korea": "한국은 원유의 대부분을 중동에서 들여와요. 유가가 오르면 무역수지 악화 → 원화 약세 → 외국인 매도로 이어지기 쉬워요. 정유·해운은 단기 수혜, 항공·화학은 부담이에요.",
       "sources": [
-        {"title": "Strait of Hormuz Status (straits.live)", "url": "https://straits.live/"},
-        {"title": "2026 Strait of Hormuz crisis (Wikipedia)", "url": "https://en.wikipedia.org/wiki/2026_Strait_of_Hormuz_crisis"}
+        {
+          "title": "Strait of Hormuz Status (straits.live)",
+          "url": "https://straits.live/"
+        },
+        {
+          "title": "2026 Strait of Hormuz crisis (Wikipedia)",
+          "url": "https://en.wikipedia.org/wiki/2026_Strait_of_Hormuz_crisis"
+        }
       ]
     },
     {
@@ -28,6 +34,7 @@
       "tone": "부정",
       "title": "AI 데이터센터 빚이 흔들린다",
       "points": [
+        "10/20 미국 기술주는 AI 인프라 기업 코어위브(CoreWeave)의 회사채 신뢰도 우려로 약세였고, 반도체 지수도 0.3% 내렸어요.",
         "빅테크(하이퍼스케일러)들이 AI 데이터센터를 짓기 위해 수천억 달러를 빌렸는데, 데이터센터 관련 채권 가격이 계속 떨어지고 있어요.",
         "빅테크 부도 위험을 보여주는 5년 만기 신용부도스와프(CDS) 가격이 올해 들어 가장 높은 수준에 가까워졌어요.",
         "오라클은 뉴멕시코의 대형 데이터센터 개발사에 '불가항력' 통지를 보냈어요. 계약을 지키기 어렵다는 공식 신호예요.",
@@ -36,7 +43,10 @@
       "hidden": "AI 주가 하락의 진짜 원인은 '기술'이 아니라 '돈 빌리는 비용'일 수 있어요. 주식시장보다 채권시장(회사채·CDS)이 먼저 경고를 보내는 중이에요. '숨은 지표' 메뉴의 하이일드 ÷ 국채 비율을 함께 보세요.",
       "korea": "삼성전자·SK하이닉스의 HBM(AI용 메모리) 수요 기대가 이 투자에 달려 있어요. 10월 말 두 회사 실적 발표에서 AI 고객 주문이 유지되는지가 핵심이에요.",
       "sources": [
-        {"title": "Distress Watch: Data Center Debt Selloff (Bloomberg Law)", "url": "https://news.bgov.com/bankruptcy-law/distress-watch-data-center-debt-selloff-snags-ai-buildouts"}
+        {
+          "title": "Distress Watch: Data Center Debt Selloff (Bloomberg Law)",
+          "url": "https://news.bgov.com/bankruptcy-law/distress-watch-data-center-debt-selloff-snags-ai-buildouts"
+        }
       ]
     },
     {
@@ -54,8 +64,14 @@
       "hidden": "숫자는 괜찮아 보이지만 성장의 엔진이 '수출'이에요. 중국 물건이 세계로 쏟아지면 한국 기업과 해외에서 가격 경쟁이 심해져요(특히 철강·화학·디스플레이·자동차).",
       "korea": "중국은 한국의 최대 수출 시장이에요. 내수가 약하면 화장품·소비재 수출에 부담이고, 중국 산업 고도화는 한국 제조업의 경쟁 압력이에요.",
       "sources": [
-        {"title": "China records 4.5% Q3 growth (ANI)", "url": "https://aninews.in/news/business/china-records-45-q3-growth-as-exports-rise-domestic-demand-remains-weak20261019100857/"},
-        {"title": "China's GDP expands 4.5% in Q3 vs 4.4% expected (FXStreet)", "url": "https://www.fxstreet.com/news/breaking-chinas-gdp-expands-by-45-yoy-in-q3-vs-44-expected-202610190200"}
+        {
+          "title": "China records 4.5% Q3 growth (ANI)",
+          "url": "https://aninews.in/news/business/china-records-45-q3-growth-as-exports-rise-domestic-demand-remains-weak20261019100857/"
+        },
+        {
+          "title": "China's GDP expands 4.5% in Q3 vs 4.4% expected (FXStreet)",
+          "url": "https://www.fxstreet.com/news/breaking-chinas-gdp-expands-by-45-yoy-in-q3-vs-44-expected-202610190200"
+        }
       ]
     },
     {
@@ -73,7 +89,10 @@
       "hidden": "미국만이 아니라 유럽까지 '물가 때문에 금리를 올리는' 동시 긴축이에요. 세계적으로 돈이 비싸지는 흐름이라 위험자산 전반에 부담이에요.",
       "korea": "유럽은 한국 자동차·배터리·선박의 주요 시장이에요. 유럽 금리 인상은 그쪽 소비와 투자를 식힐 수 있어요.",
       "sources": [
-        {"title": "ECB expected to pause in October before hiking in December – Reuters poll (TMGM)", "url": "https://www.tmgm.com/es/analysis/market-news/article/ecb-expected-to-pause-in-october-before-hiking-rates-in-december-reuters-poll-202610081239"}
+        {
+          "title": "ECB expected to pause in October before hiking in December – Reuters poll (TMGM)",
+          "url": "https://www.tmgm.com/es/analysis/market-news/article/ecb-expected-to-pause-in-october-before-hiking-rates-in-december-reuters-poll-202610081239"
+        }
       ]
     },
     {
@@ -90,7 +109,10 @@
       "hidden": "일본 금리가 오르면 엔화가 강해지고, 싼 엔화를 빌려 해외 주식에 투자하던 '엔 캐리 트레이드' 자금이 되돌아갈 수 있어요. 2024년 8월 이 현상으로 한국·일본 증시가 하루에 크게 급락했어요. '숨은 지표'의 엔/달러를 함께 보세요.",
       "korea": "원화와 엔화는 비슷하게 움직이는 경우가 많아요. 엔화가 급변하면 한국 증시의 외국인 자금도 함께 흔들려요.",
       "sources": [
-        {"title": "BoJ's Ueda says anchoring inflation at 2% more important (investingLive)", "url": "https://investinglive.com/central-banks/boj-s-ueda-says-anchoring-inflation-at-2-more-important-as-ai-demand-energy-lift-prices/"}
+        {
+          "title": "BoJ's Ueda says anchoring inflation at 2% more important (investingLive)",
+          "url": "https://investinglive.com/central-banks/boj-s-ueda-says-anchoring-inflation-at-2-more-important-as-ai-demand-energy-lift-prices/"
+        }
       ]
     },
     {
@@ -107,7 +129,10 @@
       "hidden": "중앙은행들이 달러 대신 금으로 외환보유액을 채우는 흐름이에요. 전쟁·제재 위험에 대비해 '누구도 동결할 수 없는 자산'을 늘리는 거예요. 금값이 금리 상승에도 잘 버티는 이유 중 하나예요.",
       "korea": "금값이 주식과 함께 오르면 '불안 속 상승'이라는 신호일 수 있어요. 한국은행은 상대적으로 금 보유 비중이 낮은 편이에요.",
       "sources": [
-        {"title": "Central bank gold demand bounces back to record high (Central Banking)", "url": "https://www.centralbanking.com/node/7976574"}
+        {
+          "title": "Central bank gold demand bounces back to record high (Central Banking)",
+          "url": "https://www.centralbanking.com/node/7976574"
+        }
       ]
     }
   ]
