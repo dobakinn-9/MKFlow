@@ -22,7 +22,7 @@ concurrency:
 jobs:
   fetch:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
 
@@ -33,7 +33,7 @@ jobs:
           cache-dependency-path: market-flow/requirements.txt
 
       - name: 패키지 설치
-        run: pip install -r market-flow/requirements.txt lxml requests
+        run: pip install pandas requests
 
       - name: 한국 데이터 받기
         working-directory: market-flow
