@@ -157,7 +157,19 @@ def update_sectors_breadth(day: pd.Timestamp):
     say(f"  ✓ sectors: {len(sec)}개 업종 · breadth_ALL: {len(br)}일치 (최근 상승 {row['상승'].iat[0]} / 하락 {row['하락'].iat[0]})")
 
 
+def probe_stock():
+    for path, params in [("stock/005930/trend", {"pageSize": 3}), ("stock/005930/trend", {}),
+                         ("stock/005930/price", {"pageSize": 2}), ("stock/005930/integration", {}),
+                         ("stocks/industry/278", {"page": 1, "pageSize": 3})]:
+        try:
+            r = S.get(f"{API}/{path}", params=params, timeout=15)
+            say(f"  [probe] {path} {params}: HTTP {r.status_code} · {r.text[:700]!r}")
+        except Exception as e:
+            say(f"  [probe] {path}: {e}")
+
+
 def main():
+    probe_stock()
     say(f"한국 데이터 받기 시작 ({date.today()}) · 출처: 네이버 증권")
     ok = 0
     for code in ("KOSPI", "KOSDAQ"):
