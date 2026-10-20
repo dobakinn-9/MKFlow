@@ -158,14 +158,14 @@ def update_sectors_breadth(day: pd.Timestamp):
 
 
 def probe_stock():
-    for path, params in [("stock/005930/trend", {"pageSize": 3}), ("stock/005930/trend", {}),
-                         ("stock/005930/price", {"pageSize": 2}), ("stock/005930/integration", {}),
-                         ("stocks/industry/278", {"page": 1, "pageSize": 3})]:
+    for path, params in [("stock/005930/trend", {"pageSize": 60}), ("stock/005930/trend", {"pageSize": 60, "page": 3}),
+                         ("stock/005930/trend", {"bizdate": "20260601"})]:
         try:
             r = S.get(f"{API}/{path}", params=params, timeout=15)
-            say(f"  [probe] {path} {params}: HTTP {r.status_code} · {r.text[:700]!r}")
+            d = r.json()
+            say(f"  [probe] {path} {params}: HTTP {r.status_code} · n={len(d)} · first={d[0]['bizdate']} last={d[-1]['bizdate']}")
         except Exception as e:
-            say(f"  [probe] {path}: {e}")
+            say(f"  [probe] {path} {params}: {e}")
 
 
 def main():
