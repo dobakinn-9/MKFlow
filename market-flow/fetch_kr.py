@@ -183,13 +183,16 @@ def probe():
     import re
     import requests
     urls = [
-        ("naver_investor_day", "https://finance.naver.com/sise/investorDealTrendDay.naver",
-         {"bizdate": date.today().strftime("%Y%m%d"), "sosok": "01", "page": 1}),
-        ("naver_m_kospi_trend", "https://m.stock.naver.com/api/index/KOSPI/trend", {}),
-        ("naver_m_kospi_basic", "https://m.stock.naver.com/api/index/KOSPI/basic", {}),
-        ("naver_m_investor", "https://m.stock.naver.com/api/index/KOSPI/investor", {}),
-        ("naver_m_investor_trend", "https://m.stock.naver.com/front-api/marketIndex/investorTrend", {"category": "KOSPI"}),
-        ("krx_data", "https://data.krx.co.kr/contents/MDC/MDI/mdiLoader/index.cmd", {}),
+        ("trend_bizdate", "https://m.stock.naver.com/api/index/KOSPI/trend", {"bizdate": "20261016"}),
+        ("trend_list1", "https://m.stock.naver.com/api/index/KOSPI/trend", {"pageSize": 20, "page": 1}),
+        ("trend_kosdaq", "https://m.stock.naver.com/api/index/KOSDAQ/trend", {}),
+        ("price_list", "https://m.stock.naver.com/api/index/KOSPI/price", {"pageSize": 5, "page": 1}),
+        ("basic", "https://m.stock.naver.com/api/index/KOSPI/basic", {}),
+        ("integration", "https://m.stock.naver.com/api/index/KOSPI/integration", {}),
+        ("upjong", "https://m.stock.naver.com/api/stocks/industry", {"page": 1, "pageSize": 5}),
+        ("vkospi", "https://m.stock.naver.com/api/index/VKOSPI/basic", {}),
+        ("investor_daily", "https://m.stock.naver.com/api/index/KOSPI/investor/daily", {"pageSize": 5}),
+        ("deal_trend", "https://m.stock.naver.com/api/index/KOSPI/dealTrendInfo", {}),
     ]
     for name, url, params in urls:
         try:
@@ -202,7 +205,7 @@ def probe():
             title = re.search(r"<title>(.*?)</title>", txt, re.S)
             ntab = txt.count("<table")
             say(f"  [probe] {name}: HTTP {r.status_code} · {len(r.content)}B · tables={ntab} · "
-                f"title={title.group(1).strip()[:60] if title else '-'} · head={txt[:200].strip()!r}")
+                f"title={title.group(1).strip()[:60] if title else '-'} · head={txt[:900].strip()!r}")
             if name == "naver_investor_day":
                 (OUT / "probe_naver.html").write_bytes(r.content[:200000])
         except Exception as e:
