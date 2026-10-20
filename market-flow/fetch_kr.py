@@ -8,6 +8,7 @@ Streamlit Cloud(해외 서버)와 GitHub 서버에서는 한국거래소(pykrx) 
 - index_KOSPI.csv / index_KOSDAQ.csv : 날짜별 종가, 거래대금(원) — 거래대금은 수집한 날부터 쌓여요
 - breadth_ALL.csv                    : 날짜별 상승·하락·보합 종목 수 (전체 업종 합계) — 수집한 날부터 쌓여요
 - sectors.csv                        : 최근 거래일 업종별 등락률
+- stock_flows.csv / sector_flows.csv : 분야(반도체·2차전지 등) 대표 종목의 순매수와 분야 합계 — 최근 약 130거래일
 - status.txt                         : 마지막 실행 결과
 
 직접 실행:  cd market-flow && python fetch_kr.py
@@ -150,6 +151,9 @@ def update_sectors_breadth(day: pd.Timestamp):
     sec = pd.DataFrame([{"업종": g["name"], "등락률": num(g.get("changeRate")), "종목 수": g.get("totalCount"),
                          "상승": g.get("riseCount"), "하락": g.get("fallCount")} for g in groups])
     sec.to_csv(OUT / "sectors.csv", index=False)
+    if int(sec["상승"].sum()) + int(sec["하락"].sum()) == 0:
+        say("  · 장 시작 전이라 상승·하락 종목 수는 건너뛰어요")
+        return
     br = read("breadth_ALL")
     row = pd.DataFrame({"상승": [int(sec["상승"].sum())], "하락": [int(sec["하락"].sum())],
                         "보합": [int(sum(g.get("steadyCount", 0) for g in groups))]}, index=[day])
@@ -157,19 +161,79 @@ def update_sectors_breadth(day: pd.Timestamp):
     say(f"  ✓ sectors: {len(sec)}개 업종 · breadth_ALL: {len(br)}일치 (최근 상승 {row['상승'].iat[0]} / 하락 {row['하락'].iat[0]})")
 
 
-def probe_stock():
-    for path, params in [("stock/005930/trend", {"pageSize": 60}), ("stock/005930/trend", {"pageSize": 60, "page": 3}),
-                         ("stock/005930/trend", {"bizdate": "20260601"})]:
+# ── 분야별 수급: 분야 대표 종목의 외국인·기관·개인 순매수 합계 ─────
+SECTORS = {
+    "반도체": {"005930": "삼성전자", "000660": "SK하이닉스", "042700": "한미반도체", "403870": "HPSP",
+             "240810": "원익IPS", "039030": "이오테크닉스"},
+    "2차전지": {"373220": "LG에너지솔루션", "006400": "삼성SDI", "003670": "포스코퓨처엠", "247540": "에코프로비엠",
+              "086520": "에코프로", "066970": "엘앤에프"},
+    "에너지·전력": {"096770": "SK이노베이션", "010950": "S-Oil", "015760": "한국전력", "034020": "두산에너빌리티",
+               "267260": "HD현대일렉트릭", "010120": "LS ELECTRIC"},
+    "자동차": {"005380": "현대차", "000270": "기아", "012330": "현대모비스"},
+    "바이오": {"207940": "삼성바이오로직스", "068270": "셀트리온", "196170": "알테오젠", "000100": "유한양행"},
+    "금융": {"105560": "KB금융", "055550": "신한지주", "086790": "하나금융지주", "316140": "우리금융지주"},
+    "조선": {"009540": "HD한국조선해양", "042660": "한화오션", "010140": "삼성중공업", "329180": "HD현대중공업"},
+    "방산": {"012450": "한화에어로스페이스", "079550": "LIG넥스원", "064350": "현대로템", "047810": "한국항공우주"},
+    "인터넷·게임": {"035420": "NAVER", "035720": "카카오", "259960": "크래프톤"},
+    "철강·화학": {"005490": "POSCO홀딩스", "051910": "LG화학", "011170": "롯데케미칼"},
+}
+STOCK_DAYS = 130
+
+
+def _trend_rows(code: str, **params) -> list[dict]:
+    data = get(f"stock/{code}/trend", pageSize=60, **params) or []
+    rows = []
+    for r in data:
         try:
-            r = S.get(f"{API}/{path}", params=params, timeout=15)
-            d = r.json()
-            say(f"  [probe] {path} {params}: HTTP {r.status_code} · n={len(d)} · first={d[0]['bizdate']} last={d[-1]['bizdate']}")
-        except Exception as e:
-            say(f"  [probe] {path} {params}: {e}")
+            close = num(r.get("closePrice"))
+            rows.append({"date": pd.Timestamp(r["bizdate"]), "code": code, "close": close,
+                         "f_qty": num(r.get("foreignerPureBuyQuant")), "i_qty": num(r.get("organPureBuyQuant")),
+                         "p_qty": num(r.get("individualPureBuyQuant")), "f_hold": num(r.get("foreignerHoldRatio"))})
+        except Exception:
+            continue
+    return rows
+
+
+def update_sector_flows():
+    f = OUT / "stock_flows.csv"
+    old = pd.read_csv(f, parse_dates=["date"], dtype={"code": str}) if f.exists() else pd.DataFrame()
+    rows, bad = [], []
+    for sector, stocks in SECTORS.items():
+        for code, name in stocks.items():
+            got = _trend_rows(code)
+            have = old[old["code"] == code] if len(old) else old
+            if got and (len(have) == 0 or have["date"].min() > min(r["date"] for r in got) - pd.Timedelta(days=1)):
+                # 처음이면 그 이전 60일도 받아 약 120거래일을 채워요.
+                oldest = min(r["date"] for r in got)
+                got += _trend_rows(code, bizdate=oldest.strftime("%Y%m%d"))
+            if not got:
+                bad.append(f"{name}({code})")
+            for r in got:
+                r.update({"name": name, "sector": sector})
+            rows += got
+            time.sleep(0.08)
+    new = pd.DataFrame(rows)
+    df = pd.concat([old, new]) if len(old) else new
+    if df.empty:
+        say("  ✗ 분야별 수급: 받은 데이터가 없어요")
+        return
+    df = df.drop_duplicates(["date", "code"], keep="last").sort_values(["date", "code"])
+    keep_from = df["date"].drop_duplicates().nlargest(STOCK_DAYS).min()
+    df = df[df["date"] >= keep_from]
+    for k, q in (("외국인", "f_qty"), ("기관", "i_qty"), ("개인", "p_qty")):
+        df[k] = df[q] * df["close"]  # 순매수 수량 × 종가 ≈ 순매수 금액(원)
+    df.to_csv(f, index=False)
+    # 분야 합계와 분야 수익률(종목 평균)
+    df = df.sort_values(["code", "date"])
+    df["ret"] = df.groupby("code")["close"].pct_change() * 100
+    agg = df.groupby(["date", "sector"]).agg(외국인=("외국인", "sum"), 기관=("기관", "sum"), 개인=("개인", "sum"),
+                                             등락률=("ret", "mean"), 종목수=("code", "nunique")).reset_index()
+    agg.to_csv(OUT / "sector_flows.csv", index=False)
+    say(f"  ✓ 분야별 수급: {len(SECTORS)}개 분야 · {df['code'].nunique()}종목 · {df['date'].nunique()}거래일"
+        + (f" · 못 받은 종목: {', '.join(bad)}" if bad else ""))
 
 
 def main():
-    probe_stock()
     say(f"한국 데이터 받기 시작 ({date.today()}) · 출처: 네이버 증권")
     ok = 0
     for code in ("KOSPI", "KOSDAQ"):
@@ -187,6 +251,10 @@ def main():
         update_sectors_breadth(read("index_KOSPI").index.max())
     except Exception as e:
         say(f"  ✗ 업종·종목 수 실패: {type(e).__name__}: {str(e)[:160]}")
+    try:
+        update_sector_flows()
+    except Exception as e:
+        say(f"  ✗ 분야별 수급 실패: {type(e).__name__}: {str(e)[:160]}")
     (OUT / "probe_naver.html").unlink(missing_ok=True)
     (OUT / "status.txt").write_text("\n".join(log) + "\n", encoding="utf-8")
     say(f"완료: 시장 {ok}/2")
