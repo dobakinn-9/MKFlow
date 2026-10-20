@@ -54,6 +54,11 @@ def flows(market: str):
     return dt.load_investor_flows(market)
 
 
+@st.cache_data(ttl=3600 * 3, show_spinner="3년치 투자자별 매매를 불러오는 중… (처음엔 10~20초 걸려요)")
+def flows_long(market: str):
+    return dt.load_investor_flows(market, days=750)
+
+
 @st.cache_data(ttl=3600, show_spinner="상승·하락 종목 수를 세는 중… (처음엔 30초 정도 걸려요)")
 def kr_breadth(market: str):
     return dt.load_kr_breadth(market)

@@ -13,7 +13,7 @@ import streamlit as st
 
 # Streamlit Cloud는 코드를 새로 올려도 예전에 불러온 모듈을 기억해 둘 때가 있어요.
 # 그러면 새로 추가한 설정을 못 찾아 ImportError가 나요. 매번 우리 파일을 새로 읽도록 지워 둬요.
-_LOCAL = {"config", "data", "analysis", "common", "ml", "macro_ml", "tracker", "views"}
+_LOCAL = {"config", "data", "analysis", "common", "ml", "macro_ml", "flow_signals", "tracker", "views"}
 for _m in [m for m in list(sys.modules) if m.split(".")[0] in _LOCAL]:
     del sys.modules[_m]
 
@@ -55,6 +55,7 @@ pages = {
     ],
     "수급": [
         P(flows.investors, title="투자자별 매매", icon="👥", url_path="investors"),
+        P(flows.timing, title="수급 타이밍 신호", icon="🎯", url_path="flow-timing"),
     ],
     "심리·가격 수준": [
         P(sentiment.fear_greed, title="공포·탐욕 지수", icon="😱", url_path="fear-greed"),
