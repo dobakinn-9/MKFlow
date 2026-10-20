@@ -178,8 +178,40 @@ def attempt(name: str, fns):
     return False
 
 
+def probe():
+    """진단: 후보 주소들의 응답 상태를 기록해요."""
+    import re
+    import requests
+    urls = [
+        ("naver_investor_day", "https://finance.naver.com/sise/investorDealTrendDay.naver",
+         {"bizdate": date.today().strftime("%Y%m%d"), "sosok": "01", "page": 1}),
+        ("naver_m_kospi_trend", "https://m.stock.naver.com/api/index/KOSPI/trend", {}),
+        ("naver_m_kospi_basic", "https://m.stock.naver.com/api/index/KOSPI/basic", {}),
+        ("naver_m_investor", "https://m.stock.naver.com/api/index/KOSPI/investor", {}),
+        ("naver_m_investor_trend", "https://m.stock.naver.com/front-api/marketIndex/investorTrend", {"category": "KOSPI"}),
+        ("krx_data", "https://data.krx.co.kr/contents/MDC/MDI/mdiLoader/index.cmd", {}),
+    ]
+    for name, url, params in urls:
+        try:
+            r = requests.get(url, params=params, headers=UA, timeout=15)
+            body = r.content[:20000]
+            try:
+                txt = body.decode("euc-kr")
+            except Exception:
+                txt = body.decode("utf-8", "ignore")
+            title = re.search(r"<title>(.*?)</title>", txt, re.S)
+            ntab = txt.count("<table")
+            say(f"  [probe] {name}: HTTP {r.status_code} · {len(r.content)}B · tables={ntab} · "
+                f"title={title.group(1).strip()[:60] if title else '-'} · head={txt[:200].strip()!r}")
+            if name == "naver_investor_day":
+                (OUT / "probe_naver.html").write_bytes(r.content[:200000])
+        except Exception as e:
+            say(f"  [probe] {name}: 실패 {type(e).__name__}: {str(e)[:120]}")
+
+
 def main():
     say(f"한국 데이터 받기 시작 ({date.today()})")
+    probe()
     ok = {}
     for mkt in ("KOSPI", "KOSDAQ"):
         ok[f"flows_{mkt}"] = attempt(f"flows_{mkt}", [("한국거래소(pykrx)", lambda m=mkt: flows_pykrx(m)),
