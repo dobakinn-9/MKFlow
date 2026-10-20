@@ -1,22 +1,13 @@
+  [probe] stock/005930/trend {'pageSize': 3}: HTTP 200 · '[{"itemCode":"005930","bizdate":"20261020","foreignerPureBuyQuant":"+1,801,659","foreignerHoldRatio":"46.08%","organPureBuyQuant":"-2,760,235","individualPureBuyQuant":"+903,908","closePrice":"209,000","compareToPreviousClosePrice":"-9,000","compareToPreviousPrice":{"code":"5","text":"하락","name":"FALLING"},"accumulatedTradingVolume":"16,561,224"},{"itemCode":"005930","bizdate":"20261019","foreignerPureBuyQuant":"+1,241,581","foreignerHoldRatio":"46.04%","organPureBuyQuant":"-42,900","individualPureBuyQuant":"-880,224","closePrice":"223,500","compareToPreviousClosePrice":"8,000","compareToPreviousPrice":{"code":"2","text":"상승","name":"RISING"},"accumulatedTradingVolume":"17,617,415"},{"itemCo'
+  [probe] stock/005930/trend {}: HTTP 200 · '[{"itemCode":"005930","bizdate":"20261020","foreignerPureBuyQuant":"+1,801,659","foreignerHoldRatio":"46.08%","organPureBuyQuant":"-2,760,235","individualPureBuyQuant":"+903,908","closePrice":"209,000","compareToPreviousClosePrice":"-9,000","compareToPreviousPrice":{"code":"5","text":"하락","name":"FALLING"},"accumulatedTradingVolume":"16,561,224"},{"itemCode":"005930","bizdate":"20261019","foreignerPureBuyQuant":"+1,241,581","foreignerHoldRatio":"46.04%","organPureBuyQuant":"-42,900","individualPureBuyQuant":"-880,224","closePrice":"223,500","compareToPreviousClosePrice":"8,000","compareToPreviousPrice":{"code":"2","text":"상승","name":"RISING"},"accumulatedTradingVolume":"17,617,415"},{"itemCo'
+  [probe] stock/005930/price {'pageSize': 2}: HTTP 200 · '[{"localTradedAt":"2026-10-21","closePrice":"211,500","compareToPreviousClosePrice":"0","compareToPreviousPrice":{"code":"3","text":"보합","name":"UNCHANGED"},"fluctuationsRatio":"0.00","openPrice":"216,000","highPrice":"219,500","lowPrice":"211,500","accumulatedTradingVolume":2746876},{"localTradedAt":"2026-10-20","closePrice":"209,000","compareToPreviousClosePrice":"-9,000","compareToPreviousPrice":{"code":"5","text":"하락","name":"FALLING"},"fluctuationsRatio":"-4.13","openPrice":"219,500","highPrice":"219,500","lowPrice":"208,000","accumulatedTradingVolume":16561224}]'
+  [probe] stock/005930/integration {}: HTTP 200 · '{"stockEndType":"stock","itemCode":"005930","reutersCode":"005930","stockName":"삼성전자","totalInfos":[{"code":"lastClosePrice","key":"전일","value":"211,500"},{"code":"openPrice","key":"시가","value":"216,000","compareToPreviousPrice":{"code":"2","text":"상승","name":"RISING"}},{"code":"highPrice","key":"고가","value":"219,500","compareToPreviousPrice":{"code":"2","text":"상승","name":"RISING"}},{"code":"lowPrice","key":"저가","value":"211,500","compareToPreviousPrice":{"code":"3","text":"보합","name":"UNCHANGED"}},{"code":"accumulatedTradingVolume","key":"거래량","value":"2,746,876"},{"code":"accumulatedTradingValue","key":"대금","value":"5,982억"},{"code":"marketValue","key":"시총","value":"1,236조 4,879억"},{"code'
+  [probe] stocks/industry/278 {'page': 1, 'pageSize': 3}: HTTP 200 · '{"stockListSortType":"INDUSTRY","stocks":[{"stockType":"domestic","stockEndType":"stock","itemCode":"000660","reutersCode":"000660","stockName":"SK하이닉스","sosok":"0","closePrice":"1,223,000","compareToPreviousClosePrice":"0","compareToPreviousPrice":{"code":"3","text":"보합","name":"UNCHANGED"},"fluctuationsRatio":"0.00","accumulatedTradingVolume":"-","accumulatedTradingValue":"-","localTradedAt":"2026-10-21T00:00:00+09:00","marketValue":"8,933,922","nav":"N/A","threeMonthEarningRate":"N/A","marketStatus":"PREOPEN","tradeStopType":{"code":"1","text":"운영.Trading","name":"TRADING"},"tradableStatus":"tradable","tradableStatusCode":"ok","tradableStatusUpdatedAt":"2026-10-21T08:01:37.451+09:00","sto'
 한국 데이터 받기 시작 (2026-10-20) · 출처: 네이버 증권
   · KOSPI 시세 750일 (2023-09-14 ~ 2026-10-20)
-    … KOSPI 수급 100/750일
-    … KOSPI 수급 200/750일
-    … KOSPI 수급 300/750일
-    … KOSPI 수급 400/750일
-    … KOSPI 수급 500/750일
-    … KOSPI 수급 600/750일
-    … KOSPI 수급 700/750일
-  ✓ flows_KOSPI: 새로 750일 · 전체 750일 (2023-09-14 ~ 2026-10-20)
+  ✓ flows_KOSPI: 새로 3일 · 전체 750일 (2023-09-14 ~ 2026-10-20)
   ✓ index_KOSPI: 종가 750일 · 거래대금 1일치
   · KOSDAQ 시세 750일 (2023-09-14 ~ 2026-10-20)
-    … KOSDAQ 수급 100/750일
-    … KOSDAQ 수급 200/750일
-    … KOSDAQ 수급 300/750일
-    … KOSDAQ 수급 400/750일
-    … KOSDAQ 수급 500/750일
-    … KOSDAQ 수급 600/750일
-    … KOSDAQ 수급 700/750일
-  ✓ flows_KOSDAQ: 새로 750일 · 전체 750일 (2023-09-14 ~ 2026-10-20)
+  ✓ flows_KOSDAQ: 새로 3일 · 전체 750일 (2023-09-14 ~ 2026-10-20)
   ✓ index_KOSDAQ: 종가 750일 · 거래대금 1일치
-  ✓ sectors: 79개 업종 · breadth_ALL: 1일치 (최근 상승 818 / 하락 3299)
+  ✓ sectors: 79개 업종 · breadth_ALL: 1일치 (최근 상승 0 / 하락 0)
