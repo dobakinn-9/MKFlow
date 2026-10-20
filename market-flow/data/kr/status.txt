@@ -1,0 +1,13 @@
+한국 데이터 받기 시작 (2026-10-20)
+  ✗ flows_KOSPI [한국거래소(pykrx)] 실패: RuntimeError: 빈 응답
+  ✗ flows_KOSPI [네이버 금융] 실패: RuntimeError: 표를 찾지 못함
+  ✗ flows_KOSDAQ [한국거래소(pykrx)] 실패: RuntimeError: 빈 응답
+  ✗ flows_KOSDAQ [네이버 금융] 실패: RuntimeError: 표를 찾지 못함
+  ✗ index_KOSPI [한국거래소(pykrx)] 실패: KeyError: '지수명'
+  ✗ fund_KOSPI [한국거래소(pykrx)] 실패: RuntimeError: 빈 결과
+  ✗ breadth_KOSPI [한국거래소(pykrx)] 실패: KeyError: "None of [Index(['시가', '고가', '저가', '종가'], dtype='object')] are in the [columns]"
+  ✗ index_KOSDAQ [한국거래소(pykrx)] 실패: KeyError: '지수명'
+  ✗ fund_KOSDAQ [한국거래소(pykrx)] 실패: RuntimeError: 빈 결과
+  ✗ breadth_KOSDAQ [한국거래소(pykrx)] 실패: KeyError: "None of [Index(['시가', '고가', '저가', '종가'], dtype='object')] are in the [columns]"
+  ✗ vkospi [한국거래소(pykrx)] 실패: RuntimeError: VKOSPI 코드 없음
+  ✗ sectors [한국거래소(pykrx)] 실패: IndexError: index 0 is out of bounds for axis 0 with size 0
