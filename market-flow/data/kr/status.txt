@@ -1,4 +1,10 @@
 한국 데이터 받기 시작 (2026-10-20)
+  [probe] naver_investor_day: HTTP 410 · 1590B · tables=1 · title=Npay 증권 · head='<html lang="ko">\n<head>\n<meta http-equiv="Content-Type" content="text/html; charset=euc-kr">\n<title>Npay 증권</title>\n<link rel="stylesheet" type="text/css" href="https://ssl.pstatic.net/imgstock/static'
+  [probe] naver_m_kospi_trend: HTTP 200 · 101B · tables=0 · title=- · head='{"bizdate":"20261020","personalValue":"+8,475","foreignValue":"-4,884","institutionalValue":"-9,901"}'
+  [probe] naver_m_kospi_basic: HTTP 200 · 3203B · tables=0 · title=- · head='{"stockEndType":"index","itemCode":"KOSPI","reutersCode":"KOSPI","symbolCode":"KOSPI","stockName":"코스피","itemLogoUrl":"https://ssl.pstatic.net/imgstock/fn/real/logo/index/IndexKOSPI.svg","itemLogoPngU'
+  [probe] naver_m_investor: HTTP 404 · 4209B · tables=0 · title=Npay 증권 · head='<!doctype html>\n<html lang="ko">\n<head>\n    <meta charset="utf-8">\n    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">\n    <t'
+  [probe] naver_m_investor_trend: HTTP 404 · 122B · tables=0 · title=- · head='{"message":"Route GET:/front-api/marketIndex/investorTrend?category=KOSPI not found","error":"Not Found","statusCode":404}'
+  [probe] krx_data: HTTP 200 · 11753B · tables=0 · title=통계 - KRX | Data Marketplace · head='<!DOCTYPE html>\r\n<html lang="ko">\r\n<head>\r\n  <meta charset="utf-8">\r\n  <meta http-equiv="X-UA-Compatible" content="IE=Edge">\r\n  <meta name="viewport" content="width=device-width, initial-sca'
   ✗ flows_KOSPI [한국거래소(pykrx)] 실패: RuntimeError: 빈 응답
   ✗ flows_KOSPI [네이버 금융] 실패: RuntimeError: 표를 찾지 못함
   ✗ flows_KOSDAQ [한국거래소(pykrx)] 실패: RuntimeError: 빈 응답
