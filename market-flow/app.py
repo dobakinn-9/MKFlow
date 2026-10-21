@@ -83,7 +83,18 @@ pages = {
         P(calendar.events, title="이벤트 캘린더", icon="📅", url_path="events"),
     ],
 }
-nav = st.navigation(pages)
+nav = st.navigation(pages, position="hidden")
+
+# ── 왼쪽 메뉴: 분류마다 화살표(▸)로 펼치고 접기 ──────────
+CAT_ICON = {"종합": "🏠", "AI 예측": "🤖", "AI 분석 도구": "🔍", "시장 보고서": "📰", "돈의 가격": "🏦",
+            "시장의 체력": "📊", "수급": "👥", "심리·가격 수준": "🌡️", "일정": "📅"}
+with st.sidebar:
+    st.markdown("### 📈 한·미 시장 흐름")
+    for cat, plist in pages.items():
+        here = any(p.url_path == nav.url_path for p in plist)
+        with st.expander(f"{CAT_ICON.get(cat, '')} {cat}", expanded=here):
+            for p in plist:
+                st.page_link(p, label=p.title, icon=p.icon)
 
 # ── 공통 설정 (모든 페이지 사이드바 아래쪽) ──────────────
 with st.sidebar:

@@ -74,6 +74,17 @@ hr {{ border-color: {LINE} !important; }}
 [data-testid="stSidebarNav"] a {{ border-radius: 10px; }}
 [data-testid="stSidebarNav"] a[aria-current="page"] {{ background: rgba(59,130,246,0.16); }}
 
+/* ── 사이드바 메뉴 (화살표 펼침) ───────── */
+[data-testid="stSidebar"] [data-testid="stExpander"] details {{ background: transparent; border: none !important; }}
+[data-testid="stSidebar"] [data-testid="stExpander"] summary {{ padding: 6px 8px; border-radius: 10px; }}
+[data-testid="stSidebar"] [data-testid="stExpander"] summary:hover {{ background: rgba(255,255,255,0.04); }}
+[data-testid="stSidebar"] [data-testid="stExpander"] summary p {{ font-weight: 700; font-size: 0.95rem; }}
+[data-testid="stSidebar"] [data-testid="stExpanderDetails"] {{ padding: 0 0 4px 6px; }}
+[data-testid="stSidebar"] [data-testid="stPageLink-NavLink"] {{ border-radius: 10px; padding: 4px 8px; }}
+[data-testid="stSidebar"] [data-testid="stPageLink-NavLink"][aria-current="page"],
+[data-testid="stSidebar"] a[data-testid="stPageLink-NavLink"]:has(span[aria-current]) {{ background: rgba(59,130,246,0.18); }}
+[data-testid="stSidebar"] [data-testid="stVerticalBlockBorderWrapper"] {{ background: transparent; }}
+
 /* ── 불필요한 기본 장식 숨기기 ─────────── */
 footer, [data-testid="stDecoration"], [data-testid="stStatusWidget"] {{ visibility: hidden; height: 0; }}
 [data-testid="stToolbar"] [data-testid="stToolbarActions"] {{ display: none; }}
