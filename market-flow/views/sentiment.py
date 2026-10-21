@@ -74,7 +74,7 @@ def fear_greed():
                            text=[f"{v:.0f}" for v in comp.values], textposition="outside"))
     fig.add_vline(x=50, line_dash="dot", line_color=cm.MUTED)
     fig.update_layout(xaxis=dict(range=[0, 105]), hovermode=False, height=60 + 42 * len(comp),
-                      margin=dict(l=10, r=40, t=10, b=10))
+                      margin=dict(l=10, r=40, t=36, b=10))
     st.plotly_chart(fig, use_container_width=True)
     hot = [k for k, v in comp.items() if v >= 75]
     cold = [k for k, v in comp.items() if v <= 25]
@@ -155,7 +155,7 @@ def overheat():
                            marker_color=[cm.DOWN if v > 85 else cm.UP if v < 15 else cm.MUTED for v in pos["위치"]],
                            text=[f"{v:.0f}%" for v in pos["위치"]], textposition="outside"))
     fig.update_layout(xaxis=dict(range=[0, 110], title="0% = 52주 최저 · 100% = 52주 최고"), hovermode=False,
-                      height=60 + 40 * len(pos), margin=dict(l=10, r=40, t=10, b=10))
+                      height=60 + 40 * len(pos), margin=dict(l=10, r=40, t=36, b=10))
     st.plotly_chart(fig, use_container_width=True)
 
     st.subheader(f"{cm.target_name()} RSI와 이격도 추이")

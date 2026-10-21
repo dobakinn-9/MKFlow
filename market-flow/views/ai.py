@@ -162,7 +162,7 @@ def outlook():
                 marker_color=[cm.UP if s["tone"] == "긍정" else cm.DOWN if s["tone"] == "부정" else cm.MUTED for s in sc],
                 text=[f"{s['prob']}%" for s in sc], textposition="outside"))
             fig.update_layout(yaxis=dict(autorange="reversed"), xaxis=dict(range=[0, 100], title="확률(%)"),
-                              height=60 + 45 * len(sc), margin=dict(l=10, r=40, t=10, b=10), hovermode=False)
+                              height=60 + 45 * len(sc), margin=dict(l=10, r=40, t=36, b=10), hovermode=False)
             st.plotly_chart(fig, use_container_width=True)
             for s in sc:
                 st.markdown(f"{TONE_ICON.get(s['tone'], '')} **{s['name']} ({s['prob']}%)** — {s['desc']}")
@@ -216,7 +216,7 @@ def growth():
                                    marker_color=[cm.BLUE, cm.ORANGE], text=[f"{w['w_lr']:.0%}", f"{1 - w['w_lr']:.0%}"],
                                    textposition="outside"))
             fig.update_layout(yaxis=dict(range=[0, 100], title="현재 가중치(%)"), hovermode=False,
-                              height=260, margin=dict(l=10, r=10, t=10, b=10))
+                              height=260, margin=dict(l=10, r=10, t=36, b=10))
             st.plotly_chart(fig, use_container_width=True)
         with b:
             if rep["n_graded"]:

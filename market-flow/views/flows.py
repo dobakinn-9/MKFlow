@@ -226,7 +226,7 @@ def sectors():
     fig.add_trace(go.Bar(y=order, x=g["외국인"], name="외국인", orientation="h", marker_color=cm.BLUE))
     fig.add_trace(go.Bar(y=order, x=g["기관"], name="기관", orientation="h", marker_color=cm.ORANGE))
     fig.update_layout(barmode="group", yaxis=dict(autorange="reversed"), hovermode="y unified",
-                      height=80 + 48 * len(order), margin=dict(l=10, r=10, t=10, b=10), legend=dict(orientation="h"))
+                      height=80 + 48 * len(order), margin=dict(l=10, r=10, t=36, b=10), legend=dict(orientation="h"))
     fig.add_vline(x=0, line_color=cm.MUTED)
     st.plotly_chart(fig, use_container_width=True)
 
@@ -245,7 +245,7 @@ def sectors():
     fig2.add_hline(y=0, line_color=cm.MUTED)
     fig2.add_vline(x=0, line_color=cm.MUTED)
     fig2.update_layout(xaxis_title="큰손(외국인+기관) 순매수, 억 원", yaxis_title="분야 수익률 %", hovermode="closest",
-                       height=420, margin=dict(l=10, r=10, t=10, b=10))
+                       height=420, margin=dict(l=10, r=10, t=36, b=10))
     st.plotly_chart(fig2, use_container_width=True)
     div_up = [s for s in g.index if g.loc[s, "큰손 합계"] > 0 and g.loc[s, "분야 수익률(%)"] < 0]
     div_dn = [s for s in g.index if g.loc[s, "큰손 합계"] < 0 and g.loc[s, "분야 수익률(%)"] > 0]
@@ -258,7 +258,7 @@ def sectors():
     fig3 = go.Figure(go.Heatmap(z=hm.values, x=[pd.Timestamp(d).strftime("%m/%d") for d in hm.columns], y=hm.index,
                                 colorscale=[[0, cm.DOWN], [0.5, "#1A1F2B"], [1, cm.UP]], zmid=0,
                                 colorbar=dict(title="억 원")))
-    fig3.update_layout(height=80 + 36 * len(order), margin=dict(l=10, r=10, t=10, b=10))
+    fig3.update_layout(height=80 + 36 * len(order), margin=dict(l=10, r=10, t=36, b=10))
     st.plotly_chart(fig3, use_container_width=True)
     st.caption("초록은 외국인 순매수, 빨강은 순매도한 날이에요. 같은 색이 가로로 이어지면 연속 매매예요.")
 

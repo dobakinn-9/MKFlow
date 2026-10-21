@@ -121,7 +121,7 @@ def fmt_change(v: float, unit: str = "%") -> str:
 
 
 def layout(fig: go.Figure, height: int = 360) -> go.Figure:
-    fig.update_layout(height=height, margin=dict(l=8, r=8, t=12, b=8),
+    fig.update_layout(height=height, margin=dict(l=8, r=8, t=36, b=8),
                       legend=dict(orientation="h", y=-0.18, x=0), hovermode="x unified")
     return fig
 
@@ -137,7 +137,7 @@ def hbar(labels, values, fmt="{:+.1f}", height=None, xrange=None) -> go.Figure:
     fig.update_layout(yaxis=dict(autorange="reversed"), hovermode=False)
     if xrange:
         fig.update_xaxes(range=xrange)
-    fig.update_layout(height=height or (60 + 34 * len(labels)), margin=dict(l=10, r=50, t=10, b=10))
+    fig.update_layout(height=height or (60 + 34 * len(labels)), margin=dict(l=10, r=50, t=36, b=10))
     return fig
 
 

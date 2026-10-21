@@ -3,7 +3,7 @@
 app.py에서 inject()를 한 번 부르면 모든 화면에 적용돼요.
 - 글꼴: Pretendard (한글이 또렷한 무료 글꼴)
 - 숫자 카드: 둥근 카드, 큰 숫자, 휴대폰에서는 한 줄에 2개씩
-- 차트: 투명 배경, 옅은 격자, 범례는 아래, 도구 막대 숨김
+- 차트: 투명 배경, 옅은 격자, 범례는 아래, 오른쪽 위에 확대·축소·이동·초기화·저장 버튼
 - 휴대폰(폭 640px 이하): 여백·제목 축소, 표 글자 축소, 탭·선택 버튼 가로 스크롤
 """
 from __future__ import annotations
@@ -57,7 +57,14 @@ hr {{ border-color: {LINE} !important; }}
 
 /* ── 차트: 카드 배경, 도구 막대 숨김 ─────── */
 [data-testid="stPlotlyChart"] {{ background: {CARD}; border: 1px solid {LINE}; border-radius: 16px; padding: 8px 6px 2px; }}
-.modebar-container, .modebar {{ display: none !important; }}
+/* 차트 도구 막대: 확대·축소·이동·초기화 버튼을 오른쪽 위에 항상 표시 */
+[data-testid="stPlotlyChart"] .modebar-container {{ top: 6px !important; right: 8px !important; }}
+[data-testid="stPlotlyChart"] .modebar {{ display: flex !important; opacity: 0.92 !important; background: transparent !important; }}
+[data-testid="stPlotlyChart"] .modebar-group {{ background: {CARD2} !important; border: 1px solid {LINE}; border-radius: 10px;
+  padding: 2px 4px !important; margin-left: 4px; }}
+[data-testid="stPlotlyChart"] .modebar-btn {{ padding: 4px 5px !important; }}
+[data-testid="stPlotlyChart"] .modebar-btn path {{ fill: {SUB} !important; }}
+[data-testid="stPlotlyChart"] .modebar-btn:hover path, [data-testid="stPlotlyChart"] .modebar-btn.active path {{ fill: {ACCENT} !important; }}
 
 /* ── 표 ─────────────────────────────── */
 [data-testid="stDataFrame"] {{ border-radius: 14px; overflow: hidden; border: 1px solid {LINE}; }}
@@ -117,6 +124,8 @@ footer, [data-testid="stDecoration"], [data-testid="stStatusWidget"] {{ visibili
   [data-testid="stMetricDelta"] {{ font-size: 0.7rem !important; }}
 
   [data-testid="stPlotlyChart"] {{ padding: 4px 0 0; border-radius: 14px; }}
+  [data-testid="stPlotlyChart"] .modebar-btn {{ padding: 6px 7px !important; }}
+  [data-testid="stPlotlyChart"] .modebar-btn svg {{ width: 16px; height: 16px; }}
   [data-testid="stDataFrame"] {{ font-size: 0.78rem; }}
   [data-testid="stRadio"] div[role="radiogroup"] {{ flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }}
   [data-testid="stRadio"] div[role="radiogroup"] > label {{ white-space: nowrap; padding: 4px 10px; }}
@@ -126,8 +135,42 @@ footer, [data-testid="stDecoration"], [data-testid="stStatusWidget"] {{ visibili
 """
 
 
+# 모든 차트에 공통으로 붙는 도구 막대 설정
+CHART_CONFIG = {
+    "displayModeBar": True,          # 도구 막대 항상 보이기
+    "displaylogo": False,
+    "scrollZoom": False,             # 휴대폰에서 스크롤하다 실수로 확대되지 않게
+    "doubleClick": "reset",          # 차트를 두 번 누르면 원래대로
+    "modeBarButtons": [["zoom2d", "pan2d"], ["zoomIn2d", "zoomOut2d"], ["resetScale2d"], ["toImage"]],
+    "toImageButtonOptions": {"format": "png", "filename": "mkflow_chart", "scale": 2},
+}
+
+
+def _patch_plotly_chart():
+    """st.plotly_chart를 감싸서 모든 화면의 차트에 CHART_CONFIG를 자동으로 붙여요."""
+    if getattr(st.plotly_chart, "_mkflow", False):
+        return
+    original = st.plotly_chart
+
+    def plotly_chart(figure_or_data, *args, config=None, **kwargs):
+        cfg = dict(CHART_CONFIG)
+        if config:
+            cfg.update(config)
+        try:
+            for ax in ("xaxis", "yaxis"):  # 범위를 직접 정한 축도 확대할 수 있게
+                if getattr(figure_or_data.layout, ax, None) is not None and figure_or_data.layout[ax].fixedrange:
+                    figure_or_data.layout[ax].fixedrange = False
+        except Exception:
+            pass
+        return original(figure_or_data, *args, config=cfg, **kwargs)
+
+    plotly_chart._mkflow = True
+    st.plotly_chart = plotly_chart
+
+
 def inject():
     st.markdown(CSS, unsafe_allow_html=True)
+    _patch_plotly_chart()
 
 
 def plotly_template():
@@ -151,7 +194,7 @@ def _build(go, pio):
         colorway=["#3B82F6", "#F59E0B", "#22C55E", "#A78BFA", "#EF4444", "#14B8A6", "#EC4899", "#94A3B8"],
         legend=dict(orientation="h", y=-0.18, x=0, bgcolor="rgba(0,0,0,0)", font=dict(size=11)),
         hoverlabel=dict(bgcolor=CARD2, bordercolor=LINE, font=dict(family=FONT, color=TEXT)),
-        margin=dict(l=8, r=8, t=12, b=8),
+        margin=dict(l=8, r=8, t=36, b=8),
     )
     for ax in ("xaxis", "yaxis"):
         t.layout[ax].update(gridcolor="rgba(255,255,255,0.06)", zerolinecolor="rgba(255,255,255,0.12)",

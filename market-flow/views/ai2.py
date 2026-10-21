@@ -194,7 +194,7 @@ def sectors_ai():
                            marker_color=[cm.UP if v > 0 else cm.DOWN for v in tb["점수"]],
                            text=[f"{v:+.2f}" for v in tb["점수"]], textposition="outside"))
     fig.update_layout(yaxis=dict(autorange="reversed"), hovermode=False, height=80 + 40 * len(tb),
-                      margin=dict(l=10, r=50, t=10, b=10))
+                      margin=dict(l=10, r=50, t=36, b=10))
     st.plotly_chart(fig, use_container_width=True)
     st.markdown(f"**{pd.Timestamp(rk['asof']):%m/%d} 기준** · 상위: " + ", ".join(f"**{s}**" for s in tb.index[:3])
                 + " · 하위: " + ", ".join(tb.index[-3:]))
