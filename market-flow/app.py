@@ -3,7 +3,7 @@
 실행:  streamlit run app.py
 
 왼쪽 메뉴는 6개 분류와 그 아래 세부 메뉴로 나뉘어 있어요.
-  종합 / AI 예측 / 시장 보고서 / 돈의 가격 / 시장의 체력 / 수급 / 심리·가격 수준 / 일정
+  종합 / AI 예측 / AI 분석 도구 / 시장 보고서 / 돈의 가격 / 시장의 체력 / 수급 / 심리·가격 수준 / 일정
 """
 from __future__ import annotations
 
@@ -13,12 +13,12 @@ import streamlit as st
 
 # Streamlit Cloud는 코드를 새로 올려도 예전에 불러온 모듈을 기억해 둘 때가 있어요.
 # 그러면 새로 추가한 설정을 못 찾아 ImportError가 나요. 매번 우리 파일을 새로 읽도록 지워 둬요.
-_LOCAL = {"config", "data", "analysis", "common", "ml", "macro_ml", "flow_signals", "tracker", "views"}
+_LOCAL = {"config", "data", "analysis", "common", "ml", "macro_ml", "flow_signals", "ai_extra", "tracker", "views"}
 for _m in [m for m in list(sys.modules) if m.split(".")[0] in _LOCAL]:
     del sys.modules[_m]
 
 from config import FORWARD_DAYS, SCORE_TARGETS  # noqa: E402
-from views import ai, calendar, flows, macro, money, overview, reports, sentiment, strength
+from views import ai, ai2, calendar, flows, macro, money, overview, reports, sentiment, strength
 
 st.set_page_config(page_title="한·미 시장 흐름", page_icon="📈", layout="wide")
 
@@ -31,9 +31,19 @@ pages = {
     ],
     "AI 예측": [
         P(ai.model, title="AI 모델 예측", icon="🤖", url_path="ai-model"),
+        P(ai2.crash, title="급락 위험 경보", icon="🚨", url_path="ai-crash"),
+        P(ai2.sectors_ai, title="분야별 AI 순위", icon="🏆", url_path="ai-sectors"),
         P(macro.bonds, title="채권 금리 예측", icon="📉", url_path="ai-bonds"),
+        P(ai2.fx, title="환율 예측", icon="💱", url_path="ai-fx"),
         P(macro.inflation, title="미국 물가 예측", icon="🛒", url_path="ai-inflation"),
+        P(ai2.recession, title="미국 경기침체 확률", icon="📉", url_path="ai-recession"),
         P(ai.outlook, title="Claude 시장 전망", icon="🔮", url_path="ai-outlook"),
+    ],
+    "AI 분석 도구": [
+        P(ai2.analogs, title="지금과 닮은 과거", icon="🕰️", url_path="ai-analogs"),
+        P(ai2.simulator, title="시나리오 계산기", icon="🎛️", url_path="ai-simulator"),
+        P(ai2.events_impact, title="이벤트 영향 분석", icon="📆", url_path="ai-events"),
+        P(ai2.news, title="뉴스 분위기 점수", icon="📰", url_path="ai-news"),
         P(ai.growth, title="AI 성장 기록", icon="🌱", url_path="ai-growth"),
     ],
     "시장 보고서": [

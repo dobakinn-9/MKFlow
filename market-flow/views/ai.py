@@ -12,6 +12,7 @@ import common as cm
 import data as dt
 import ml
 import tracker
+import ai_extra as ax
 
 TONE_ICON = {"긍정": "🟢", "부정": "🔴", "중립": "⚪"}
 
@@ -21,6 +22,14 @@ def _run_model(t: str, period: str, fwd: int, w_lr: float):
     p = cm.prices()
     sc, _ = cm.score_bundle(t, period)
     return ml.run(p, t, sc, fwd, w_lr=w_lr)
+
+
+@st.cache_data(ttl=3600 * 6, show_spinner="수급을 넣은 모델과 비교하는 중… (처음엔 30초 정도 걸려요)")
+def _flow_cmp(t: str, period: str, fwd: int):
+    mkt = {"^KS11": "KOSPI", "^KQ11": "KOSDAQ"}[t]
+    f, _ = cm.flows_long(mkt)
+    sc, _ = cm.score_bundle(t, period)
+    return ax.flow_compare(cm.prices(), t, sc, f, fwd)
 
 
 def _nearest_h(fwd: int) -> int:
@@ -107,6 +116,29 @@ def model():
                                  line=dict(color=cm.ORANGE, width=1.5)))
         fig.update_layout(yaxis=dict(title=nm), yaxis2=dict(title="%", overlaying="y", side="right", range=[0, 100]))
         cm.show(fig, 340)
+    if t in ("^KS11", "^KQ11"):
+        st.subheader("수급(외국인·기관)을 넣으면 더 잘 맞을까?")
+        st.caption("수급 데이터가 있는 최근 약 3년 구간에서, 같은 조건으로 '수급 없이'와 '수급 포함' 모델을 비교했어요.")
+        cmp = _flow_cmp(t, cm.period(), fwd)
+        if not cmp.get("ok"):
+            st.info(cmp.get("reason"))
+        else:
+            a, b = cmp["without"], cmp["with"]
+            tb = pd.DataFrame({"모델": ["수급 없이", "수급 포함"],
+                               f"{fwd}거래일 뒤 상승 확률(오늘)": [a["prob"] * 100, b["prob"] * 100],
+                               "적중률(%)": [a["hit"], b["hit"]], "AUC": [a["auc"], b["auc"]],
+                               "정확도 점수(브라이어, 낮을수록 좋음)": [a["brier"], b["brier"]], "검증 일수": [a["n"], b["n"]]})
+            st.dataframe(tb, hide_index=True, use_container_width=True,
+                         column_config={f"{fwd}거래일 뒤 상승 확률(오늘)": st.column_config.NumberColumn(format="%.0f%%"),
+                                        "적중률(%)": st.column_config.NumberColumn(format="%.1f"),
+                                        "AUC": st.column_config.NumberColumn(format="%.3f"),
+                                        "정확도 점수(브라이어, 낮을수록 좋음)": st.column_config.NumberColumn(format="%.4f")})
+            better = (b["auc"] > a["auc"] + 0.01) and (b["brier"] <= a["brier"])
+            st.markdown("➡️ " + ("**수급을 넣은 모델이 더 잘 맞았어요.** 수급 포함 확률을 더 참고하세요." if better else
+                                "수급을 넣어도 **뚜렷하게 나아지지 않았어요.** 이 기간에는 수급이 방향 예측에 큰 도움이 안 됐다는 뜻이에요."))
+            fl = b["contrib"][b["contrib"]["특성"].isin(ax.FLOW_NAMES.values())].head(4)
+            if len(fl):
+                st.caption("오늘 수급 요인의 영향: " + " · ".join(f"{r.특성} {r.기여:+.2f}" for r in fl.itertuples()))
     st.caption("참고용 통계 모델이며 투자 권유가 아닙니다. 모델은 6시간마다 다시 학습해요.")
 
 
