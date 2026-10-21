@@ -10,7 +10,7 @@ import data as dt
 from config import CACHE_TTL, FORWARD_DAYS, SCORE_TARGETS
 
 # 다크 배경에서 잘 보이도록 밝은 색을 써요.
-UP, DOWN, MUTED, BLUE, ORANGE = "#3FB97F", "#E5534B", "#9AA0A6", "#5B9BF0", "#F0A33A"
+UP, DOWN, MUTED, BLUE, ORANGE = "#22C55E", "#EF4444", "#94A3B8", "#3B82F6", "#F59E0B"
 SPAN = {"1개월": 21, "3개월": 63, "6개월": 126, "1년": 252, "3년": 756}
 
 
@@ -121,8 +121,8 @@ def fmt_change(v: float, unit: str = "%") -> str:
 
 
 def layout(fig: go.Figure, height: int = 360) -> go.Figure:
-    fig.update_layout(height=height, margin=dict(l=10, r=10, t=10, b=10),
-                      legend=dict(orientation="h", y=-0.15), hovermode="x unified")
+    fig.update_layout(height=height, margin=dict(l=8, r=8, t=12, b=8),
+                      legend=dict(orientation="h", y=-0.18, x=0), hovermode="x unified")
     return fig
 
 

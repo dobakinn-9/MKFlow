@@ -13,14 +13,19 @@ import streamlit as st
 
 # Streamlit Cloud는 코드를 새로 올려도 예전에 불러온 모듈을 기억해 둘 때가 있어요.
 # 그러면 새로 추가한 설정을 못 찾아 ImportError가 나요. 매번 우리 파일을 새로 읽도록 지워 둬요.
-_LOCAL = {"config", "data", "analysis", "common", "ml", "macro_ml", "flow_signals", "ai_extra", "tracker", "views"}
+_LOCAL = {"config", "data", "analysis", "common", "ml", "macro_ml", "flow_signals", "ai_extra", "tracker", "style", "views"}
 for _m in [m for m in list(sys.modules) if m.split(".")[0] in _LOCAL]:
     del sys.modules[_m]
 
 from config import FORWARD_DAYS, SCORE_TARGETS  # noqa: E402
 from views import ai, ai2, calendar, flows, macro, money, overview, reports, sentiment, strength
 
-st.set_page_config(page_title="한·미 시장 흐름", page_icon="📈", layout="wide")
+st.set_page_config(page_title="한·미 시장 흐름", page_icon="📈", layout="wide", initial_sidebar_state="auto")
+
+import style  # noqa: E402
+
+style.inject()
+style.plotly_template()
 
 # ── 메뉴 (분류 → 세부 메뉴) ──────────────────────────────
 P = st.Page
