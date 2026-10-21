@@ -54,6 +54,11 @@ def flows(market: str):
     return dt.load_investor_flows(market)
 
 
+@st.cache_data(ttl=1800)
+def sector_flows():
+    return dt.load_sector_flows()
+
+
 @st.cache_data(ttl=3600 * 3, show_spinner="3년치 투자자별 매매를 불러오는 중… (처음엔 10~20초 걸려요)")
 def flows_long(market: str):
     return dt.load_investor_flows(market, days=750)

@@ -56,6 +56,7 @@ pages = {
     "수급": [
         P(flows.investors, title="투자자별 매매", icon="👥", url_path="investors"),
         P(flows.timing, title="수급 타이밍 신호", icon="🎯", url_path="flow-timing"),
+        P(flows.sectors, title="분야별 수급", icon="🧩", url_path="sector-flows"),
     ],
     "심리·가격 수준": [
         P(sentiment.fear_greed, title="공포·탐욕 지수", icon="😱", url_path="fear-greed"),

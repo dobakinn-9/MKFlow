@@ -170,3 +170,122 @@ def timing():
                                 "상승 확률(%)": st.column_config.NumberColumn(format="%.0f")})
     st.caption(f"최근 약 3년({len(sig):,}거래일) 데이터로 계산했어요. 과거 통계는 미래를 보장하지 않아요.")
     cm.source(note)
+
+
+SEC_PERIODS = {"오늘(최근 1일)": 1, "1주": 5, "1개월": 20, "3개월": 60}
+
+
+def _judge(fo: float, ins: float) -> str:
+    if fo > 0 and ins > 0:
+        return "🟢 동반 매수"
+    if fo < 0 and ins < 0:
+        return "🔴 동반 매도"
+    if fo > 0:
+        return "🟡 외국인만 매수"
+    if ins > 0:
+        return "🟡 기관만 매수"
+    return "⚪ 보합"
+
+
+def sectors():
+    st.title("분야별 수급")
+    st.caption("반도체·2차전지·에너지 등 분야별로 외국인·기관·개인이 얼마나 사고팔았는지 보여줘요. "
+               "분야마다 대표 종목(3~6개)의 순매수를 합산했어요. 참고 자료이며 매매 권유가 아니에요.")
+    cm.explain("""
+- **어떻게 계산하나요?** 분야 대표 종목의 날짜별 순매수 수량 × 그날 종가를 더해 '순매수 금액'을 만들어요. 실제 체결 금액과 조금 다를 수 있어요.
+- **동반 매수**(외국인·기관 모두 순매수) 분야는 큰손 자금이 몰리는 곳, **동반 매도** 분야는 자금이 빠져나가는 곳이에요.
+- **수급과 가격이 엇갈리는 분야**를 눈여겨보세요. 가격은 빠지는데 외국인이 사 모으면 바닥 다지기, 가격은 오르는데 외국인이 팔면 차익 실현일 수 있어요.
+- 분야 구성: 반도체(삼성전자·SK하이닉스 등), 2차전지(LG에너지솔루션·삼성SDI·에코프로 등), 에너지·전력(SK이노베이션·한국전력·두산에너빌리티 등), 자동차, 바이오, 금융, 조선, 방산, 인터넷·게임, 철강·화학
+""")
+    sec, stk, note = cm.sector_flows()
+    if sec is None or sec.empty:
+        st.info(note)
+        return
+    sec = sec.sort_values("date")
+    dates = sorted(sec["date"].unique())
+    per = st.radio("기간", list(SEC_PERIODS), index=1, horizontal=True, key="secf_per")
+    n = SEC_PERIODS[per]
+    since = dates[-min(n, len(dates))]
+    win = sec[sec["date"] >= since]
+    g = win.groupby("sector").agg(외국인=("외국인", "sum"), 기관=("기관", "sum"), 개인=("개인", "sum")).div(1e8)
+    # 분야 수익률: 기간 동안 일별 평균 등락률을 누적
+    ret = win.groupby("sector")["등락률"].apply(lambda r: ((1 + r.fillna(0) / 100).prod() - 1) * 100)
+    g["분야 수익률(%)"] = ret
+    g["큰손 합계"] = g["외국인"] + g["기관"]
+    g["판단"] = [_judge(a, b) for a, b in zip(g["외국인"], g["기관"])]
+    g = g.sort_values("큰손 합계", ascending=False)
+
+    top_in, top_out = g.index[0], g.index[-1]
+    st.markdown(f"**{per} 기준** ({pd.Timestamp(since):%m/%d} ~ {pd.Timestamp(dates[-1]):%m/%d}) · "
+                f"큰손 자금이 가장 많이 들어온 분야 **{top_in}** ({g.loc[top_in, '큰손 합계']:+,.0f}억) · "
+                f"가장 많이 빠진 분야 **{top_out}** ({g.loc[top_out, '큰손 합계']:+,.0f}억)")
+
+    st.subheader("분야별 순매수 (억 원)")
+    order = list(g.index)
+    fig = go.Figure()
+    fig.add_trace(go.Bar(y=order, x=g["외국인"], name="외국인", orientation="h", marker_color=cm.BLUE))
+    fig.add_trace(go.Bar(y=order, x=g["기관"], name="기관", orientation="h", marker_color=cm.ORANGE))
+    fig.update_layout(barmode="group", yaxis=dict(autorange="reversed"), hovermode="y unified",
+                      height=80 + 48 * len(order), margin=dict(l=10, r=10, t=10, b=10), legend=dict(orientation="h"))
+    fig.add_vline(x=0, line_color=cm.MUTED)
+    st.plotly_chart(fig, use_container_width=True)
+
+    st.subheader("분야별 요약표")
+    show = g.reset_index().rename(columns={"sector": "분야"})
+    st.dataframe(show[["분야", "판단", "외국인", "기관", "개인", "큰손 합계", "분야 수익률(%)"]], hide_index=True,
+                 use_container_width=True,
+                 column_config={c: st.column_config.NumberColumn(format="%+,.0f") for c in ("외국인", "기관", "개인", "큰손 합계")}
+                 | {"분야 수익률(%)": st.column_config.NumberColumn(format="%+.1f%%")})
+    st.caption("단위: 억 원. 큰손 합계 = 외국인 + 기관.")
+
+    st.subheader("수급 vs 가격: 엇갈리는 분야 찾기")
+    fig2 = go.Figure(go.Scatter(
+        x=g["큰손 합계"], y=g["분야 수익률(%)"], mode="markers+text", text=g.index, textposition="top center",
+        marker=dict(size=14, color=[cm.UP if v > 0 else cm.DOWN for v in g["큰손 합계"]])))
+    fig2.add_hline(y=0, line_color=cm.MUTED)
+    fig2.add_vline(x=0, line_color=cm.MUTED)
+    fig2.update_layout(xaxis_title="큰손(외국인+기관) 순매수, 억 원", yaxis_title="분야 수익률 %", hovermode="closest",
+                       height=420, margin=dict(l=10, r=10, t=10, b=10))
+    st.plotly_chart(fig2, use_container_width=True)
+    div_up = [s for s in g.index if g.loc[s, "큰손 합계"] > 0 and g.loc[s, "분야 수익률(%)"] < 0]
+    div_dn = [s for s in g.index if g.loc[s, "큰손 합계"] < 0 and g.loc[s, "분야 수익률(%)"] > 0]
+    st.markdown("- 오른쪽 아래(큰손은 사는데 가격은 하락): " + (", ".join(f"**{s}**" for s in div_up) or "없음") + " → 바닥 다지기 후보")
+    st.markdown("- 왼쪽 위(가격은 오르는데 큰손은 매도): " + (", ".join(f"**{s}**" for s in div_dn) or "없음") + " → 차익 실현 주의")
+
+    st.subheader("최근 20거래일 외국인 순매수 지도")
+    last20 = sec[sec["date"] >= dates[-min(20, len(dates))]]
+    hm = last20.pivot_table(index="sector", columns="date", values="외국인", aggfunc="sum").reindex(order) / 1e8
+    fig3 = go.Figure(go.Heatmap(z=hm.values, x=[pd.Timestamp(d).strftime("%m/%d") for d in hm.columns], y=hm.index,
+                                colorscale=[[0, cm.DOWN], [0.5, "#1A1F2B"], [1, cm.UP]], zmid=0,
+                                colorbar=dict(title="억 원")))
+    fig3.update_layout(height=80 + 36 * len(order), margin=dict(l=10, r=10, t=10, b=10))
+    st.plotly_chart(fig3, use_container_width=True)
+    st.caption("초록은 외국인 순매수, 빨강은 순매도한 날이에요. 같은 색이 가로로 이어지면 연속 매매예요.")
+
+    st.subheader("분야 자세히 보기")
+    pick = st.selectbox("분야 선택", order, key="secf_pick")
+    one = sec[sec["sector"] == pick].set_index("date").sort_index()
+    cum = one[["외국인", "기관", "개인"]].cumsum() / 1e8
+    fig4 = go.Figure()
+    for col, c in (("외국인", cm.BLUE), ("기관", cm.ORANGE), ("개인", cm.MUTED)):
+        fig4.add_trace(go.Scatter(x=cum.index, y=cum[col], name=f"{col} 누적", line=dict(color=c, width=2)))
+    px_idx = (1 + one["등락률"].fillna(0) / 100).cumprod() * 100
+    fig4.add_trace(go.Scatter(x=px_idx.index, y=px_idx, name="분야 지수 (오른쪽, 시작=100)", yaxis="y2",
+                              line=dict(color="#E6E8EB", width=1.5, dash="dot")))
+    fig4.update_layout(yaxis=dict(title="누적 순매수 (억 원)"), yaxis2=dict(overlaying="y", side="right", title="분야 지수"))
+    cm.show(fig4, 360)
+    if stk is not None and not stk.empty:
+        s2 = stk[(stk["sector"] == pick) & (stk["date"] >= since)]
+        if not s2.empty:
+            tb = s2.groupby("name").agg(외국인=("외국인", "sum"), 기관=("기관", "sum"), 개인=("개인", "sum")).div(1e8)
+            lastrow = s2.sort_values("date").groupby("name").tail(1).set_index("name")
+            if "f_hold" in lastrow:
+                tb["외국인 보유율(%)"] = lastrow["f_hold"]
+            tb["판단"] = [_judge(a, b) for a, b in zip(tb["외국인"], tb["기관"])]
+            tb = tb.sort_values("외국인", ascending=False).reset_index().rename(columns={"name": "종목"})
+            st.markdown(f"**{pick} 종목별 ({per})**")
+            st.dataframe(tb, hide_index=True, use_container_width=True,
+                         column_config={c: st.column_config.NumberColumn(format="%+,.0f") for c in ("외국인", "기관", "개인")}
+                         | {"외국인 보유율(%)": st.column_config.NumberColumn(format="%.2f")})
+    st.caption(f"최근 {len(dates)}거래일 데이터예요. 평일 09:30·16:00에 자동으로 갱신돼요.")
+    cm.source(note)

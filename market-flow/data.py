@@ -370,3 +370,34 @@ def load_fred(series: list[str]) -> tuple[dict[str, pd.Series], str]:
     if failed:
         note += f" · 불러오지 못한 항목: {', '.join(failed)}"
     return out, note
+
+
+# ── 분야별 수급 (data/kr/sector_flows.csv, stock_flows.csv) ─────
+SECTOR_NAMES = ["반도체", "2차전지", "에너지·전력", "자동차", "바이오", "금융", "조선", "방산", "인터넷·게임", "철강·화학"]
+
+
+def load_sector_flows() -> tuple[pd.DataFrame | None, pd.DataFrame | None, str]:
+    """(분야 합계 표, 종목별 표, 출처). 단위 원. 분야 합계 열: date, sector, 외국인, 기관, 개인, 등락률."""
+    if demo_mode():
+        rng = np.random.default_rng(31)
+        idx = _bdays(120)
+        rows, srows = [], []
+        for k, sec in enumerate(SECTOR_NAMES):
+            drift = rng.normal(0, 3e10)
+            for d in idx:
+                fo, ins = rng.normal(drift, 1.2e11), rng.normal(0, 8e10)
+                rows.append({"date": d, "sector": sec, "외국인": fo, "기관": ins, "개인": -(fo + ins),
+                             "등락률": rng.normal(fo / 1e12, 1.5), "종목수": 4})
+            for j in range(3):
+                for d in idx[-60:]:
+                    fo = rng.normal(drift / 3, 4e10)
+                    srows.append({"date": d, "code": f"{k:03d}{j:03d}", "name": f"{sec} 종목{j + 1}", "sector": sec,
+                                  "close": 10000 + j * 1000, "외국인": fo, "기관": rng.normal(0, 3e10),
+                                  "개인": -fo, "f_hold": 30 + j})
+        return pd.DataFrame(rows), pd.DataFrame(srows), SAMPLE
+    f1, f2 = KR_DIR / "sector_flows.csv", KR_DIR / "stock_flows.csv"
+    if not f1.exists():
+        return None, None, "분야별 수급 파일이 아직 없어요 (GitHub 자동 수집이 처음 돌면 생겨요)"
+    sec = pd.read_csv(f1, parse_dates=["date"])
+    stk = pd.read_csv(f2, parse_dates=["date"], dtype={"code": str}) if f2.exists() else None
+    return sec, stk, f"네이버 증권 종목별 매매동향 합산 (GitHub 자동 수집 · 마지막 {sec['date'].max():%Y-%m-%d})"
