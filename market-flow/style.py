@@ -18,8 +18,16 @@ CSS = f"""
 <style>
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
 
-html, body, [class*="st-"], .stMarkdown, .stDataFrame, button, input, select, textarea {{
+html, body, .stApp, p, li, label, h1, h2, h3, h4, h5, h6, td, th, input, select, textarea,
+[data-testid="stMarkdownContainer"], [data-testid="stMetricValue"], [data-testid="stMetricLabel"],
+[data-testid="stMetricDelta"] div, [data-testid="stPageLink-NavLink"] p, summary p {{
   font-family: {FONT} !important;
+}}
+/* 아이콘(화살표 등)은 원래 아이콘 글꼴을 그대로 써야 그림으로 보여요 */
+[data-testid="stIconMaterial"], span[class*="material-symbols"], .material-symbols-rounded,
+[data-testid="stExpanderToggleIcon"], [data-testid="stSidebarCollapseButton"] span,
+[data-testid="stExpandSidebarButton"] span, [data-testid="collapsedControl"] span {{
+  font-family: "Material Symbols Rounded" !important;
 }}
 .stApp {{ background: {BG}; }}
 
