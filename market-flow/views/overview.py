@@ -32,6 +32,8 @@ def today():
 
     from views import flowmap  # 오늘 바뀐 것 3줄
     flowmap.changes_card(p)
+    from views import riskgauge
+    riskgauge.mini(p)
 
     # 흐름 점수 두 시장
     cols = st.columns(len(SCORE_TARGETS))

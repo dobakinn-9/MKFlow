@@ -18,7 +18,7 @@ for _m in [m for m in list(sys.modules) if m.split(".")[0] in _LOCAL]:
     del sys.modules[_m]
 
 from config import FORWARD_DAYS, SCORE_TARGETS  # noqa: E402
-from views import ai, ai2, calendar, flowmap, flows, macro, money, overview, reports, sentiment, strength
+from views import ai, ai2, calendar, flowmap, riskgauge, flows, macro, money, overview, reports, sentiment, strength
 
 st.set_page_config(page_title="한·미 시장 흐름", page_icon="📈", layout="wide", initial_sidebar_state="auto")
 
@@ -33,6 +33,7 @@ pages = {
     "종합": [
         P(overview.today, title="오늘의 시장", icon="🏠", url_path="today", default=True),
         P(flowmap.flow_map, title="흐름 연결 지도", icon="🔗", url_path="flow-map"),
+        P(riskgauge.page, title="위험선호/회피 게이지", icon="💹", url_path="risk-gauge"),
         P(flowmap.rotation_map, title="업종 순환 지도", icon="🧭", url_path="rotation-map"),
         P(overview.score, title="흐름 점수·전망", icon="📍", url_path="score"),
     ],

@@ -209,6 +209,14 @@ def flow_map():
     turning = [n for n in valid if n["turning"]]
     if turning:
         lines.append("🔄 **방향이 바뀌는 중**: " + ", ".join(f"{n['name']} {n['turning'][:1]}" for n in turning))
+    try:
+        from views import riskgauge as rg
+        sm = rg.summary(p)
+        if sm:
+            lines.insert(0, f"🌐 **세계 돈의 방향**: 위험선호 게이지 {sm['now']:.0f} · {rg.label(sm['now'])[0]} "
+                            f"(1주 전 {sm['w1']:.0f})")
+    except Exception:
+        pass
     if lines:
         with st.container(border=True):
             st.markdown("**한 줄 요약**  \n" + "  \n".join(lines))
@@ -495,6 +503,19 @@ def changes(p: pd.DataFrame) -> list[tuple[float, str]]:
             d = _chg(s, 1)
             if abs(d) >= 12:
                 add(abs(d) / 12, f"공포지수(VIX) {d:+.0f}% ({v1:.1f})")
+
+    # 위험선호/회피 게이지 구간 변화
+    try:
+        from views import riskgauge as rg
+        sm = rg.summary(p)
+        if sm:
+            l0, l1 = rg.label(sm["d1"])[0], rg.label(sm["now"])[0]
+            if l0 != l1:
+                add(1.9, f"위험선호 게이지 {l0} → {l1} ({sm['now']:.0f}) — 돈의 방향이 바뀜")
+            elif abs(sm["now"] - sm["d1"]) >= 8:
+                add(abs(sm["now"] - sm["d1"]) / 8, f"위험선호 게이지 {sm['d1']:.0f} → {sm['now']:.0f}")
+    except Exception:
+        pass
 
     # 흐름 점수 국면 변화
     for t, nm in SCORE_TARGETS.items():
