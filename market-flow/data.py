@@ -335,6 +335,13 @@ def _synthetic_fred() -> dict[str, pd.Series]:
         "T10YIE": be, "T5YIE": be + 0.1,
         "MICH": pd.Series(3 + rng.normal(0, 0.3, len(m)), index=m),
         "DCOILWTICO": oil_d,
+        "ICSA": pd.Series(220000 + rng.normal(0, 8000, len(d) // 5), index=d[::5][:len(d) // 5]),
+        "UNRATE": pd.Series(4 + np.cumsum(rng.normal(0, 0.05, len(m))) * 0.3, index=m),
+        "PAYEMS": pd.Series(150000 + np.cumsum(rng.normal(120, 60, len(m))), index=m),
+        "RSAFS": pd.Series(600000 * np.exp(np.cumsum(rng.normal(0.003, 0.006, len(m)))), index=m),
+        "INDPRO": pd.Series(100 * np.exp(np.cumsum(rng.normal(0.001, 0.005, len(m)))), index=m),
+        "UMCSENT": pd.Series(70 + rng.normal(0, 4, len(m)), index=m),
+        "HOUST": pd.Series(1400 + rng.normal(0, 80, len(m)), index=m),
     }
 
 

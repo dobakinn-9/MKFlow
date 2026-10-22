@@ -4,7 +4,7 @@ app.py에서 inject()를 한 번 부르면 모든 화면에 적용돼요.
 - 글꼴: Pretendard (한글이 또렷한 무료 글꼴)
 - 숫자 카드: 둥근 카드, 큰 숫자, 휴대폰에서는 한 줄에 2개씩
 - 차트: 투명 배경, 옅은 격자, 범례는 아래, 오른쪽 위에 확대·축소·이동·초기화·저장 버튼
-- 휴대폰(폭 640px 이하): 여백·제목 축소, 표 글자 축소, 탭·선택 버튼 가로 스크롤
+- 휴대폰(폭 640px 이하): 카드·칸을 한 줄에 하나씩, 여백·제목 축소, 표 글자 축소, 탭·선택 버튼 가로 스크롤
 """
 from __future__ import annotations
 
@@ -112,11 +112,11 @@ footer, [data-testid="stDecoration"], [data-testid="stStatusWidget"] {{ visibili
   h3 {{ font-size: 1.05rem !important; margin-top: 1rem !important; }}
   p, li {{ font-size: 0.93rem; }}
 
-  /* 숫자 카드가 있는 줄은 2개씩 줄바꿈 */
-  [data-testid="stHorizontalBlock"]:has([data-testid="stMetric"]) {{ flex-wrap: wrap !important; gap: 8px !important; }}
-  [data-testid="stHorizontalBlock"]:has([data-testid="stMetric"]) > [data-testid="stColumn"],
-  [data-testid="stHorizontalBlock"]:has([data-testid="stMetric"]) > [data-testid="column"] {{
-    flex: 1 1 calc(50% - 8px) !important; min-width: calc(50% - 8px) !important; width: calc(50% - 8px) !important;
+  /* 휴대폰에서는 나란히 놓인 칸을 모두 한 줄에 하나씩 세로로 쌓기 */
+  [data-testid="stHorizontalBlock"] {{ flex-direction: column !important; flex-wrap: nowrap !important; gap: 10px !important; }}
+  [data-testid="stHorizontalBlock"] > [data-testid="stColumn"],
+  [data-testid="stHorizontalBlock"] > [data-testid="column"] {{
+    flex: 1 1 100% !important; width: 100% !important; min-width: 100% !important;
   }}
   [data-testid="stMetric"] {{ padding: 10px 12px 8px; border-radius: 14px; }}
   [data-testid="stMetricValue"] {{ font-size: 1.2rem !important; }}

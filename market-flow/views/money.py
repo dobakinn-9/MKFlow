@@ -1,6 +1,8 @@
 """돈의 가격: 금리 / 환율·달러 / 유가·금 / 미국 경제 보고서."""
 from __future__ import annotations
 
+import json
+
 import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
@@ -101,9 +103,84 @@ def commodities():
     cm.source(cm.price_note())
 
 
+US_AUTO = [  # (FRED 코드, 이름, 표시 방식, 단위, 좋은 방향) — 발표되면 자동으로 최신값이 들어와요
+    ("ICSA", "신규 실업수당 청구 (주간)", "level_k", "천 건", "down"),
+    ("UNRATE", "실업률", "level", "%", "down"),
+    ("PAYEMS", "비농업 일자리 증가", "diff_k", "천 명", "up"),
+    ("CPIAUCSL", "CPI (전년비)", "yoy", "%", "down"),
+    ("CPILFESL", "근원 CPI (전년비)", "yoy", "%", "down"),
+    ("PCEPILFE", "근원 PCE (전년비)", "yoy", "%", "down"),
+    ("RSAFS", "소매판매 (전월비)", "mom", "%", "up"),
+    ("INDPRO", "산업생산 (전월비)", "mom", "%", "up"),
+    ("UMCSENT", "미시간대 소비자심리", "level", "", "up"),
+    ("HOUST", "주택 착공 (연율)", "level_k", "천 호", "up"),
+]
+
+
+@st.cache_data(ttl=3600 * 3, show_spinner="미국 공식 통계(FRED)를 불러오는 중…")
+def _us_auto():
+    return dt.load_fred([c for c, *_ in US_AUTO])
+
+
+def _auto_value(s, how):
+    s = s.dropna()
+    if how == "yoy":
+        v = (s / s.shift(12) - 1) * 100
+    elif how == "mom":
+        v = s.pct_change() * 100
+    elif how == "diff_k":
+        v = s.diff()
+    elif how == "level_k":
+        v = s / 1000 if s.median() > 10000 else s
+    else:
+        v = s
+    v = v.dropna()
+    return v
+
+
 def us_reports():
     st.title("미국 경제 보고서")
-    st.caption("미국 정부·연준의 최근 공식 보고서를 한국어로 요약했어요. 새 보고서가 나오면 요청하시면 갱신해 드려요.")
+    meta_f = dt.DATA_DIR / "us_reports_meta.json"
+    meta = json.loads(meta_f.read_text(encoding="utf-8")) if meta_f.exists() else {}
+    st.caption("미국 정부·연준의 공식 보고서를 한국어로 요약했어요. 매일 아침 새 발표를 확인해 갱신해요."
+               + (f" · 마지막 확인 **{meta['checked']}**" if meta.get("checked") else ""))
+
+    # ── 자동 갱신 지표판 ─────────────────────
+    st.subheader("주요 지표 최신값 (자동 갱신)")
+    fred, fnote = _us_auto()
+    if "샘플" in fnote:
+        st.warning(fnote)
+    rows = []
+    for code, nm, how, unit, good in US_AUTO:
+        s = fred.get(code)
+        if s is None or s.dropna().empty:
+            continue
+        v = _auto_value(s, how)
+        if len(v) < 2:
+            continue
+        last, prev = float(v.iloc[-1]), float(v.iloc[-2])
+        trend = "⬆️" if last > prev else "⬇️" if last < prev else "➡️"
+        better = (last < prev) if good == "down" else (last > prev)
+        rows.append({"지표": nm, "최신값": last, "단위": unit, "직전": prev, "변화": f"{trend} {last - prev:+.2f}",
+                     "판단": "🟢 개선" if better and last != prev else ("🔴 악화" if last != prev else "⚪ 보합"),
+                     "기준 시점": v.index[-1].strftime("%Y-%m-%d" if code == "ICSA" else "%Y-%m")})
+    if rows:
+        st.dataframe(pd.DataFrame(rows), hide_index=True, use_container_width=True,
+                     column_config={"최신값": st.column_config.NumberColumn(format="%.2f"),
+                                    "직전": st.column_config.NumberColumn(format="%.2f")})
+        st.caption("미국 노동통계국·경제분석국·연준 통계가 발표되면 FRED를 통해 자동으로 최신값이 들어와요. "
+                   "실업수당 청구는 매주 목요일, 나머지는 매월 발표돼요. 출처: " + fnote)
+
+    # ── 발표 예정 ────────────────────────────
+    nxt = meta.get("upcoming") or []
+    if nxt:
+        st.subheader("이번 주·다음 주 발표 예정")
+        st.dataframe(pd.DataFrame(nxt).rename(columns={"date": "날짜", "report": "보고서", "why": "의미"}),
+                     hide_index=True, use_container_width=True)
+        st.caption("매일 아침 공식 발표 일정을 확인해 갱신해요. 일정은 기관 사정에 따라 바뀔 수 있어요.")
+
+    # ── 보고서 요약 카드 ─────────────────────
+    st.subheader("최근 보고서 요약")
     reps, note = dt.load_us_reports()
     if not reps:
         st.info(note)
