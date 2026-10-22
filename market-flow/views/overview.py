@@ -30,6 +30,9 @@ def today():
     st.title("오늘의 시장")
     st.caption(f"기준일 {p['^KS11'].dropna().index[-1].date()} · 데이터: {cm.price_note()}")
 
+    from views import flowmap  # 오늘 바뀐 것 3줄
+    flowmap.changes_card(p)
+
     # 흐름 점수 두 시장
     cols = st.columns(len(SCORE_TARGETS))
     for col, (t, nm) in zip(cols, SCORE_TARGETS.items()):
