@@ -233,6 +233,55 @@ def update_sector_flows():
         + (f" · 못 받은 종목: {', '.join(bad)}" if bad else ""))
 
 
+# ── 지수 PER·PBR (시가총액 상위 종목으로 직접 계산) ───────
+VAL_TOP = {"KOSPI": 200, "KOSDAQ": 150}
+
+
+def update_valuation(code: str, day: pd.Timestamp):
+    """한국거래소 지수 PER은 해외 서버에서 막혀서, 시총 상위 종목의 PER·PBR로 시총가중 값을 계산해요.
+    지수 PER = 시가총액 합 ÷ 순이익 합 (적자 기업 제외, 한국거래소 방식과 같아요)."""
+    stocks = []
+    for page in range(1, VAL_TOP[code] // 100 + 2):
+        js = get(f"stocks/marketValue/{code}", page=page, pageSize=100) or {}
+        stocks += js.get("stocks", [])
+        if len(stocks) >= VAL_TOP[code]:
+            break
+    stocks = [x for x in stocks if x.get("stockEndType") == "stock"][:VAL_TOP[code]]
+    if not stocks:
+        raise RuntimeError("시가총액 순위 응답 없음")
+    rows, seen = [], set()
+    for x in stocks:
+        cd = x.get("itemCode")
+        info = get(f"stock/{cd}/integration") or {}
+        vals = {i.get("code"): i.get("value") for i in info.get("totalInfos", [])}
+        seen |= set(vals)
+        rows.append({"cap": num(x.get("marketValue")), "per": num(str(vals.get("per", "")).replace("배", "")),
+                     "pbr": num(str(vals.get("pbr", "")).replace("배", "")),
+                     "fper": num(str(vals.get("cnsPer", "")).replace("배", "")),
+                     "dy": num(vals.get("dividendYieldRatio"))})
+        time.sleep(0.05)
+    d = pd.DataFrame(rows).dropna(subset=["cap"])
+    tot = d["cap"].sum()
+
+    def agg(col):
+        v = d[(d[col] > 0)]
+        return float(v["cap"].sum() / (v["cap"] / v[col]).sum()) if len(v) else float("nan")
+
+    dy = d.dropna(subset=["dy"])
+    out = {"PER": agg("per"), "PBR": agg("pbr"), "추정PER": agg("fper"),
+           "배당수익률": float((dy["dy"] * dy["cap"]).sum() / dy["cap"].sum()) if len(dy) else float("nan"),
+           "흑자기업 비중(%)": float(d.loc[d["per"] > 0, "cap"].sum() / tot * 100), "종목수": len(d)}
+    name = f"valuation_{code}"
+    old = read(name)
+    df = old.copy() if len(old) else pd.DataFrame(columns=list(out), dtype=float)
+    for k, v in out.items():
+        df.loc[day, k] = v
+    df = write(df, name)
+    say(f"  ✓ {name}: PER {out['PER']:.2f} · PBR {out['PBR']:.2f} · 추정PER {out['추정PER']:.2f} · "
+        f"배당 {out['배당수익률']:.2f}% · {len(d)}종목 · {len(df)}일치"
+        + ("" if "dividendYieldRatio" in seen else f" · (배당 항목 없음: {sorted(seen)[:30]})"))
+
+
 def main():
     say(f"한국 데이터 받기 시작 ({date.today()}) · 출처: 네이버 증권")
     ok = 0
@@ -255,7 +304,13 @@ def main():
         update_sector_flows()
     except Exception as e:
         say(f"  ✗ 분야별 수급 실패: {type(e).__name__}: {str(e)[:160]}")
+    for code in ("KOSPI", "KOSDAQ"):
+        try:
+            update_valuation(code, read(f"index_{code}").index.max())
+        except Exception as e:
+            say(f"  ✗ {code} PER·PBR 실패: {type(e).__name__}: {str(e)[:160]}")
     (OUT / "probe_naver.html").unlink(missing_ok=True)
+    (OUT / "probe.txt").unlink(missing_ok=True)
     (OUT / "status.txt").write_text("\n".join(log) + "\n", encoding="utf-8")
     say(f"완료: 시장 {ok}/2")
     if ok == 0:

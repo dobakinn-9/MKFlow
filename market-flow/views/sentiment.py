@@ -195,24 +195,43 @@ def valuation():
     nm = st.radio("지수", ["코스피", "코스닥"], horizontal=True, key="val_idx")
     df, note = cm.kr_fundamental(nm)
     if df is None:
-        st.info(note + "\n\n한국거래소 접속이 막히면 PER·PBR은 비어 있어요. 위의 가격 위치를 참고해 주세요.")
+        st.info(note + "\n\n그동안은 위의 가격 위치를 참고해 주세요.")
         return
+    n_days = len(df)
     cols = st.columns(len(df.columns))
+    unit = {"배당수익률": "%"}
     for col, c in zip(cols, df.columns):
         s = df[c].dropna()
         if s.empty:
             continue
-        col.metric(c, f"{s.iloc[-1]:.2f}" + ("%" if c == "배당수익률" else "배"),
-                   help=f"과거 5년 중 하위 {an.percentile_rank(s):.0f}% 위치")
-    for c in [c for c in ("PER", "PBR") if c in df]:
-        s = df[c].dropna()
-        st.markdown(f"**{nm} {c} 추이**")
-        fig = go.Figure(go.Scatter(x=s.index, y=s, line=dict(color=cm.BLUE, width=2), name=c))
-        fig.add_hline(y=s.mean(), line_dash="dash", line_color=cm.MUTED, annotation_text=f"5년 평균 {s.mean():.2f}")
-        cm.show(fig, 260)
-        pr = an.percentile_rank(s)
-        st.markdown(f"현재 {c}는 과거 5년 중 **하위 {pr:.0f}%** 위치예요 → " +
-                    ("역사적으로 **비싼 편**이에요." if pr > 80 else "역사적으로 **싼 편**이에요." if pr < 20 else "평균 범위예요."))
+        prev = s.iloc[-2] if len(s) > 1 else None
+        col.metric(c, f"{s.iloc[-1]:.2f}" + unit.get(c, "배"),
+                   f"{s.iloc[-1] - prev:+.2f} (전 수집일 대비)" if prev is not None else None, delta_color="off",
+                   help=(f"수집 기간 중 하위 {an.percentile_rank(s):.0f}% 위치" if len(s) >= 60 else None))
+    if "PER" in df and "추정PER" in df:
+        per, fper = df["PER"].dropna(), df["추정PER"].dropna()
+        if len(per) and len(fper):
+            g = (per.iloc[-1] / fper.iloc[-1] - 1) * 100
+            st.markdown(f"- **추정PER {fper.iloc[-1]:.1f}배 < 현재 PER {per.iloc[-1]:.1f}배** → 증권사들은 앞으로 1년 이익이 약 **{g:+.0f}%** 늘 것으로 보고 있어요."
+                        if g > 0 else f"- 추정PER({fper.iloc[-1]:.1f}배)이 현재 PER({per.iloc[-1]:.1f}배)보다 높아요 → 이익이 줄 것으로 예상된다는 뜻이에요.")
+    if "PBR" in df and len(df["PBR"].dropna()):
+        pb = df["PBR"].dropna().iloc[-1]
+        st.markdown(f"- **PBR {pb:.2f}배** → " + ("순자산 1배 아래로, 장부가치보다 싸게 거래되고 있어요." if pb < 1
+                    else "코스피가 오랫동안 머물던 1배 안팎보다 높아요." if pb > 1.3 else "역사적으로 흔한 1배 안팎 수준이에요."))
+    if n_days < 60:
+        st.caption(f"PER·PBR은 2026-10-27부터 매일 직접 계산해 쌓고 있어요 (지금 {n_days}일치). "
+                   "60일 이상 쌓이면 '과거 중 어느 위치인지'도 함께 보여 줄게요.")
+    if n_days >= 5:
+        for c in [c for c in ("PER", "추정PER", "PBR") if c in df]:
+            s = df[c].dropna()
+            st.markdown(f"**{nm} {c} 추이**")
+            fig = go.Figure(go.Scatter(x=s.index, y=s, line=dict(color=cm.BLUE, width=2), name=c))
+            fig.add_hline(y=s.mean(), line_dash="dash", line_color=cm.MUTED, annotation_text=f"평균 {s.mean():.2f}")
+            cm.show(fig, 260)
+            if len(s) >= 60:
+                pr = an.percentile_rank(s)
+                st.markdown(f"현재 {c}는 수집 기간 중 **하위 {pr:.0f}%** 위치예요 → " +
+                            ("**비싼 편**이에요." if pr > 80 else "**싼 편**이에요." if pr < 20 else "평균 범위예요."))
     cm.source(note)
 
 

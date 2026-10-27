@@ -9,7 +9,6 @@ on:
   push:
     paths:
       - market-flow/fetch_kr.py
-      - market-flow/probe_per.py
       - .github/workflows/kr_data.yml
   workflow_dispatch:
 
@@ -39,12 +38,6 @@ jobs:
       - name: 한국 데이터 받기
         working-directory: market-flow
         run: python fetch_kr.py
-
-      - name: PER 자료 점검 (임시)
-        if: always()
-        continue-on-error: true
-        working-directory: market-flow
-        run: python probe_per.py
 
       - name: 저장소에 저장
         if: always()

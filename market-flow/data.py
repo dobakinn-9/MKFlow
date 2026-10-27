@@ -247,17 +247,13 @@ def load_kr_fundamental(name: str = "코스피", days: int = 1250):
         per = np.clip(12 + np.cumsum(rng.normal(0, 0.08, days)), 7, 25)
         pbr = per / 12
         return pd.DataFrame({"PER": per, "PBR": pbr, "배당수익률": 2 + rng.normal(0, 0.1, days)}, index=idx), SAMPLE
-    try:
-        from pykrx import stock
-
-        s, e = _krx_dates(days)
-        df = stock.get_index_fundamental(s, e, KRX_INDEX[name])
-        df.index = pd.to_datetime(df.index)
-        cols = [c for c in ("PER", "PBR", "배당수익률") if c in df]
-        df = df[cols].replace(0, np.nan).dropna(how="all")
-        return df, "한국거래소 (pykrx)"
-    except Exception as e:
-        return None, f"{name} PER·PBR을 불러오지 못했어요 ({e})"
+    code = {"코스피": "KOSPI", "코스닥": "KOSDAQ"}.get(name, name)
+    cached, note = _kr_cache(f"valuation_{code}")
+    if cached is not None and len(cached):
+        cols = [c for c in ("PER", "PBR", "추정PER", "배당수익률") if c in cached and cached[c].notna().any()]
+        return cached[cols].dropna(how="all"), ("네이버 증권 시가총액 상위 종목으로 계산한 시총가중 PER·PBR "
+                                                 f"(적자 기업 제외 · GitHub 자동 수집 · {note.split('·')[-1].strip()})")
+    return None, f"{name} PER·PBR 자료가 아직 없어요. GitHub 자동 수집이 다음에 돌면 생겨요"
 
 
 # ── 한국: VKOSPI ─────────────────────────────────────────
