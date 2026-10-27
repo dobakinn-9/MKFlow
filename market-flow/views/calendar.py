@@ -88,7 +88,7 @@ def status():
         ("한국", "업종 등락·상승/하락 종목 수", _last_csv(K / "breadth_ALL.csv"), "평일 09:30·16:00 자동 수집", bday_lag, 1),
         ("한국", "지수 거래대금", _last_csv(K / "index_KOSPI.csv"), "평일 09:30·16:00 자동 수집", bday_lag, 1),
         ("한국", "코스피·코스닥 PER·PBR", _last_csv(K / "valuation_KOSPI.csv"), "평일 09:30·16:00 자동 수집", bday_lag, 1),
-        ("한국", "VKOSPI", _last_csv(K / "vkospi.csv"), "평일 자동 수집 (없으면 실제 변동성으로 대체)", bday_lag, 1),
+        ("한국", "VKOSPI", _last_csv(K / "vkospi.csv"), "해외에서 받을 곳이 없어 실제 변동성으로 대체", bday_lag, 1),
         ("미국", "미국 경제 지표 (FRED)", fred_last, "발표되는 대로 (주간·월간)", cal_lag, 40),
         ("미국", "미국 경제 보고서 확인", _last_json(D / "us_reports_meta.json", "checked"), "매일 08:18 Claude", cal_lag, 0),
         ("AI", "AI 모델 예측 기록·채점", _last_csv(D / "predictions.csv", "created_utc"), "평일 07:40·16:10 자동", bday_lag, 1),
@@ -100,7 +100,9 @@ def status():
         if not pd.isna(last) and getattr(pd.Timestamp(last), "tzinfo", None) is not None:
             last = pd.Timestamp(last).tz_convert("Asia/Seoul").tz_localize(None)
         lag = lagf(last)
-        if lag is None:
+        if lag is None and nm == "VKOSPI":
+            mark = "🟢 대체 표시 (코스피 실제 변동성, 매일 계산)"
+        elif lag is None:
             mark = "⚪ 자료 없음"
         elif lag <= ok_lag:
             mark = "🟢 최신"
