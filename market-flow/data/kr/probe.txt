@@ -1,101 +1,0 @@
-## idx_integration [200] len=16288
-{"stockEndType":"index","itemCode":"KOSPI","reutersCode":"KOSPI","stockName":"코스피","totalInfos":[{"code":"lastClosePrice","key":"전일","value":"5,469.47"},{"code":"openPrice","key":"시가","value":"5,658.65","compareToPreviousPrice":{"code":"2","text":"상승","name":"RISING"}},{"code":"highPrice","key":"고가","value":"5,737.61","compareToPreviousPrice":{"code":"2","text":"상승","name":"RISING"}},{"code":"lowPrice","key":"저가","value":"5,640.81","compareToPreviousPrice":{"code":"2","text":"상승","name":"RISING"}},{"code":"accumulatedTradingVolume","key":"거래량","value":"128,843천주"},{"code":"accumulatedTradingVa
--- hits: 증권시장에서 형성되는 주가변동을 종합적으로 보여주는 국내 주요경제지표임","dealTrendInfo":{"bizdate":"20261027","personalValue":"-9,866","foreignValue":"+3,923","institutionalValue":"+5,388"},"programTrendInfo":{"bizdate":"20261027", || ndexBiDifferenceReal":"+3,254","indexTotalReal":"+4,023"},"upDownStockInfo":{"upperCount":"0","riseCount":"573","lowerCount":"0","fallCount":"297","steadyCount":"43"},"enrollStocks":[{"stockType":"dom
-
-## idx_basic [200] len=3161
-{"stockEndType":"index","itemCode":"KOSPI","reutersCode":"KOSPI","symbolCode":"KOSPI","stockName":"코스피","itemLogoUrl":"https://ssl.pstatic.net/imgstock/fn/real/logo/index/IndexKOSPI.svg","itemLogoPngUrl":"https://ssl.pstatic.net/imgstock/fn/real/logo/png/index/IndexKOSPI.png","closePrice":"5,643.08","compareToPreviousClosePrice":"173.61","compareToPreviousPrice":{"code":"2","text":"상승","name":"RISING"},"fluctuationsRatio":"3.17","marketStatus":"OPEN","localTradedAt":"2026-10-27T13:45:50+09:00","stockExchangeType":{"code":"KS","zoneId":"Asia/Seoul","nationType":"KOR","delayTime":0,"startTime":"
--- hits: 
-
-## stock_integration [200] len=8855
-{"stockEndType":"stock","itemCode":"005930","reutersCode":"005930","stockName":"삼성전자","totalInfos":[{"code":"lastClosePrice","key":"전일","value":"213,000"},{"code":"openPrice","key":"시가","value":"217,000","compareToPreviousPrice":{"code":"2","text":"상승","name":"RISING"}},{"code":"highPrice","key":"고가","value":"225,500","compareToPreviousPrice":{"code":"2","text":"상승","name":"RISING"}},{"code":"lowPrice","key":"저가","value":"216,000","compareToPreviousPrice":{"code":"2","text":"상승","name":"RISING"}},{"code":"accumulatedTradingVolume","key":"거래량","value":"14,802,479"},{"code":"accumulatedTradingVa
--- hits: 380,000"},{"code":"lowPriceOf52Weeks","key":"52주 최저","value":"93,500"},{"code":"per","key":"PER","value":"9.93배","valueDesc":"2026.06."},{"code":"eps","key":"EPS","value":"22,292원","valueDesc":"2026.0 || code":"lowPriceOf52Weeks","key":"52주 최저","value":"93,500"},{"code":"per","key":"PER","value":"9.93배","valueDesc":"2026.06."},{"code":"eps","key":"EPS","value":"22,292원","valueDesc":"2026.06."},{"code" || {"code":"eps","key":"EPS","value":"22,292원","valueDesc":"2026.06."},{"code":"cnsPer","key":"추정PER","value":"4.86배"},{"code":"cnsEps","key":"추정EPS","value":"45,512원"},{"code":"pbr","key":"PBR","value":
-
-## marketValue [200] len=9792
-{"stockListSortType":"MARKET_VALUE","stockListCategoryType":"KOSPI","stocks":[{"stockType":"domestic","stockEndType":"stock","itemCode":"005930","reutersCode":"005930","stockName":"삼성전자","sosok":"0","closePrice":"221,250","compareToPreviousClosePrice":"8,250","compareToPreviousPrice":{"code":"2","text":"상승","name":"RISING"},"fluctuationsRatio":"3.87","accumulatedTradingVolume":"8,925,647","accumulatedTradingValue":"1,991,498","accumulatedTradingValueKrwHangeul":"1조 9,915억원","localTradedAt":"2026-10-27T13:46:20+09:00","marketValue":"12,934,891","marketValueHangeul":"1,293조 4,891억원","nav":"N/A",
--- hits: 
-
-## pc_sise_index [200] len=69769
-<!DOCTYPE html><html lang="ko" translate="no"><head><meta charSet="utf-8"/><meta charSet="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,interactive-widget=resizes-content"/><script async="" src="https://ssl.pstatic.net/tveta/libs/glad/prod/gfp-core.js"></script><meta name="description" content="실시간 시세부터 차트·뉴스·토론까지, 네이버페이 증권에서 한눈에"/><meta property="og:url" content="https://m.stock.naver.com/domestic/index/KOSPI/total"/><meta property="og:title" content="코스피 - Npay 증권"/><meta property="og:image" content="https://s
--- hits: meta name="description" content="실시간 시세부터 차트·뉴스·토론까지, 네이버페이 증권에서 한눈에"/><meta property="og:url" content="https://m.stock.naver.com/domestic/index/KOSPI/total"/><meta property="og:title" content="코스피 -  || g:url" content="https://m.stock.naver.com/domestic/index/KOSPI/total"/><meta property="og:title" content="코스피 - Npay 증권"/><meta property="og:image" content="https://ssl.pstatic.net/static/m/stock/im/2 || index/KOSPI/total"/><meta property="og:title" content="코스피 - Npay 증권"/><meta property="og:image" content="https://ssl.pstatic.net/static/m/stock/im/2016/08/og_stock-200.png"/><meta property="og:type" 
-
-## krx_idx_per [403] len=2330
-
-
-
-
-
-
-
-
-
- 
- 
-
-
-	
-		<html>
-<head>
-  <title>에러페이지 - 한국거래소 | 정보데이터시스템</title>
-  <meta charset="utf-8">
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="author" content="한국거래소" />
-  <meta name="description" content="증권·파생상품의 시장정보(Marketdata), 공매도정보, 투자분석정보(SMILE) 등 한국거래소의 정보데이터를 통합하여 제공 서비스" />
-  <meta name="keywords" content="정보데이터시스템 데이터시스템 한국거래소 통계 KRX통계 한국거래소정보 시장정보 주식 한국거래소데이터 KRX 한국거래소공매도 공매도
--- hits: 보 주식 한국거래소데이터 KRX 한국거래소공매도 공매도 투자분석정보 증권투자정보포털 코스닥기술분석보고서 분석보고서" />   <meta property="og:type" content="website" />   <meta property="og:title" content="KRX 정보데이터시스템" />   <meta property="og:descri || 닥기술분석보고서 분석보고서" />   <meta property="og:type" content="website" />   <meta property="og:title" content="KRX 정보데이터시스템" />   <meta property="og:description" content="증권·파생상품의 시장정보(Marketdata), 공매도정보, || "website" />   <meta property="og:title" content="KRX 정보데이터시스템" />   <meta property="og:description" content="증권·파생상품의 시장정보(Marketdata), 공매도정보, 투자분석정보(SMILE) 등 한국거래소의 정보데이터를 통합하여 제공 서비스" />   <meta
-
-## krx_idx_per_hist [403] len=2330
-
-
-
-
-
-
-
-
-
- 
- 
-
-
-	
-		<html>
-<head>
-  <title>에러페이지 - 한국거래소 | 정보데이터시스템</title>
-  <meta charset="utf-8">
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="author" content="한국거래소" />
-  <meta name="description" content="증권·파생상품의 시장정보(Marketdata), 공매도정보, 투자분석정보(SMILE) 등 한국거래소의 정보데이터를 통합하여 제공 서비스" />
-  <meta name="keywords" content="정보데이터시스템 데이터시스템 한국거래소 통계 KRX통계 한국거래소정보 시장정보 주식 한국거래소데이터 KRX 한국거래소공매도 공매도
--- hits: 보 주식 한국거래소데이터 KRX 한국거래소공매도 공매도 투자분석정보 증권투자정보포털 코스닥기술분석보고서 분석보고서" />   <meta property="og:type" content="website" />   <meta property="og:title" content="KRX 정보데이터시스템" />   <meta property="og:descri || 닥기술분석보고서 분석보고서" />   <meta property="og:type" content="website" />   <meta property="og:title" content="KRX 정보데이터시스템" />   <meta property="og:description" content="증권·파생상품의 시장정보(Marketdata), 공매도정보, || "website" />   <meta property="og:title" content="KRX 정보데이터시스템" />   <meta property="og:description" content="증권·파생상품의 시장정보(Marketdata), 공매도정보, 투자분석정보(SMILE) 등 한국거래소의 정보데이터를 통합하여 제공 서비스" />   <meta
-
-## fnguide_market [200] len=1829
-ï»¿<html lang="ko"><head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta name="author" content="">
-    <meta name="description" content="">
-    <title>FnGuide,Your Best Financial Guide</title>
-    
-    <style >
-    .error_wrap {
-    width: 500px;
-    margin: 0 auto;
-    padding-top: 150px
-    }
-.error_wrap .error_table {
-    width: 100%;
-    border-width: 0;
-    background-color: #fafafa
-}
-
-.error_wrap .err
--- hits: 
-
-## investing_kospi [403] len=5692
-<!DOCTYPE html><html lang="en-US"><head><title>Just a moment...</title><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=Edge"><meta name="robots" content="noindex,nofollow"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="content-security-policy" content="default-src &#39;none&#39;; script-src &#39;nonce-PnHbEK1wzKUKea0dDhyqkY&#39; &#39;unsafe-eval&#39; https://challenges.cloudflare.com; script-src-attr &#39;none&#39;; style-src &#39;unsafe-inline&#39;; img-src &#39;self&#39; https://challenges
--- hits: tyle><meta http-equiv="refresh" content="360"></head><body><div class="main-wrapper" role="main"><div class="main-content"><noscript><div class="h2"><span id="challenge-error-text">Enable JavaScript a
