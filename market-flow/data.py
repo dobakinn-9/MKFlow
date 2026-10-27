@@ -262,6 +262,9 @@ def load_vkospi(days: int = 500):
     if demo_mode():
         rng = np.random.default_rng(10)
         return pd.Series(np.clip(20 + np.cumsum(rng.normal(0, 0.6, days)) * 0.3, 10, 60), index=_bdays(days), name="VKOSPI"), SAMPLE
+    cached, note = _kr_cache("vkospi")
+    if cached is not None and "VKOSPI" in cached:
+        return cached["VKOSPI"].dropna().tail(days).rename("VKOSPI"), note
     try:
         from pykrx import stock
 

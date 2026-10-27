@@ -282,6 +282,25 @@ def update_valuation(code: str, day: pd.Timestamp):
         + ("" if "dividendYieldRatio" in seen else f" · (배당 항목 없음: {sorted(seen)[:30]})"))
 
 
+# ── VKOSPI (코스피200 변동성지수) ─────────────────────────
+VK_CODES = ["VKOSPI", "VKOSPI200", "KPI200VIX", "KOSPI200VIX", "KVIX", "V-KOSPI200"]
+
+
+def update_vkospi():
+    old = read("vkospi")
+    for code in VK_CODES:
+        info = get(f"index/{code}/basic")
+        px = prices(code, 750) if info else pd.Series(dtype=float)
+        if len(px) > 20:
+            df = old.copy() if len(old) else pd.DataFrame(columns=["VKOSPI"], dtype=float)
+            df = df.reindex(df.index.union(px.index))
+            df["VKOSPI"] = px.reindex(df.index).fillna(df["VKOSPI"])
+            df = write(df, "vkospi")
+            say(f"  ✓ vkospi ({code}): {len(df)}일 · 최근 {df['VKOSPI'].iloc[-1]:.2f}")
+            return
+    say(f"  · VKOSPI: 네이버 증권에 해당 지수 없음 (시도: {', '.join(VK_CODES)}) → 앱은 코스피 실제 변동성으로 대신 보여줘요")
+
+
 def main():
     say(f"한국 데이터 받기 시작 ({date.today()}) · 출처: 네이버 증권")
     ok = 0
@@ -309,6 +328,10 @@ def main():
             update_valuation(code, read(f"index_{code}").index.max())
         except Exception as e:
             say(f"  ✗ {code} PER·PBR 실패: {type(e).__name__}: {str(e)[:160]}")
+    try:
+        update_vkospi()
+    except Exception as e:
+        say(f"  ✗ VKOSPI 실패: {type(e).__name__}: {str(e)[:160]}")
     (OUT / "probe_naver.html").unlink(missing_ok=True)
     (OUT / "probe.txt").unlink(missing_ok=True)
     (OUT / "status.txt").write_text("\n".join(log) + "\n", encoding="utf-8")

@@ -84,13 +84,14 @@ pages = {
     ],
     "일정": [
         P(calendar.events, title="이벤트 캘린더", icon="📅", url_path="events"),
+        P(calendar.status, title="데이터 업데이트 현황", icon="✅", url_path="data-status"),
     ],
 }
 nav = st.navigation(pages, position="hidden")
 
 # ── 왼쪽 메뉴: 분류마다 화살표(▸)로 펼치고 접기 ──────────
 CAT_ICON = {"종합": "🏠", "AI 예측": "🤖", "AI 분석 도구": "🔍", "시장 보고서": "📰", "돈의 가격": "🏦",
-            "시장의 체력": "📊", "수급": "👥", "심리·가격 수준": "🌡️", "일정": "📅"}
+            "시장의 체력": "📊", "수급": "👥", "심리·가격 수준": "🌡️", "일정": "📅"}  # 일정 분류에 데이터 현황도 들어 있어요
 with st.sidebar:
     st.markdown("### 📈 한·미 시장 흐름")
     for cat, plist in pages.items():
