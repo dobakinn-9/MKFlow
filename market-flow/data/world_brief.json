@@ -1,33 +1,33 @@
 {
-  "asof": "2026-10-28",
-  "summary": "세계 경제는 여전히 '중동발 유가 충격 → 물가 재상승 → 주요국 금리 인상'의 한 줄기로 묶여 있지만, 10/27에는 숨 고르기가 이틀째 이어졌어요. 이란이 호르무즈 재개방에 유연한 입장을 보이며 브렌트유는 113.88달러(−1.7%), WTI는 99.90달러로 100달러 아래로 내려왔어요. 미국은 앤트로픽 상장 기대에 반도체지수가 +3.6% 올라 나스닥이 +1.18%, 한국 코스피도 +3.09% 급반등했어요. 오늘 밤(한국 29일 새벽) 연준 결정, 10/29 ECB, 10/30 일본은행 회의와 빅테크 실적이 이어져요.",
+  "asof": "2026-10-29",
+  "summary": "세계 경제는 여전히 '중동발 유가 충격 → 물가 재상승 → 주요국 금리 인상'의 한 줄기로 묶여 있어요. 10/28 연준은 3.75~4.00%로 동결했지만 2명이 인상을 주장했고 미 10년물은 5.02%로 5%를 넘었어요. 후티의 사우디 정유시설 공격 주장에 브렌트는 115달러 안팎으로 다시 올랐고, 중재국은 IAEA 사찰과 제재 완화를 맞바꾸는 새 제안을 냈어요. AI 쪽에선 SK하이닉스(영업이익 83.3조 원)·마이크로소프트가 호실적을 냈지만 알파벳은 잉여현금흐름 적자로 시간외 약 10% 급락했어요. 오늘 ECB, 내일 일본은행 회의가 이어져요.",
   "items": [
     {
       "id": "mideast",
       "region": "중동·원유",
       "icon": "🛢️",
       "tone": "부정",
-      "title": "이란 '호르무즈 재개방' 유연 신호…브렌트 113.88달러로 이틀째 하락",
+      "title": "중재국 'IAEA 사찰↔제재 완화' 새 제안…후티 공격 주장에 브렌트 115달러로 반등",
       "points": [
-        "이란은 미국이 7일 안에 항만 봉쇄를 풀면 호르무즈 해협을 다시 여는 방안에 유연하다는 입장을 밝혔어요. 같은 날 푸틴 대통령과 페제시키안 이란 대통령도 만났어요.",
-        "다만 최고지도자 모즈타바 하메네이는 전쟁을 끝내는 조건을 다시 못 박았고, 트럼프 대통령은 중간선거(11/3) 뒤 공습 재개 가능성을 내비쳤어요.",
-        "후티가 사우디 라스타누라 정유시설을 미사일로 공격했다고 주장했고, 사우디는 최대 수출 터미널 인근 화재를 진압했어요.",
-        "브렌트유는 10/27 1.7% 내린 113.88달러, WTI는 1.8% 내린 99.90달러로 마감해 이틀째 하락했어요."
+        "카타르 등 중재국이 이란에 IAEA 사찰단 복귀를 허용하면 제재 완화와 동결 자금 일부를 돌려주는 방안을 제안했고, 이란 답변은 이르면 10/29 나올 수 있어요. 11/4 전 튀르키예에서 미·이란 회담을 여는 안도 거론돼요.",
+        "백악관은 '중간선거(11/3) 전에는 이란을 공격하지 않는다'면서도 미국의 이란 항만 봉쇄는 그대로 유지한다고 밝혔어요.",
+        "예멘 후티는 사우디 최대 정유시설에 미사일을 쐈다고 주장했지만 사우디는 바로 확인하지 않았어요.",
+        "브렌트유는 10/28 장중 114~116달러대에서 움직이며 약 1% 올라 115달러 안팎, WTI도 다시 100달러를 넘었어요."
       ],
-      "hidden": "해협 통과 물량은 전쟁 전 수준을 거의 회복했지만, 미군이 이란 항만을 막고 있어 '봉쇄 해제 ↔ 해협 개방'을 맞바꾸는 협상이 핵심이에요. 이스라엘 총선(10/27)에서 어느 쪽도 과반을 얻지 못해 이스라엘의 대이란 정책도 당분간 불확실해요.",
-      "korea": "한국은 원유의 대부분을 중동에서 들여와요. 유가가 오르면 무역수지 악화 → 원화 약세 → 외국인 매도로 이어지기 쉬워요. 경유 부족은 운송·물류비 부담으로 이어지고, 정유는 단기 수혜, 항공·화학은 부담이에요.",
+      "hidden": "협상의 핵심은 '봉쇄 해제 먼저'(이란)와 '핵 조치 먼저'(미국)의 순서 다툼이에요. 중재국이 이번을 '마지막 기회'라고 전했다는 보도가 있어, 선거 뒤 협상이 깨지면 유가가 다시 급등할 수 있어요.",
+      "korea": "유가 반등과 달러 강세(달러지수 약 102.4)가 겹쳐 10/28 원/달러가 1,337.7원으로 14원 급등했어요. 유가가 오르면 무역수지 악화 → 원화 약세 → 외국인 매도로 이어지기 쉬워 코스피 반등의 지속성을 흔들 수 있어요.",
       "sources": [
         {
-          "title": "Oil Slips as Iran Diplomacy Picks Up (Rigzone/Bloomberg)",
-          "url": "https://www.rigzone.com/news/oil_slips_as_iran_diplomacy_picks_up-27-oct-2026-184947-article"
+          "title": "Iran to respond to Qatar offer allowing IAEA inspection (Jerusalem Post)",
+          "url": "https://www.jpost.com/middle-east/iran-news/article-913159"
         },
         {
-          "title": "No clear winner in Israeli election, exit polls indicate (PBS NewsHour)",
-          "url": "https://www.pbs.org/newshour/world/no-clear-winner-in-israeli-election-exit-polls-indicate-as-netanyahus-fate-hangs-in-the-balance"
+          "title": "Mediators propose new Iran-US meeting in Turkey before November 4 (TASS)",
+          "url": "https://tass.com/world/2209781"
         },
         {
-          "title": "Stock Market Today, Oct. 27, 2026 (TheStreet)",
-          "url": "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-oct-27-2026"
+          "title": "Crude Oil Price Today, 28 October 2026 (5paisa)",
+          "url": "https://www.5paisa.com/blog/crude-oil-price-today-28-oct-2026"
         }
       ]
     },
@@ -36,27 +36,27 @@
       "region": "미국·AI 투자",
       "icon": "🤖",
       "tone": "중립",
-      "title": "반도체지수 사흘째 상승(+3.6%), AI 투자 약정은 더 커져",
+      "title": "SK하이닉스·MS 호실적 vs 알파벳 현금흐름 적자…AI 투자 '성적표' 엇갈려",
       "points": [
-        "10/27 필라델피아 반도체지수(SOX)가 3.6% 올라 사흘째 상승했고 나스닥은 +1.18%(26,477.81)로 마감했어요. AMD 약 +5.5%, 코어위브 약 +8%였어요.",
-        "은행들과 블랙스톤이 앤트로픽의 브로드컴 칩 구매에 630억 달러 금융을 대기로 해 브로드컴이 약 4% 올랐어요.",
-        "앤트로픽은 2029년까지 스페이스X에 AI 컴퓨팅 비용으로 최대 1,205억 달러를 내기로 했어요.",
-        "메타는 AI 인프라 자금 마련을 위한 주식 발행을 이어갔고 주가는 약 1~2% 내렸어요. 엔비디아는 메타에 30억 달러를 투자해요."
+        "SK하이닉스는 3분기 매출 104.6조 원·영업이익 83.3조 원으로 6분기 연속 최대 실적을 내고 100조 원 규모 주주환원을 발표했어요. 미국 상장 예탁증서(ADR)도 +13% 올랐어요.",
+        "마이크로소프트는 매출 922.8억 달러로 예상(906.3억 달러)을 넘고 클라우드 매출 639억 달러로 호조, 시간외 +2~4% 올랐어요.",
+        "알파벳은 매출이 25% 늘고 구글 클라우드는 두 배(307억 달러)가 됐지만, 설비투자가 514억 달러(+114%)로 불어나 분기 잉여현금흐름이 −91억 달러, 주당순이익 2.12달러(예상 약 3달러)로 시간외 약 10% 급락했어요.",
+        "10/28 SOX는 +1.75%로 나흘째 올랐고, 오라클은 2029회계연도 잉여현금흐름 300억 달러 목표 제시에 +11% 올랐어요."
       ],
-      "hidden": "AI 수요는 강하지만 그 돈을 칩 금융·주식 발행·장기 임차로 마련하는 구조가 점점 커지고 있어요. 지금은 '성장 기대'가 '자금 부담'을 이기고 있지만, 빅테크 실적에서 투자 대비 수익이 확인되지 않으면 분위기가 다시 뒤집힐 수 있어요.",
-      "korea": "미국 반도체 강세는 SK하이닉스(10/27 +5.18%)·삼성전자(+4.23%)에 바로 이어졌어요. 오늘 오전 SK하이닉스 실적·특별배당과 밤사이 마이크로소프트·알파벳 실적이 이 흐름을 이어갈지 가를 거예요.",
+      "hidden": "AI 칩·메모리를 '파는 쪽'은 돈을 벌고, '사는 쪽'(빅테크)은 현금이 마르는 구조가 숫자로 드러났어요. 알파벳은 2027년 설비투자를 크게 늘린다고 밝혀, 빅테크가 빚·주식 발행으로 투자를 이어갈수록 금리 5% 시대의 자금 부담이 커져요.",
+      "korea": "SK하이닉스·삼성전자는 AI 투자의 직접 수혜라 실적은 좋지만, 알파벳처럼 '사는 쪽'의 현금 부담이 커지면 투자 속도 조절 우려로 주가가 흔들릴 수 있어요. 오늘 삼성전자 확정 실적과 밤사이 아마존 실적이 다음 시험대예요.",
       "sources": [
         {
-          "title": "Wall Street rises as AI momentum holds heading into key earnings, Fed decision (AP via Spokesman-Review)",
-          "url": "https://www.spokesman.com/stories/2026/oct/27/wall-street-rises-as-ai-momentum-holds-heading-int/"
+          "title": "Alphabet Q3 2026 slides: $128B revenue overshadowed by profit miss (Investing.com)",
+          "url": "https://www.investing.com/news/company-news/alphabet-q3-2026-slides-128b-revenue-overshadowed-by-profit-miss-93CH-4981067"
         },
         {
-          "title": "Nasdaq Rises 1.2% on Anthropic Optimism (EDAILY)",
-          "url": "https://en.edaily.co.kr/news/eda202610285034/"
+          "title": "코스피, SK하이닉스 역대급 실적에 6% 폭등 (Businesskorea)",
+          "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279900"
         },
         {
-          "title": "Stock market today, Oct. 27 (Yahoo Finance)",
-          "url": "https://finance.yahoo.com/markets/live/stock-market-today-tuesday-october-27-dow-sp-500-nasdaq-081901995.html"
+          "title": "US Stocks Edge Up as Fed Holds Rates; SK Hynix Jumps (TradingKey)",
+          "url": "https://www.tradingkey.com/analysis/stocks/us-stocks/262249004-us-stock-market-close-oracle-sk-hynix-fed-hold-sox-tradingkey"
         }
       ]
     },
