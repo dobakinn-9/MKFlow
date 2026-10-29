@@ -1,33 +1,29 @@
 {
-  "asof": "2026-10-29",
-  "summary": "세계 경제는 여전히 '중동발 유가 충격 → 물가 재상승 → 주요국 금리 인상'의 한 줄기로 묶여 있어요. 10/28 연준은 3.75~4.00%로 동결했지만 2명이 인상을 주장했고 미 10년물은 5.02%로 5%를 넘었어요. 후티의 사우디 정유시설 공격 주장에 브렌트는 115달러 안팎으로 다시 올랐고, 중재국은 IAEA 사찰과 제재 완화를 맞바꾸는 새 제안을 냈어요. AI 쪽에선 SK하이닉스(영업이익 83.3조 원)·마이크로소프트가 호실적을 냈지만 알파벳은 잉여현금흐름 적자로 시간외 약 10% 급락했어요. 오늘 ECB, 내일 일본은행 회의가 이어져요.",
+  "asof": "2026-10-30",
+  "summary": "세계 경제는 여전히 '중동발 유가 충격 → 물가 재상승 → 주요국 금리 인상'의 한 줄기로 묶여 있어요. 10/29 미국 9월 PCE 물가가 3.6%로 다시 올랐고, ECB는 예금금리 2.50%로 동결했지만 유로존 물가는 3.8%이고 라가르드 총재는 조기 퇴임을 발표했어요. AI 쪽에선 알파벳이 −12.64%로 상장 이후 최대 하락, 아마존도 잉여현금흐름 적자에 시간외 7% 넘게 밀려 '빅테크의 AI 투자 현금 부담'이 핵심 걱정으로 떠올랐어요. 중동은 미국 부통령의 협상 재개 서한으로 브렌트가 114.88달러로 소폭 내렸어요. 오늘 일본은행 회의가 열려요.",
   "items": [
     {
       "id": "mideast",
       "region": "중동·원유",
       "icon": "🛢️",
       "tone": "부정",
-      "title": "중재국 'IAEA 사찰↔제재 완화' 새 제안…후티 공격 주장에 브렌트 115달러로 반등",
+      "title": "밴스 부통령, 이란에 협상 재개 서한…브렌트 114.88달러로 소폭 하락",
       "points": [
-        "카타르 등 중재국이 이란에 IAEA 사찰단 복귀를 허용하면 제재 완화와 동결 자금 일부를 돌려주는 방안을 제안했고, 이란 답변은 이르면 10/29 나올 수 있어요. 11/4 전 튀르키예에서 미·이란 회담을 여는 안도 거론돼요.",
-        "백악관은 '중간선거(11/3) 전에는 이란을 공격하지 않는다'면서도 미국의 이란 항만 봉쇄는 그대로 유지한다고 밝혔어요.",
-        "예멘 후티는 사우디 최대 정유시설에 미사일을 쐈다고 주장했지만 사우디는 바로 확인하지 않았어요.",
-        "브렌트유는 10/28 장중 114~116달러대에서 움직이며 약 1% 올라 115달러 안팎, WTI도 다시 100달러를 넘었어요."
+        "월스트리트저널에 따르면 밴스 부통령이 이란 최고국가안보회의 측 모흐센 레자이에게 평화 협상을 다시 논의하자는 서한을 보냈고, 트럼프 대통령도 이를 승인했다고 해요.",
+        "카타르 중재국이 이란에 전쟁 종식 새 초안을 건넸지만, 이란 고위 관리는 '제안이라고 보기 어렵다'고 했어요. 이란 외무장관은 외교의 기회는 남아 있다고 밝혔어요.",
+        "동시에 미군 중동 사령관이 트럼프에게 이란 공격 옵션을 보고했다는 보도가 나와, 11/3 중간선거 뒤 공습 재개 우려도 남아 있어요.",
+        "브렌트는 10/29 114.88달러(−0.38%), WTI는 102.00달러(−0.76%)로 마감했어요. 장중 2달러 넘게 빠졌다가 후티의 사우디 시설 공격 보도로 일부 회복했어요."
       ],
-      "hidden": "협상의 핵심은 '봉쇄 해제 먼저'(이란)와 '핵 조치 먼저'(미국)의 순서 다툼이에요. 중재국이 이번을 '마지막 기회'라고 전했다는 보도가 있어, 선거 뒤 협상이 깨지면 유가가 다시 급등할 수 있어요.",
-      "korea": "유가 반등과 달러 강세(달러지수 약 102.4)가 겹쳐 10/28 원/달러가 1,337.7원으로 14원 급등했어요. 유가가 오르면 무역수지 악화 → 원화 약세 → 외국인 매도로 이어지기 쉬워 코스피 반등의 지속성을 흔들 수 있어요.",
+      "hidden": "미국은 '대화'와 '공격 옵션'을 동시에 꺼내 압박하는 중이에요. 선거 전까지는 협상 신호에 유가가 눌리지만, 선거 뒤 협상이 진전되지 않으면 위험 프리미엄이 다시 커질 수 있어요.",
+      "korea": "유가가 115달러 안팎에서 더 오르지 않으면서 10/29 원/달러는 1,336.8원으로 하루 만에 진정됐어요. 다만 고유가가 이어지는 한 무역수지와 원화에 부담이 남아요.",
       "sources": [
         {
-          "title": "Iran to respond to Qatar offer allowing IAEA inspection (Jerusalem Post)",
-          "url": "https://www.jpost.com/middle-east/iran-news/article-913159"
+          "title": "Oil prices settle lower as diplomacy hopes offset some Mideast supply concerns (Euronext/Reuters)",
+          "url": "https://live.euronext.com/en/financial-news/oil-prices-settles-lower-diplomacy-hopes-offset-some-mideast-supply-concerns"
         },
         {
-          "title": "Mediators propose new Iran-US meeting in Turkey before November 4 (TASS)",
-          "url": "https://tass.com/world/2209781"
-        },
-        {
-          "title": "Crude Oil Price Today, 28 October 2026 (5paisa)",
-          "url": "https://www.5paisa.com/blog/crude-oil-price-today-28-oct-2026"
+          "title": "Oil Prices Fall as Vance Moves to Restart Iran Peace Talks (OilPrice.com)",
+          "url": "https://oilprice.com/Latest-Energy-News/World-News/Oil-Prices-Fall-as-Vance-Moves-to-Restart-Iran-Peace-Talks.html"
         }
       ]
     },
@@ -36,27 +32,27 @@
       "region": "미국·AI 투자",
       "icon": "🤖",
       "tone": "중립",
-      "title": "SK하이닉스·MS 호실적 vs 알파벳 현금흐름 적자…AI 투자 '성적표' 엇갈려",
+      "title": "알파벳 −12.6%·아마존 시간외 −7%…AI 투자 '현금 부담'이 주가를 누르다",
       "points": [
-        "SK하이닉스는 3분기 매출 104.6조 원·영업이익 83.3조 원으로 6분기 연속 최대 실적을 내고 100조 원 규모 주주환원을 발표했어요. 미국 상장 예탁증서(ADR)도 +13% 올랐어요.",
-        "마이크로소프트는 매출 922.8억 달러로 예상(906.3억 달러)을 넘고 클라우드 매출 639억 달러로 호조, 시간외 +2~4% 올랐어요.",
-        "알파벳은 매출이 25% 늘고 구글 클라우드는 두 배(307억 달러)가 됐지만, 설비투자가 514억 달러(+114%)로 불어나 분기 잉여현금흐름이 −91억 달러, 주당순이익 2.12달러(예상 약 3달러)로 시간외 약 10% 급락했어요.",
-        "10/28 SOX는 +1.75%로 나흘째 올랐고, 오라클은 2029회계연도 잉여현금흐름 300억 달러 목표 제시에 +11% 올랐어요."
+        "알파벳은 10/29 −12.64%로 2004년 상장 이후 최대 하락을 기록하며 시가총액 약 5,000억 달러가 사라졌어요. 매출 부진과 설비투자 급증에 따른 현금 소진이 이유예요.",
+        "아마존은 AWS 매출이 460억 달러(+39.3%)로 빨라졌지만 3분기 설비투자 773억 달러가 영업현금흐름(424억 달러)을 넘었고, 최근 12개월 잉여현금흐름이 −424억 달러로 돌아서 시간외 7% 넘게 떨어졌어요.",
+        "아마존은 3분기에 장기 부채 481억 달러를 조달했고, 4분기 매출 가이던스(2,400억~2,470억 달러)도 예상을 밑돌았어요.",
+        "필라델피아 반도체지수는 −1.42%로 나흘 연속 상승을 멈췄고 마이크론 −4.98%, 마벨 −13%, 서비스나우·포티넷은 20% 넘게 급락했어요."
       ],
-      "hidden": "AI 칩·메모리를 '파는 쪽'은 돈을 벌고, '사는 쪽'(빅테크)은 현금이 마르는 구조가 숫자로 드러났어요. 알파벳은 2027년 설비투자를 크게 늘린다고 밝혀, 빅테크가 빚·주식 발행으로 투자를 이어갈수록 금리 5% 시대의 자금 부담이 커져요.",
-      "korea": "SK하이닉스·삼성전자는 AI 투자의 직접 수혜라 실적은 좋지만, 알파벳처럼 '사는 쪽'의 현금 부담이 커지면 투자 속도 조절 우려로 주가가 흔들릴 수 있어요. 오늘 삼성전자 확정 실적과 밤사이 아마존 실적이 다음 시험대예요.",
+      "hidden": "AI 투자를 '사는 쪽' 빅테크가 현금흐름 적자를 빚으로 메우는 단계에 들어섰어요. 투자자들이 '수익 회수 시점'을 묻기 시작하면 설비투자 속도 조절 압력이 생기고, 그 영향은 결국 칩·메모리 공급망으로 이어질 수 있어요.",
+      "korea": "10/29 SK하이닉스는 60조 원 주주환원으로 +2.62% 올랐지만 삼성전자는 주주환원 세부안 연기로 −4.13%였어요. 오늘은 밤사이 알파벳·아마존 급락과 마이크론 −5%가 반도체주에 부담이 될 수 있어요.",
       "sources": [
         {
-          "title": "Alphabet Q3 2026 slides: $128B revenue overshadowed by profit miss (Investing.com)",
-          "url": "https://www.investing.com/news/company-news/alphabet-q3-2026-slides-128b-revenue-overshadowed-by-profit-miss-93CH-4981067"
+          "title": "Stock market today: Dow, S&P 500, Nasdaq slip as Alphabet stock sinks 12% (Yahoo Finance)",
+          "url": "https://finance.yahoo.com/markets/live/stock-market-today-thursday-october-29-dow-sp-500-nasdaq-alphabet-microsoft-earnings-130305714.html"
         },
         {
-          "title": "코스피, SK하이닉스 역대급 실적에 6% 폭등 (Businesskorea)",
-          "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=279900"
+          "title": "AWS 39% 성장에도 아마존 주가 7% 급락…AI 투자에 현금흐름 악화 (한국경제)",
+          "url": "https://www.hankyung.com/article/202610304811i"
         },
         {
-          "title": "US Stocks Edge Up as Fed Holds Rates; SK Hynix Jumps (TradingKey)",
-          "url": "https://www.tradingkey.com/analysis/stocks/us-stocks/262249004-us-stock-market-close-oracle-sk-hynix-fed-hold-sox-tradingkey"
+          "title": "[뉴욕증시 마감] 알파벳發 AI 투자 우려에 일제히 하락 (아주경제)",
+          "url": "https://ajunews.com/view/20261030072317408"
         }
       ]
     },
@@ -90,27 +86,23 @@
       "region": "유럽",
       "icon": "🇪🇺",
       "tone": "부정",
-      "title": "독일 기업심리 6개월 연속 개선, ECB는 10/29 동결 유력",
+      "title": "ECB 2.50% 동결, 라가르드 조기 퇴임 발표…프랑스 국채 금리 5% 부담",
       "points": [
-        "독일 ifo 기업경기지수는 10월 90.2로 9월(89.9)보다 올랐어요. 제조업은 현재 상황과 기대 모두 3년여 만에 처음 플러스로 돌아섰어요.",
-        "반면 10월 유로존 종합 PMI 속보치는 51.9로 9월(53.1)과 예상(52.7)보다 낮아 서비스업 쪽 둔화가 보여요.",
-        "ECB 예금금리는 2.50%이고 10/29 회의는 동결이 유력해요. 로이터 조사에서는 12월 0.25%p 인상 예상이 다수(73명 중 64명)였어요.",
-        "프랑스 국채 매도와 사회 불안도 ECB 기자회견의 주요 질문거리로 꼽혀요."
+        "ECB는 10/29 예금금리를 2.50%로 동결했어요. 올해 두 차례(최근 9월) 올린 뒤 쉬어가는 결정이고, '특정 금리 경로를 미리 약속하지 않는다'고 밝혔어요.",
+        "유로존 9월 물가는 3.8%(8월 3.2%)로 목표(2%)의 두 배 가까이 돼요. ECB는 에너지 충격이 물가는 올리고 성장은 낮출 것이라고 경고했어요.",
+        "라가르드 총재는 임기를 약 9개월 남기고 2027년 2월 7일 물러난다고 발표했어요. 후임 후보로 스페인의 에르난데스 데 코스, 네덜란드의 크노트가 거론돼요.",
+        "프랑스 10년물 금리는 약 5%(독일과 격차 약 155bp)로 2002년 이후 최고권이고, ECB는 시장 혼란 시 쓸 수 있는 채권 매입 수단(TPI)이 있다고 강조했어요."
       ],
-      "hidden": "미국만이 아니라 유럽까지 '물가 때문에 금리를 올리는' 동시 긴축이에요. 세계적으로 돈이 비싸지는 흐름이라 위험자산 전반에 부담이에요.",
-      "korea": "유럽은 한국 자동차·배터리·선박의 주요 시장이에요. 유럽 금리 인상은 그쪽 소비와 투자를 식힐 수 있어요.",
+      "hidden": "ING는 9월 이후 국채 금리 상승이 독일엔 0.25%p, 프랑스엔 약 0.5%p 금리 인상 효과를 냈다고 봤어요. 금리를 올리지 않아도 시장이 대신 긴축을 하고 있는 셈이에요.",
+      "korea": "유럽은 한국 자동차·배터리·선박의 주요 시장이에요. 높은 물가와 금리가 그쪽 소비·투자를 식히면 수출 기업에 부담이 될 수 있어요.",
       "sources": [
         {
-          "title": "ifo Business Climate Rises (October 2026)",
-          "url": "https://www.ifo.de/en/press-release/2026-10-26/ifo-business-climate-rises-october-2026"
+          "title": "ECB holds rates at 2.5% as Lagarde announces early exit (Euronews)",
+          "url": "https://www.euronews.com/2026/10/29/ecb-holds-rates-at-25-as-lagarde-announces-early-exit-with-inflation-near-double-the-targe"
         },
         {
-          "title": "Eurozone HCOB Composite PMI declines to 51.9 in October (FXStreet)",
-          "url": "https://www.fxstreet.com/news/eurozone-hcob-composite-pmi-declines-to-519-in-october-vs-527-expected-202610230806"
-        },
-        {
-          "title": "Week in Focus 26-30th October 2026 (Newsquawk)",
-          "url": "https://www.newsquawk.com/headlines/week-in-focus-26-30th-october-2026-fomc-boc-rbnz-ecb-boj-policy-decisions-us-pce"
+          "title": "Monetary policy statement, 29 October 2026 (ECB)",
+          "url": "https://www.ecb.europa.eu/press/press_conference/monetary-policy-statement/2026/html/ecb.is261029~5c5ffe99e5.en.html"
         }
       ]
     },
@@ -123,7 +115,7 @@
       "points": [
         "9월 일본 근원 소비자물가(신선식품 제외)는 2.1%로 8월(1.7%)보다 높아져 12월 이후 처음 목표(2%)를 넘었어요.",
         "신선식품과 에너지를 뺀 '근원-근원' 물가도 2.4%로 8월(1.9%)보다 올랐어요.",
-        "일본은행은 10/30 회의에서 금리 1.25%를 동결할 가능성이 높지만, 물가 전망을 올리고 추가 인상 준비 신호를 줄 수 있어요.",
+        "일본은행은 오늘(10/30) 회의에서 금리 1.25%를 동결할 가능성이 높다는 관측이 우세하지만, 물가 전망을 올리고 12월 추가 인상 여지를 남길 수 있어요.",
         "약한 엔화가 수입 물가를 끌어올리는 것도 인상 근거로 꼽혀요."
       ],
       "hidden": "일본 금리가 오르면 엔화가 강해지고, 싼 엔화를 빌려 해외 주식에 투자하던 '엔 캐리 트레이드' 자금이 되돌아갈 수 있어요. 2024년 8월 이 현상으로 한국·일본 증시가 하루에 크게 급락했어요. '숨은 지표'의 엔/달러를 함께 보세요.",
@@ -144,19 +136,19 @@
       "region": "중앙은행·금",
       "icon": "🥇",
       "tone": "중립",
-      "title": "금값, 유가발 금리 인상 우려에 한 주 4% 급락",
+      "title": "강한 GDP에 12월 인상 우려 유지…금값 4,024달러로 하락",
       "points": [
-        "금 현물은 10/23 약 3,996달러로 한 주 동안 4.12% 떨어졌고, 장중 3,975달러로 6월 초 이후 최저를 기록했어요.",
-        "유가 상승 → 물가 재상승 → 연준 연내 인상 가능성이라는 흐름에, 10/22 기술주 급락 때 현금 마련용 매도까지 겹쳤어요.",
+        "10/29 미국 3분기 GDP가 연율 3.4%로 예상보다 강하게 나오면서 연준의 12월 인상 가능성이 유지돼 금값은 온스당 약 4,024달러로 밀렸고 은도 2.9% 떨어졌어요.",
+        "금 현물은 10/23 장중 3,975달러로 6월 초 이후 최저를 찍은 뒤 4,000달러 안팎에서 맴돌고 있어요.",
         "세계금협회에 따르면 2026년 2분기 중앙은행 등 공공기관은 금을 289톤 순매수해 2분기 기준 사상 최대였어요.",
-        "이번 주 연준·ECB·일본은행 회의가 금값 방향을 정할 변수로 꼽혀요."
+        "9월 PCE 물가가 3.6%로 다시 올라, 이자가 없는 금에는 금리 부담이 계속되는 구조예요."
       ],
       "hidden": "금은 이자가 없어서 금리가 오를 때 약해지기 쉬워요. 이번 하락은 중앙은행 수요가 꺾여서라기보다 '금리 인상 공포'와 다른 자산 손실을 메우려는 매도 때문이라, 중앙은행 매수 흐름이 유지되는지 따로 봐야 해요.",
       "korea": "금값이 주식과 함께 오르면 '불안 속 상승'이라는 신호일 수 있어요. 한국은행은 상대적으로 금 보유 비중이 낮은 편이에요.",
       "sources": [
         {
-          "title": "Wall Street doubts gold's near-term strength (Kitco)",
-          "url": "https://www.kitco.com/news/article/2026-10-23/wall-street-doubts-golds-near-term-strength-main-street-maintains-bullish"
+          "title": "Gold Slides To $4,024 As 3.4% GDP Beat Keeps A December Fed Hike In Play (USAGOLD)",
+          "url": "https://www.usagold.com/daily-precious-metals-market-report-october-29-2026/"
         },
         {
           "title": "Central bank gold demand bounces back to record high (Central Banking)",
