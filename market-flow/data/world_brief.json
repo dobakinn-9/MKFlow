@@ -1,33 +1,33 @@
 {
-  "asof": "2026-10-31",
-  "summary": "10/30(금) 하루 사이 'AI 반도체 투매'와 '중동 유가 재상승'이 겹쳤어요. 인텔이 −28.6% 폭락하며 필라델피아 반도체지수가 −7.2%, 나스닥이 −2.86%로 10월을 약 −5%로 마쳤고, 코스피도 외국인 1.6조 원 매도에 −3.48%였어요. 호르무즈 해협 유조선 기뢰 공격에 브렌트는 117.64달러로 올랐고, 트럼프 대통령은 11/3 중간선거 뒤 공습 재개를 저울질하고 있어요. 일본은행은 1.25% 동결했지만 인상 반대표가 나와 12월 인상 가능성을 남겼고, 금값은 3,885달러로 3.6% 급락했어요.",
+  "asof": "2026-11-01",
+  "summary": "주말 사이에는 중동 긴장과 중국 경기 둔화 신호가 더해졌어요. 10월 호르무즈 일대 선박 공격이 9월의 두 배를 넘어 전쟁 이후 최다였고, 이란 최고지도자는 '지역 제한 없는 즉각 대응'을 경고했어요. 그래도 아락치 외무장관은 밴스 부통령 서한을 '긍정적 한 걸음'이라 했고, 미국은 선거 뒤 공습 재개를 아직 결정하지 않았어요. 중국 10월 제조업 PMI는 49.3으로 예상(50.0)보다 낮아 다시 위축으로 돌아섰어요. 금요일 미국은 인텔 −28.6%·반도체지수 −7.2%로 마감해 11/2(월) 아시아 개장 반응이 첫 시험대예요.",
   "items": [
     {
       "id": "mideast",
       "region": "중동·원유",
       "icon": "🛢️",
       "tone": "부정",
-      "title": "호르무즈 유조선 기뢰 공격 잇따라…브렌트 117.64달러, 선거 뒤 공습 재개 우려",
+      "title": "10월 해협 선박 공격 '전쟁 이후 최다'…이란 '무제한 대응' 경고 속 협상 끈은 유지",
       "points": [
-        "10/29 이란 혁명수비대는 해협 '비인가 남쪽 항로'에서 유조선 3~4척이 기뢰에 부딪혀 폭발했다고 주장했고, 파나마 선적 유조선 1척은 소형 보트가 붙인 부착 기뢰로 불이 났어요(인명 피해 없음).",
-        "이란은 카타르가 건넨 종전 초안을 '수용 불가'라고 했고, 미국의 봉쇄 해제 등 핵심 조건을 굽히지 않겠다고 밝혔어요. 밴스 부통령 서한은 받았다고 확인했어요.",
-        "미 국방부가 11/3 중간선거 뒤 쓸 수 있는 공격 옵션을 트럼프에게 보고했고, 미국은 걸프 동맹국에 공습 재개 가능성에 대비하라고 알렸다고 AP가 전했어요.",
-        "브렌트는 10/30 117.64달러(+2.4%), WTI는 104.12달러(+2.1%)로 마감해 10월 한 달 약 14% 올랐어요(4개월 연속 상승)."
+        "10/30 이란 혁명수비대는 '비인가 항로'를 쓴 유조선 4척이 폭발했고 그중 한 척(200만 배럴 이상 적재)은 기뢰에 부딪혔다고 주장했어요(독립 확인 안 됨).",
+        "The National에 따르면 10월 호르무즈·오만만·걸프에서 공격받은 선박 수는 9월의 두 배를 넘어 전쟁 시작 이후 가장 많았어요.",
+        "10/31 이란 최고지도자는 어떤 위협에도 '즉각적이고 지역 제한 없는 대응'을 지시했고, 미국은 동맹국에 11/3 선거 뒤 공습 재개 가능성에 대비하라고 했지만 트럼프 대통령은 아직 최종 결정을 내리지 않았어요(AP).",
+        "반면 아락치 외무장관은 밴스 부통령 서한을 '긍정적 한 걸음'이라고 했고, 이란 대표단이 도하에서 카타르 중재 협의를 이어가고 있어요. 브렌트는 10/30 117.64달러, 유럽 가스(TTF)는 MWh당 101유로를 넘었어요."
       ],
-      "hidden": "선거 전 '협상 신호'로 눌려 있던 유가가 해협 공격 재개로 다시 오르기 시작했어요. 선거 뒤 공습이 재개되면 120달러 위로 올라 물가·금리 경로 전체를 흔들 수 있어요.",
+      "hidden": "말은 '무제한 대응'과 '긍정적 서한'으로 양쪽을 다 열어 두고 있어요. 실제 방향은 11/3 선거 직후 미국의 결정에 달려 있어, 그 전까지 유가는 해협 사고 뉴스에 따라 크게 흔들릴 수 있어요.",
       "korea": "10/30 원/달러는 월말 수출업체 달러 매도로 1,334.3원(−2.5원)이었지만, 유가가 120달러를 넘으면 무역수지와 원화 부담이 다시 커질 수 있어요.",
       "sources": [
         {
-          "title": "Tankers strike mines in Strait of Hormuz, Iran says (CBS News)",
-          "url": "https://www.cbsnews.com/live-updates/iran-war-donald-trump-qatar-mediators-new-proposal-end-war/"
+          "title": "Middle East latest: Attacks on ships transiting Hormuz in October highest since start of war (The National)",
+          "url": "https://www.thenationalnews.com/news/mena/2026/10/31/live-iran-war-strait-of-hormuz/"
         },
         {
-          "title": "Trump says Iran wants to talk, predicts conflict will end 'very soon' (Fox News)",
-          "url": "https://www.foxnews.com/live-news/us-iran-war-oil-prices-strait-hormuz-10-30-26"
+          "title": "Iran war live: oil tankers hit in Hormuz (Al Jazeera)",
+          "url": "https://www.aljazeera.com/news/liveblog/2026/10/31/iran-war-live-oil-tankers-hit-in-hormuz-trump-says-conflict-will-end-soon"
         },
         {
-          "title": "Nasdaq Falls 2.9% on AI Spending Fears; Intel Plunges 29% (Seoul Economic Daily)",
-          "url": "https://en.sedaily.com/international/2026/10/31/nasdaq-falls-29-percent-on-ai-spending-fears-intel-plunges"
+          "title": "No choice made yet by Trump on resuming military action against Iran (Fox News)",
+          "url": "https://www.foxnews.com/live-news/us-iran-war-trump-israel-strait-hormuz-10-31-26"
         }
       ]
     },
@@ -64,20 +64,24 @@
       "id": "china",
       "region": "중국",
       "icon": "🇨🇳",
-      "tone": "중립",
-      "title": "공산당 전체회의 개막, IMF는 성장 전망 4.5%로 낮춰",
+      "tone": "부정",
+      "title": "10월 제조업 PMI 49.3으로 다시 위축…신규주문도 49.4로 꺾여",
       "points": [
-        "중국 공산당 중앙위원회 전체회의가 10/26부터 나흘간 열려요. 시진핑 주석의 네 번째 임기와 내년 당대회 지도부 구성을 앞둔 '당 관리' 중심 회의라 큰 경기부양책은 기대되지 않아요.",
-        "IMF는 중국의 2026년 성장 전망을 4.6%에서 4.5%로 0.1%p 낮추며 '수출만으로는 약한 내수를 메울 수 없다'고 했어요.",
-        "3분기 성장률은 전년 대비 4.5%였고, 1~3분기 수출은 16.4% 늘었지만 소매판매는 2.6% 증가에 그쳤어요.",
-        "부동산 개발 투자는 20.6% 줄어 내수 부진의 핵심으로 남아 있어요."
+        "중국 국가통계국이 10/31 발표한 10월 제조업 PMI는 49.3으로 9월(50.1)보다 0.8 내려 기준선(50) 아래로 돌아갔어요. 시장 예상은 50.0이었어요.",
+        "신규주문 지수는 49.4로 1.1 떨어져 수요와 공급이 함께 식었어요. 통계국은 국경절 전 앞당겨진 수요와 복잡한 대외 환경을 이유로 들었어요.",
+        "첨단 제조업 PMI는 51.3으로 확장을 유지해, 전통 산업은 약하고 첨단 분야만 버티는 모습이에요.",
+        "앞서 3분기 성장률은 4.5%, 1~3분기 소매판매는 2.6% 증가에 그쳤고 IMF는 2026년 성장 전망을 4.5%로 낮췄어요."
       ],
-      "hidden": "숫자는 괜찮아 보이지만 성장의 엔진이 '수출'이에요. 중국 물건이 세계로 쏟아지면 한국 기업과 해외에서 가격 경쟁이 심해져요(특히 철강·화학·디스플레이·자동차).",
-      "korea": "중국은 한국의 최대 수출 시장이에요. 내수가 약하면 화장품·소비재 수출에 부담이고, 중국 산업 고도화는 한국 제조업의 경쟁 압력이에요.",
+      "hidden": "수출로 버티던 성장에서 공장 주문까지 꺾이면 4분기 성장률이 더 낮아질 수 있어요. 그래도 첨단 제조업은 확장 중이라 한국과의 경쟁 압력은 그대로예요.",
+      "korea": "중국은 한국의 최대 수출 시장이에요. 신규주문 위축은 석유화학·철강·소재 수출에 부담이고, 반도체 외 업종의 수출 둔화로 이어질 수 있어요.",
       "sources": [
         {
-          "title": "Chinese Communist Party begins key plenum meeting (ThePrint/PTI)",
-          "url": "https://theprint.in/world/chinese-communist-party-begins-key-plenum-meeting-setting-stage-for-xis-fourth-term/3082079/"
+          "title": "Economic Watch: China's manufacturing PMI softens, high-tech sector maintains expansion (Xinhua)",
+          "url": "https://english.news.cn/20261031/d98d1f3fa92a45d6a26f234849bd4957/c.html"
+        },
+        {
+          "title": "Chinese NBS Manufacturing PMI (Oct) 49.3 vs. Exp. 50 (Newsquawk)",
+          "url": "https://www.newsquawk.com/headlines/chinese-nbs-manufacturing-pmi-oct-493-vs-exp-50-prev-501"
         },
         {
           "title": "China records 4.5% Q3 growth (ANI)",
