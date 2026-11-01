@@ -1,33 +1,33 @@
 {
-  "asof": "2026-11-01",
-  "summary": "주말 사이에는 중동 긴장과 중국 경기 둔화 신호가 더해졌어요. 10월 호르무즈 일대 선박 공격이 9월의 두 배를 넘어 전쟁 이후 최다였고, 이란 최고지도자는 '지역 제한 없는 즉각 대응'을 경고했어요. 그래도 아락치 외무장관은 밴스 부통령 서한을 '긍정적 한 걸음'이라 했고, 미국은 선거 뒤 공습 재개를 아직 결정하지 않았어요. 중국 10월 제조업 PMI는 49.3으로 예상(50.0)보다 낮아 다시 위축으로 돌아섰어요. 금요일 미국은 인텔 −28.6%·반도체지수 −7.2%로 마감해 11/2(월) 아시아 개장 반응이 첫 시험대예요.",
+  "asof": "2026-11-02",
+  "summary": "주말 사이 중동에서는 협상 신호와 사고가 함께 나왔어요. 이란은 미국이 조건을 받으면 '이틀 안 호르무즈 재개'가 가능하다는 안을 카타르와 함께 내놨고 트럼프 대통령도 협상이 '잘 되고 있다'고 했지만, 해협 동쪽에서 유조선 기뢰 사고가 또 났고 핵시설 공습 위협도 이어졌어요. 한국 10월 수출은 1,152.8억 달러(+93.7%), 반도체 564.4억 달러(+259.4%)로 강했고 대중국 수출도 +133.6%여서 중국 PMI 49.3 충격을 일부 상쇄했어요. 이번 주는 11/3 미국 중간선거, 호주·영국 금리 결정, 11/6 미국 고용보고서가 이어져요.",
   "items": [
     {
       "id": "mideast",
       "region": "중동·원유",
       "icon": "🛢️",
       "tone": "부정",
-      "title": "10월 해협 선박 공격 '전쟁 이후 최다'…이란 '무제한 대응' 경고 속 협상 끈은 유지",
+      "title": "이란 '조건 맞으면 이틀 안 해협 재개' 제안…기뢰 사고·공습 위협도 계속",
       "points": [
-        "10/30 이란 혁명수비대는 '비인가 항로'를 쓴 유조선 4척이 폭발했고 그중 한 척(200만 배럴 이상 적재)은 기뢰에 부딪혔다고 주장했어요(독립 확인 안 됨).",
-        "The National에 따르면 10월 호르무즈·오만만·걸프에서 공격받은 선박 수는 9월의 두 배를 넘어 전쟁 시작 이후 가장 많았어요.",
-        "10/31 이란 최고지도자는 어떤 위협에도 '즉각적이고 지역 제한 없는 대응'을 지시했고, 미국은 동맹국에 11/3 선거 뒤 공습 재개 가능성에 대비하라고 했지만 트럼프 대통령은 아직 최종 결정을 내리지 않았어요(AP).",
-        "반면 아락치 외무장관은 밴스 부통령 서한을 '긍정적 한 걸음'이라고 했고, 이란 대표단이 도하에서 카타르 중재 협의를 이어가고 있어요. 브렌트는 10/30 117.64달러, 유럽 가스(TTF)는 MWh당 101유로를 넘었어요."
+        "11/1 아락치 외무장관은 카타르 중재로 기존 7일 안을 줄여, 미국이 첫날 조치하면 둘째 날 해운을 재개하는 '이틀 안 재개' 안을 냈어요. 조건은 제재 완화, 동결 자금 해제, 원유 수출 예외 복원, 미군 주둔 축소, 레바논 공격 중단 등이에요.",
+        "하지만 레자이 안보책임자는 조건이 충족되기 전엔 재개는 없다고 했고, 미국과의 직접 협상 계획은 없어요. 이란 대표단은 11/1까지 사흘 연속 카타르와 협의했어요.",
+        "트럼프 대통령은 협상이 '잘 되고 있고 서두르지 않는다'면서도 핵시설(곡괭이산) 공습 위협을 되풀이했고, 루비오 국무장관은 공습 재개를 아직 결정하지 않았다고 했어요.",
+        "주말에도 해협 동쪽에서 유조선이 기뢰에 부딪혀 불이 났고, 미 중부사령부는 이란 항구 봉쇄로 상선 144척의 항로를 돌렸다고 밝혔어요. 브렌트는 10/30 117.64달러였어요."
       ],
-      "hidden": "말은 '무제한 대응'과 '긍정적 서한'으로 양쪽을 다 열어 두고 있어요. 실제 방향은 11/3 선거 직후 미국의 결정에 달려 있어, 그 전까지 유가는 해협 사고 뉴스에 따라 크게 흔들릴 수 있어요.",
-      "korea": "10/30 원/달러는 월말 수출업체 달러 매도로 1,334.3원(−2.5원)이었지만, 유가가 120달러를 넘으면 무역수지와 원화 부담이 다시 커질 수 있어요.",
+      "hidden": "이란이 '재개 시간표'를 처음으로 구체적인 숫자로 내놓은 건 협상이 진전됐다는 뜻이에요. 다만 조건이 미국이 받기 어려운 것들이라, 11/3 선거 뒤 미국의 답이 유가 방향을 가를 거예요.",
+      "korea": "해협이 실제로 열리면 유가 하락으로 한국 무역수지와 원화에 큰 도움이 돼요. 반대로 협상이 깨지고 공습이 재개되면 유가 120달러 돌파 위험이 커져요.",
       "sources": [
         {
-          "title": "Middle East latest: Attacks on ships transiting Hormuz in October highest since start of war (The National)",
-          "url": "https://www.thenationalnews.com/news/mena/2026/10/31/live-iran-war-strait-of-hormuz/"
+          "title": "Iran offers 48-hour Hormuz reopening plan as Trump signals progress in talks (Investing.com)",
+          "url": "https://www.investing.com/news/economy-news/iran-offers-48hour-hormuz-reopening-plan-as-trump-signals-progress-in-talks-4989413"
         },
         {
-          "title": "Iran war live: oil tankers hit in Hormuz (Al Jazeera)",
-          "url": "https://www.aljazeera.com/news/liveblog/2026/10/31/iran-war-live-oil-tankers-hit-in-hormuz-trump-says-conflict-will-end-soon"
+          "title": "Araghchi says Hormuz could be reopened within two days if conditions met (Middle East Eye)",
+          "url": "https://www.middleeasteye.net/live-blog/live-blog-update/araghchi-says-hormuz-could-be-reopened-two-days-if-conditions-met"
         },
         {
-          "title": "No choice made yet by Trump on resuming military action against Iran (Fox News)",
-          "url": "https://www.foxnews.com/live-news/us-iran-war-trump-israel-strait-hormuz-10-31-26"
+          "title": "Strait of Hormuz News, November 1, 2026 (Straits Daily Brief)",
+          "url": "https://straits.live/briefs/2026-11-01"
         }
       ]
     },
@@ -65,14 +65,14 @@
       "region": "중국",
       "icon": "🇨🇳",
       "tone": "부정",
-      "title": "10월 제조업 PMI 49.3으로 다시 위축…신규주문도 49.4로 꺾여",
+      "title": "10월 제조업 PMI 49.3으로 위축…그래도 한국의 대중국 수출은 +133.6%",
       "points": [
         "중국 국가통계국이 10/31 발표한 10월 제조업 PMI는 49.3으로 9월(50.1)보다 0.8 내려 기준선(50) 아래로 돌아갔어요. 시장 예상은 50.0이었어요.",
-        "신규주문 지수는 49.4로 1.1 떨어져 수요와 공급이 함께 식었어요. 통계국은 국경절 전 앞당겨진 수요와 복잡한 대외 환경을 이유로 들었어요.",
-        "첨단 제조업 PMI는 51.3으로 확장을 유지해, 전통 산업은 약하고 첨단 분야만 버티는 모습이에요.",
-        "앞서 3분기 성장률은 4.5%, 1~3분기 소매판매는 2.6% 증가에 그쳤고 IMF는 2026년 성장 전망을 4.5%로 낮췄어요."
+        "신규주문 지수는 49.4로 1.1 떨어졌지만, 첨단 제조업 PMI는 51.3으로 확장을 유지했어요.",
+        "11/1 발표된 한국의 10월 대중국 수출은 269.8억 달러로 1년 전보다 133.6% 늘어, 반도체 중심 수요는 아직 꺾이지 않았어요.",
+        "11/2~6 전인대 상무위원회가 열리지만 의제에 재정·국채 한도 변경은 없어 대규모 부양 기대는 낮아요."
       ],
-      "hidden": "수출로 버티던 성장에서 공장 주문까지 꺾이면 4분기 성장률이 더 낮아질 수 있어요. 그래도 첨단 제조업은 확장 중이라 한국과의 경쟁 압력은 그대로예요.",
+      "hidden": "공장 경기는 식었지만 AI·반도체 관련 수입은 강해요. 중국 경기 둔화가 한국에 미치는 타격은 반도체보다 석유화학·철강 같은 전통 업종에 먼저 나타날 가능성이 커요.",
       "korea": "중국은 한국의 최대 수출 시장이에요. 신규주문 위축은 석유화학·철강·소재 수출에 부담이고, 반도체 외 업종의 수출 둔화로 이어질 수 있어요.",
       "sources": [
         {
@@ -80,12 +80,12 @@
           "url": "https://english.news.cn/20261031/d98d1f3fa92a45d6a26f234849bd4957/c.html"
         },
         {
-          "title": "Chinese NBS Manufacturing PMI (Oct) 49.3 vs. Exp. 50 (Newsquawk)",
-          "url": "https://www.newsquawk.com/headlines/chinese-nbs-manufacturing-pmi-oct-493-vs-exp-50-prev-501"
+          "title": "사상 첫 '수출 1조 달러' 눈앞…10월에도 1100억 달러 넘어 (ZDNet Korea)",
+          "url": "https://zdnet.co.kr/view/?no=20261101235028"
         },
         {
-          "title": "China records 4.5% Q3 growth (ANI)",
-          "url": "https://aninews.in/news/business/china-records-45-q3-growth-as-exports-rise-domestic-demand-remains-weak20261019100857/"
+          "title": "Week In Focus 2nd-6th November 2026 (Newsquawk)",
+          "url": "https://www.newsquawk.com/headlines/week-in-focus-2nd-6th-november-2026-highlights-include-us-midterm-election-nfp-ism-pmis-rba-boe-and-ez-cpi-"
         }
       ]
     },
@@ -99,7 +99,7 @@
         "ECB는 10/29 예금금리를 2.50%로 동결했어요. 올해 두 차례(최근 9월) 올린 뒤 쉬어가는 결정이고, '특정 금리 경로를 미리 약속하지 않는다'고 밝혔어요.",
         "유로존 9월 물가는 3.8%(8월 3.2%)로 목표(2%)의 두 배 가까이 돼요. ECB는 에너지 충격이 물가는 올리고 성장은 낮출 것이라고 경고했어요.",
         "라가르드 총재는 임기를 약 9개월 남기고 2027년 2월 7일 물러난다고 발표했어요. 후임 후보로 스페인의 에르난데스 데 코스, 네덜란드의 크노트가 거론돼요.",
-        "프랑스 10년물 금리는 약 5%(독일과 격차 약 155bp)로 2002년 이후 최고권이고, ECB는 시장 혼란 시 쓸 수 있는 채권 매입 수단(TPI)이 있다고 강조했어요."
+        "이번 주 11/4 유로존 10월 물가 속보치와 11/5 영란은행 회의(0.25%p 인상으로 긴축 시작 예상)가 있어요. 로이터 소식통에 따르면 ECB 위원들은 12월 인상 뒤 쉬어가는 경로를 보고 있어요."
       ],
       "hidden": "ING는 9월 이후 국채 금리 상승이 독일엔 0.25%p, 프랑스엔 약 0.5%p 금리 인상 효과를 냈다고 봤어요. 금리를 올리지 않아도 시장이 대신 긴축을 하고 있는 셈이에요.",
       "korea": "유럽은 한국 자동차·배터리·선박의 주요 시장이에요. 높은 물가와 금리가 그쪽 소비·투자를 식히면 수출 기업에 부담이 될 수 있어요.",
@@ -111,6 +111,10 @@
         {
           "title": "Monetary policy statement, 29 October 2026 (ECB)",
           "url": "https://www.ecb.europa.eu/press/press_conference/monetary-policy-statement/2026/html/ecb.is261029~5c5ffe99e5.en.html"
+        },
+        {
+          "title": "Week In Focus 2nd-6th November 2026 (Newsquawk)",
+          "url": "https://www.newsquawk.com/headlines/week-in-focus-2nd-6th-november-2026-highlights-include-us-midterm-election-nfp-ism-pmis-rba-boe-and-ez-cpi-"
         }
       ]
     },
