@@ -29,7 +29,7 @@ def _infl(oil_shift: float, months: int):
 
 
 def _gauge(prob: float, title: str) -> go.Figure:
-    color = cm.DOWN if prob >= 0.55 else cm.UP if prob <= 0.45 else cm.MUTED  # 금리 상승 = 채권 가격 하락 = 빨강
+    color = cm.DOWN if prob >= 0.55 else cm.UP if prob <= 0.45 else cm.MUTED  # 금리 상승 = 채권 가격 하락 = 파랑(한국식)
     fig = go.Figure(go.Indicator(
         mode="gauge+number", value=prob * 100, number={"suffix": "%", "font": {"size": 40}}, title={"text": title},
         gauge={"axis": {"range": [0, 100]}, "bar": {"color": color},
@@ -133,7 +133,7 @@ def bonds():
         sub = p[etfs].dropna(how="all").tail(n)
         norm = sub / sub.bfill().iloc[0] * 100
         fig3 = go.Figure()
-        for t, c in zip(etfs, [cm.UP, cm.BLUE, cm.DOWN, cm.ORANGE]):
+        for t, c in zip(etfs, [cm.GOOD, cm.BLUE, cm.PURPLE, cm.ORANGE]):
             fig3.add_trace(go.Scatter(x=norm.index, y=norm[t], name=BOND_ETFS[t], line=dict(color=c, width=2)))
         fig3.update_yaxes(title="시작일 = 100")
         cm.show(fig3, 320)
@@ -193,7 +193,7 @@ def inflation():
         if key == "cpi":
             fig.add_trace(go.Scatter(x=fx + fx[::-1], y=[h.iloc[-1]] + list(r["hi"]) + list(r["lo"])[::-1] + [h.iloc[-1]],
                                      fill="toself", fillcolor="rgba(240,163,58,0.15)", line=dict(width=0), name="CPI 예측 범위(약 80%)"))
-    fig.add_hline(y=2, line_dash="dash", line_color=cm.UP, annotation_text="연준 목표 2%")
+    fig.add_hline(y=2, line_dash="dash", line_color=cm.GOOD, annotation_text="연준 목표 2%")
     fig.update_yaxes(title="전년비 %")
     cm.show(fig, 380)
 
@@ -234,7 +234,7 @@ def inflation():
     if be is not None and not be.dropna().empty:
         b = be.dropna().tail(500)
         fig2 = go.Figure(go.Scatter(x=b.index, y=b, line=dict(color=cm.BLUE, width=2), name="10년 기대인플레이션"))
-        fig2.add_hline(y=2, line_dash="dash", line_color=cm.UP, annotation_text="2%")
+        fig2.add_hline(y=2, line_dash="dash", line_color=cm.GOOD, annotation_text="2%")
         fig2.update_yaxes(title="%")
         cm.show(fig2, 260)
         st.caption("채권시장이 앞으로 10년 평균 물가를 몇 %로 보는지예요. 2.5%를 넘어 오르면 시장이 물가를 걱정하기 시작했다는 신호예요.")

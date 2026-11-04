@@ -152,7 +152,7 @@ def overheat():
             pos.append((name(t), (y.iloc[-1] - y.min()) / (y.max() - y.min()) * 100 if y.max() > y.min() else 50))
     pos = pd.DataFrame(pos, columns=["지표", "위치"]).sort_values("위치")
     fig = go.Figure(go.Bar(x=pos["위치"], y=pos["지표"], orientation="h",
-                           marker_color=[cm.DOWN if v > 85 else cm.UP if v < 15 else cm.MUTED for v in pos["위치"]],
+                           marker_color=[cm.BAD if v > 85 else cm.GOOD if v < 15 else cm.MUTED for v in pos["위치"]],
                            text=[f"{v:.0f}%" for v in pos["위치"]], textposition="outside"))
     fig.update_layout(xaxis=dict(range=[0, 110], title="0% = 52주 최저 · 100% = 52주 최고"), hovermode=False,
                       height=60 + 40 * len(pos), margin=dict(l=10, r=40, t=36, b=10))

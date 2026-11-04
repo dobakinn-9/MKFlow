@@ -48,6 +48,13 @@ hr {{ border-color: {LINE} !important; }}
 [data-testid="stMetricValue"] {{ font-size: 1.55rem !important; font-weight: 700; letter-spacing: -0.02em;
   font-variant-numeric: tabular-nums; }}
 [data-testid="stMetricDelta"] {{ font-size: 0.8rem !important; font-weight: 600; }}
+/* 한국식 등락 색: 오르면 빨강, 내리면 파랑 (화살표 방향 기준) */
+[data-testid="stMetricDelta"]:has([data-testid="stMetricDeltaIcon-Up"]),
+[data-testid="stMetricDelta"]:has([data-testid="stMetricDeltaIcon-Up"]) * {{ color: #F04452 !important; fill: #F04452 !important; }}
+[data-testid="stMetricDelta"]:has([data-testid="stMetricDeltaIcon-Down"]),
+[data-testid="stMetricDelta"]:has([data-testid="stMetricDeltaIcon-Down"]) * {{ color: #3D8BFF !important; fill: #3D8BFF !important; }}
+[data-testid="stMetricDelta"]:has([data-testid="stMetricDeltaIcon-Up"]) {{ background: rgba(240,68,82,.12) !important; }}
+[data-testid="stMetricDelta"]:has([data-testid="stMetricDeltaIcon-Down"]) {{ background: rgba(61,139,255,.12) !important; }}
 
 /* ── 테두리 상자·펼침·알림을 카드처럼 ─────── */
 [data-testid="stVerticalBlockBorderWrapper"] {{ border-radius: 18px !important; border-color: {LINE} !important;
@@ -191,7 +198,7 @@ def _build(go, pio):
     t.layout.update(
         paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
         font=dict(family=FONT, color=TEXT, size=12),
-        colorway=["#3B82F6", "#F59E0B", "#22C55E", "#A78BFA", "#EF4444", "#14B8A6", "#EC4899", "#94A3B8"],
+        colorway=["#60A5FA", "#F59E0B", "#22C55E", "#A78BFA", "#F472B6", "#14B8A6", "#EC4899", "#94A3B8"],
         legend=dict(orientation="h", y=-0.18, x=0, bgcolor="rgba(0,0,0,0)", font=dict(size=11)),
         hoverlabel=dict(bgcolor=CARD2, bordercolor=LINE, font=dict(family=FONT, color=TEXT)),
         margin=dict(l=8, r=8, t=36, b=8),

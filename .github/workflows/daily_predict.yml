@@ -45,7 +45,10 @@ jobs:
           if git diff --cached --quiet; then
             echo "바뀐 내용이 없어요."
           else
-            git commit -m "AI 예측 기록·채점 $(date -u +%Y-%m-%d)"
-            git pull --rebase origin main
-            git push
+            git commit -m "AI 예측 기록·채점 $(TZ=Asia/Seoul date +%Y-%m-%d)"
+            for i in 1 2 3 4; do
+              git pull --rebase origin main && git push && exit 0
+              echo "저장 재시도 $i"; sleep $((i*15))
+            done
+            exit 1
           fi

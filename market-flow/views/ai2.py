@@ -77,10 +77,10 @@ def crash():
     fig = go.Figure()
     fig.add_trace(go.Scatter(x=p.index, y=p, name=name(t), line=dict(color=cm.BLUE, width=2)))
     fig.add_trace(go.Scatter(x=h.index, y=h["prob"] * 100, name="급락 확률 % (오른쪽)", yaxis="y2", fill="tozeroy",
-                             line=dict(color=cm.DOWN, width=1), fillcolor="rgba(229,83,75,0.2)"))
+                             line=dict(color=cm.BAD, width=1), fillcolor="rgba(229,83,75,0.2)"))
     hit = h[h["y"] == 1]
     fig.add_trace(go.Scatter(x=hit.index, y=p.reindex(hit.index), mode="markers", name="실제로 급락이 시작된 날",
-                             marker=dict(color=cm.DOWN, size=6, symbol="x")))
+                             marker=dict(color=cm.BAD, size=6, symbol="x")))
     fig.update_layout(yaxis=dict(title=name(t)), yaxis2=dict(overlaying="y", side="right", title="%", rangemode="tozero"))
     cm.show(fig, 380)
     top = r["contrib"].head(7)
@@ -161,7 +161,7 @@ def recession():
     st.markdown(f"### 판단: {level}")
     fig = go.Figure()
     fig.add_trace(go.Scatter(x=rp["target_month"], y=rp["prob"], name="침체 확률 (12개월 뒤 기준)", fill="tozeroy",
-                             line=dict(color=cm.DOWN, width=2), fillcolor="rgba(229,83,75,0.15)"))
+                             line=dict(color=cm.BAD, width=2), fillcolor="rgba(229,83,75,0.15)"))
     fig.add_trace(go.Scatter(x=rp.index, y=rp["spread"], name="금리차 %p (오른쪽)", yaxis="y2", line=dict(color=cm.BLUE, width=1.5)))
     fig.add_hline(y=30, line_dash="dot", line_color=cm.MUTED, annotation_text="30%")
     fig.update_layout(yaxis=dict(title="침체 확률 %", range=[0, 100]), yaxis2=dict(overlaying="y", side="right", title="%p"))
@@ -228,7 +228,7 @@ def analogs():
         return
     tb = r["table"]
     fig = go.Figure()
-    colors = [cm.BLUE, cm.ORANGE, cm.UP, "#B07CFF", "#E6E8EB"]
+    colors = [cm.BLUE, cm.ORANGE, cm.GOOD, "#B07CFF", "#E6E8EB"]
     for (d, path), c in zip(r["paths"].items(), colors):
         fig.add_trace(go.Scatter(x=list(range(len(path))), y=path, name=f"{d:%Y-%m-%d}", line=dict(color=c, width=1.6)))
     L = min(len(p) for p in r["paths"].values())
@@ -309,7 +309,7 @@ def events_impact():
     past = [d for d in pd.to_datetime(dates) if d < today]
     rows = []
     fig = go.Figure()
-    for t, lag, c in (("^GSPC", 0, cm.BLUE), ("^KS11", 1, cm.ORANGE), ("^TNX", 0, cm.UP)):
+    for t, lag, c in (("^GSPC", 0, cm.BLUE), ("^KS11", 1, cm.ORANGE), ("^TNX", 0, cm.GOOD)):
         if t not in p:
             continue
         r = ax.event_study(p[t], past, window=5, lag=lag)

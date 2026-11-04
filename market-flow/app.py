@@ -18,7 +18,7 @@ for _m in [m for m in list(sys.modules) if m.split(".")[0] in _LOCAL]:
     del sys.modules[_m]
 
 from config import FORWARD_DAYS, SCORE_TARGETS  # noqa: E402
-from views import ai, ai2, calendar, flowmap, riskgauge, flows, macro, money, overview, reports, sentiment, strength
+from views import ai, ai2, calendar, eventchart, flowmap, macroflow, riskgauge, weekly, flows, macro, money, overview, reports, sentiment, strength
 
 st.set_page_config(page_title="한·미 시장 흐름", page_icon="📈", layout="wide", initial_sidebar_state="auto")
 
@@ -34,6 +34,7 @@ pages = {
         P(overview.today, title="오늘의 시장", icon="🏠", url_path="today", default=True),
         P(flowmap.flow_map, title="흐름 연결 지도", icon="🔗", url_path="flow-map"),
         P(riskgauge.page, title="위험선호/회피 게이지", icon="💹", url_path="risk-gauge"),
+        P(macroflow.cycle_clock, title="경기 국면 시계", icon="🕐", url_path="cycle-clock"),
         P(flowmap.rotation_map, title="업종 순환 지도", icon="🧭", url_path="rotation-map"),
         P(overview.score, title="흐름 점수·전망", icon="📍", url_path="score"),
     ],
@@ -55,6 +56,7 @@ pages = {
         P(ai.growth, title="AI 성장 기록", icon="🌱", url_path="ai-growth"),
     ],
     "시장 보고서": [
+        P(weekly.page, title="주간 흐름 리포트", icon="🗞️", url_path="weekly"),
         P(reports.world, title="세계 동향 브리핑", icon="🌍", url_path="world"),
         P(reports.hidden, title="숨은 지표", icon="🔎", url_path="hidden"),
         P(money.us_reports, title="미국 경제 보고서", icon="📰", url_path="us-reports"),
@@ -63,6 +65,7 @@ pages = {
         P(money.rates, title="금리", icon="🏦", url_path="rates"),
         P(money.fx, title="환율·달러", icon="💱", url_path="fx"),
         P(money.commodities, title="유가·금", icon="🛢️", url_path="commodities"),
+        P(macroflow.liquidity, title="달러 유동성", icon="💧", url_path="liquidity"),
     ],
     "시장의 체력": [
         P(strength.trend, title="추세·이동평균", icon="📈", url_path="trend"),
@@ -84,6 +87,7 @@ pages = {
     ],
     "일정": [
         P(calendar.events, title="이벤트 캘린더", icon="📅", url_path="events"),
+        P(eventchart.page, title="사건 표시 차트", icon="📍", url_path="event-chart"),
         P(calendar.status, title="데이터 업데이트 현황", icon="✅", url_path="data-status"),
     ],
 }

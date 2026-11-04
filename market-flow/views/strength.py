@@ -25,7 +25,7 @@ def trend():
     ma = pd.DataFrame({"종가": full, "20일선": full.rolling(20).mean(), "60일선": full.rolling(60).mean(),
                        "120일선": full.rolling(120).mean()}).tail(n)
     fig = px.line(ma, labels={"value": "", "index": "", "variable": ""},
-                  color_discrete_sequence=[cm.BLUE, cm.ORANGE, cm.UP, cm.MUTED])
+                  color_discrete_sequence=[cm.BLUE, cm.ORANGE, cm.GOOD, cm.MUTED])
     cm.show(fig, 380)
     last = ma.iloc[-1]
     states = [f"60일선 {'위' if last['종가'] > last['60일선'] else '아래'}",

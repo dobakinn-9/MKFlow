@@ -59,6 +59,13 @@ def _last_json(path, key):
         return pd.NaT
 
 
+def _last_weekly(D):
+    try:
+        return max(pd.Timestamp(f.stem) for f in (D / "weekly").glob("*.json"))
+    except Exception:
+        return pd.NaT
+
+
 def status():
     st.title("데이터 업데이트 현황")
     st.caption("앱의 모든 정보가 언제 마지막으로 갱신됐는지 한눈에 보는 곳이에요. 🟢 최신 · 🟡 하루 늦음 · 🔴 확인 필요")
@@ -89,7 +96,11 @@ def status():
         ("한국", "지수 거래대금", _last_csv(K / "index_KOSPI.csv"), "평일 09:30·16:00 자동 수집", bday_lag, 1),
         ("한국", "코스피·코스닥 PER·PBR", _last_csv(K / "valuation_KOSPI.csv"), "평일 09:30·16:00 자동 수집", bday_lag, 1),
         ("한국", "VKOSPI", _last_csv(K / "vkospi.csv"), "해외에서 받을 곳이 없어 실제 변동성으로 대체", bday_lag, 1),
-        ("미국", "미국 경제 지표 (FRED)", fred_last, "발표되는 대로 (주간·월간)", cal_lag, 40),
+        ("미국", "미국 경제 지표 (BLS·노동부·BEA·연준·미시간대)", fred_last, "매일 07:15·23:15 자동 수집 (발표 주기: 주간·월간)", cal_lag, 40),
+        ("미국", "달러 유동성 (연준 자산·TGA·역레포)", _last_csv(D / "us" / "TGA_B.csv"), "매일 07:15·23:15 자동 수집", bday_lag, 1),
+        ("세계", "경기선행지수 (OECD)", _last_csv(D / "us" / "CLI_USA.csv"), "매일 확인 (OECD 월 1회 발표, 약 1~2개월 지연)", cal_lag, 75),
+        ("기록", "사건 기록", _last_csv(D / "event_log.csv"), "매일 08:18 Claude", cal_lag, 3),
+        ("기록", "주간 흐름 리포트", _last_weekly(D), "매주 월요일 08:18 Claude", cal_lag, 7),
         ("미국", "미국 경제 보고서 확인", _last_json(D / "us_reports_meta.json", "checked"), "매일 08:18 Claude", cal_lag, 0),
         ("AI", "AI 모델 예측 기록·채점", _last_csv(D / "predictions.csv", "created_utc"), "평일 07:40·16:10 자동", bday_lag, 1),
         ("AI", "Claude 시장 전망", _last_json(D / "ai_outlook.json", "asof"), "매일 08:18 Claude", cal_lag, 0),
@@ -129,5 +140,7 @@ def status():
     try:
         st.markdown("**한국 자동 수집 마지막 실행 기록**")
         st.code((K / "status.txt").read_text(encoding="utf-8")[-1500:], language=None)
+        st.markdown("**미국·세계 통계 자동 수집 마지막 실행 기록**")
+        st.code((D / "us" / "status.txt").read_text(encoding="utf-8")[-2500:], language=None)
     except Exception:
         pass

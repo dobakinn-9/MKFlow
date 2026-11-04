@@ -69,11 +69,11 @@ def label(v: float) -> tuple[str, str]:
     if v < 25:
         return "강한 위험회피", cm.DOWN
     if v < 45:
-        return "위험회피", "#F97316"
+        return "위험회피", "#93C5FD"
     if v <= 55:
         return "중립", cm.MUTED
     if v <= 75:
-        return "위험선호", "#84CC16"
+        return "위험선호", "#FCA5A5"
     return "강한 위험선호", cm.UP
 
 
@@ -84,11 +84,11 @@ def _gauge(v: float, title: str) -> go.Figure:
         title={"text": f"{title}<br><span style='font-size:0.85em;color:{col}'>{lab}</span>"},
         gauge={"axis": {"range": [0, 100], "tickvals": [0, 25, 45, 55, 75, 100]},
                "bar": {"color": col},
-               "steps": [{"range": [0, 25], "color": "rgba(239,68,68,0.18)"},
-                         {"range": [25, 45], "color": "rgba(249,115,22,0.14)"},
+               "steps": [{"range": [0, 25], "color": "rgba(61,139,255,0.20)"},
+                         {"range": [25, 45], "color": "rgba(147,197,253,0.14)"},
                          {"range": [45, 55], "color": "rgba(148,163,184,0.14)"},
-                         {"range": [55, 75], "color": "rgba(132,204,22,0.14)"},
-                         {"range": [75, 100], "color": "rgba(34,197,94,0.18)"}]}))
+                         {"range": [55, 75], "color": "rgba(252,165,165,0.14)"},
+                         {"range": [75, 100], "color": "rgba(240,68,82,0.20)"}]}))
     fig.update_layout(height=270, margin=dict(l=24, r=24, t=80, b=0))
     return fig
 

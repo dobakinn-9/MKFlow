@@ -236,7 +236,7 @@ def growth():
         if len(gg) >= 5:
             st.subheader("실전 적중률 누적 추이")
             cum = gg["hit"].expanding().mean() * 100
-            fig3 = go.Figure(go.Scatter(x=gg["asof"], y=cum, line=dict(color=cm.UP, width=2)))
+            fig3 = go.Figure(go.Scatter(x=gg["asof"], y=cum, line=dict(color=cm.GOOD, width=2)))
             fig3.add_hline(y=50, line_dash="dot", line_color=cm.MUTED)
             fig3.update_yaxes(range=[0, 100], title="%")
             cm.show(fig3, 240)

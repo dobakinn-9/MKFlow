@@ -104,7 +104,7 @@ def commodities():
 
 
 US_AUTO = [  # (FRED 코드, 이름, 표시 방식, 단위, 좋은 방향) — 발표되면 자동으로 최신값이 들어와요
-    ("ICSA", "신규 실업수당 청구 (주간)", "level_k", "천 건", "down"),
+    ("ICSA", "신규 실업수당 청구 (주간·계절조정 전)", "level_k", "천 건", "down"),
     ("UNRATE", "실업률", "level", "%", "down"),
     ("PAYEMS", "비농업 일자리 증가", "diff_k", "천 명", "up"),
     ("CPIAUCSL", "CPI (전년비)", "yoy", "%", "down"),

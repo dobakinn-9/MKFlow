@@ -120,8 +120,8 @@ def hidden():
             ss = s.tail(n)
             fig = go.Figure(go.Scatter(x=ss.index, y=ss, line=dict(color=cm.BLUE, width=2)))
             if spec["kind"] == "level":
-                fig.add_hline(y=spec["warn"], line_dash="dot", line_color=cm.DOWN)
-                fig.add_hline(y=spec["calm"], line_dash="dot", line_color=cm.UP)
+                fig.add_hline(y=spec["warn"], line_dash="dot", line_color=cm.BAD)
+                fig.add_hline(y=spec["calm"], line_dash="dot", line_color=cm.GOOD)
             elif spec["kind"] == "ratio":
                 fig.update_yaxes(title="1년 전 = 100")
             cm.show(fig, 240)

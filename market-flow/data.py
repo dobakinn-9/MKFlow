@@ -300,6 +300,22 @@ def load_events() -> tuple[pd.DataFrame | None, str]:
     return df, "공개 일정 보도를 정리한 파일 (data/events.csv)"
 
 
+def load_event_log() -> tuple[pd.DataFrame | None, str]:
+    """data/event_log.csv: 지나간 사건 기록 (열: date, market, title, category, importance, note)."""
+    f = DATA_DIR / "event_log.csv"
+    if not f.exists():
+        return None, "사건 기록 파일이 아직 없어요"
+    df = pd.read_csv(f, parse_dates=["date"]).sort_values("date")
+    return df, "Claude가 매일 정리하는 사건 기록 (data/event_log.csv)"
+
+
+def load_news_sentiment() -> tuple[pd.DataFrame | None, str]:
+    f = DATA_DIR / "news_sentiment.csv"
+    if not f.exists():
+        return None, ""
+    return pd.read_csv(f, parse_dates=["date"]).sort_values("date"), "Claude 뉴스 분위기 점수"
+
+
 def load_world_brief() -> tuple[list | None, str]:
     """data/world_brief.json — 지역별 세계 동향 한국어 브리핑."""
     f = DATA_DIR / "world_brief.json"
@@ -344,12 +360,51 @@ def _synthetic_fred() -> dict[str, pd.Series]:
     }
 
 
+US_DIR = DATA_DIR / "us"
+
+
+def _synthetic_us(key: str) -> pd.Series:
+    rng = np.random.default_rng(abs(hash(key)) % 1000)
+    if key.startswith("CLI_"):
+        idx = pd.date_range("2016-01-01", periods=130, freq="MS")
+        return pd.Series(100 + 1.2 * np.sin(np.arange(130) / 9 + rng.uniform(0, 6)) + rng.normal(0, 0.05, 130).cumsum() * 0.1, index=idx)
+    idx = pd.bdate_range(end=pd.Timestamp.today().normalize(), periods=1500)
+    base = {"WALCL_B": 7000, "TGA_B": 800, "RRP_B": 300}.get(key, 100)
+    return pd.Series(np.clip(base + rng.normal(0, base * 0.004, 1500).cumsum(), 1, None), index=idx)
+
+
+def load_us_cache(key: str) -> tuple[pd.Series | None, str]:
+    """GitHub Actions(fetch_us.py)가 받아 둔 미국 통계 (data/us/{key}.csv: date, value)."""
+    if demo_mode():
+        return _synthetic_us(key), SAMPLE
+    f = US_DIR / f"{key}.csv"
+    if not f.exists():
+        return None, ""
+    try:
+        df = pd.read_csv(f, parse_dates=["date"]).set_index("date").sort_index()
+        s = pd.to_numeric(df["value"], errors="coerce").dropna()
+        src = str(df["source"].dropna().iloc[-1]) if "source" in df and df["source"].notna().any() else "공식 통계"
+        return s, f"{src} (GitHub 자동 수집 · 마지막 {s.index.max():%Y-%m-%d})"
+    except Exception:
+        return None, ""
+
+
 def load_fred(series: list[str]) -> tuple[dict[str, pd.Series], str]:
-    """FRED 시계열 여러 개. 실패한 것은 빠져요. (값, 출처 설명)"""
+    """FRED 시계열 여러 개. 실패한 것은 빠져요. (값, 출처 설명)
+    FRED는 해외 클라우드 서버에서 막힐 때가 많아서, GitHub이 공식 기관에서 받아 둔 data/us/ 파일을 먼저 읽어요."""
     if demo_mode():
         syn = _synthetic_fred()
         return {k: syn[k] for k in series if k in syn}, SAMPLE
     out, failed = {}, []
+    cached = {}
+    for sid in series:
+        s, _ = load_us_cache(sid)
+        if s is not None and len(s):
+            cached[sid] = s
+    if len(cached) == len(series):
+        return cached, "미국 노동통계국·경제분석국·연준·미시간대 공식 자료 (GitHub 자동 수집)"
+    series = [x for x in series if x not in cached]
+    out.update(cached)
     try:
         import io
         import requests
@@ -357,22 +412,25 @@ def load_fred(series: list[str]) -> tuple[dict[str, pd.Series], str]:
         for sid in series:
             try:
                 r = requests.get("https://fred.stlouisfed.org/graph/fredgraph.csv", params={"id": sid},
-                                 headers={"User-Agent": "Mozilla/5.0 market-flow"}, timeout=20)
+                                 headers={"User-Agent": "Mozilla/5.0 market-flow"}, timeout=8)
                 r.raise_for_status()
                 df = pd.read_csv(io.StringIO(r.text))
                 date_col = df.columns[0]
                 s = pd.to_numeric(df[sid], errors="coerce")
                 s.index = pd.to_datetime(df[date_col])
                 out[sid] = s.dropna()
-            except Exception:
+            except Exception as e:
                 failed.append(sid)
+                if "timeout" in type(e).__name__.lower() or "connection" in type(e).__name__.lower():
+                    failed += [x for x in series if x not in failed and x not in out]  # 막혀 있으면 나머지는 건너뛰어요
+                    break
     except Exception as e:
         failed = series
         note = f"FRED 접속 실패 ({e})"
     if not out:
         syn = _synthetic_fred()
         return {k: syn[k] for k in series if k in syn}, "FRED에 접속하지 못해 샘플 데이터를 표시해요"
-    note = "미국 노동통계국·경제분석국 통계 (FRED, 세인트루이스 연은)"
+    note = "미국 노동통계국·경제분석국·연준 공식 자료" + (" (GitHub 자동 수집 + FRED)" if cached else " (FRED, 세인트루이스 연은)")
     if failed:
         note += f" · 불러오지 못한 항목: {', '.join(failed)}"
     return out, note

@@ -10,7 +10,9 @@ import data as dt
 from config import CACHE_TTL, FORWARD_DAYS, SCORE_TARGETS
 
 # 다크 배경에서 잘 보이도록 밝은 색을 써요.
-UP, DOWN, MUTED, BLUE, ORANGE = "#22C55E", "#EF4444", "#94A3B8", "#3B82F6", "#F59E0B"
+# 한국식: 오르면 빨강(UP), 내리면 파랑(DOWN). 좋다/나쁘다 신호는 GOOD(초록)/BAD(빨강)로 따로 써요.
+UP, DOWN, MUTED, BLUE, ORANGE = "#F04452", "#3D8BFF", "#94A3B8", "#60A5FA", "#F59E0B"
+GOOD, BAD, PURPLE = "#22C55E", "#EF4444", "#A78BFA"
 SPAN = {"1개월": 21, "3개월": 63, "6개월": 126, "1년": 252, "3년": 756}
 
 

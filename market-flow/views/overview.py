@@ -75,7 +75,7 @@ def today():
     for title, group in [("한국", KOREA), ("미국", US), ("금리·환율·유가·변동성", MACRO)]:
         st.subheader(title)
         _metric_row(p, group)
-    st.caption("VIX·금리·환율·유가·달러는 오르면 주식에 부담이라 색을 반대로 표시해요.")
+    st.caption("등락 색은 한국식이에요: 오르면 빨강, 내리면 파랑. VIX·금리·환율·유가·달러는 오르면 주식에 부담이에요.")
 
 
 def score():

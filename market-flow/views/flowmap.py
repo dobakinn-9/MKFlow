@@ -94,9 +94,9 @@ def _node_state(p: pd.DataFrame, node, shift: int = 0) -> dict:
     # 최근 1주가 1개월과 반대 방향이면 '바뀌는 중'
     wsc = 0 if np.isnan(w1) else sign * w1 / (th / 2)
     if sc >= 1:
-        sig, color = "🟢 우호", cm.UP
+        sig, color = "🟢 우호", cm.GOOD
     elif sc <= -1:
-        sig, color = "🔴 부담", cm.DOWN
+        sig, color = "🔴 부담", cm.BAD
     else:
         sig, color = "🟡 중립", cm.ORANGE
     turning = ""
@@ -170,7 +170,7 @@ def _node_html(n: dict) -> str:
 
 
 def _link_html(desc: str, ls: dict) -> str:
-    col = {2: cm.UP, 1: "#86EFAC", 0: cm.MUTED, -1: cm.ORANGE}[ls["level"]]
+    col = {2: cm.GOOD, 1: "#86EFAC", 0: cm.MUTED, -1: cm.ORANGE}[ls["level"]]
     c = "" if np.isnan(ls["c"]) else f" (상관 {ls['c']:+.2f})"
     return (f"<div class='fm-link' style='--lc:{col}'><div class='fm-arrow'>⬇</div>"
             f"<div class='fm-lt'>{html.escape(desc)}<br><b>{ls['txt']}</b>{c}</div></div>")
@@ -256,7 +256,7 @@ QUAD = {  # (x≥100, y≥100)
     (True, True): ("주도", cm.UP, "시장보다 강하고 더 강해지는 중"),
     (True, False): ("약해짐", cm.ORANGE, "아직 강하지만 힘이 빠지는 중"),
     (False, False): ("소외", cm.DOWN, "시장보다 약하고 계속 약해지는 중"),
-    (False, True): ("살아남", cm.BLUE, "아직 약하지만 힘이 붙는 중"),
+    (False, True): ("살아남", cm.PURPLE, "아직 약하지만 힘이 붙는 중"),
 }
 
 
