@@ -1,28 +1,58 @@
-WALCL: ERROR ReadTimeout HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read
-WTREGEN: ERROR ReadTimeout HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read
-RRPONTSYD: ERROR ReadTimeout HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read
-T10Y3M: ERROR ReadTimeout HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read
-USALOLITOAASTSAM: ERROR ReadTimeout HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read
-USALOLITONOSTSAM: ERROR ReadTimeout HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read
-KORLOLITOAASTSAM: ERROR ReadTimeout HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read
-KORLOLITONOSTSAM: ERROR ReadTimeout HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read
-XTEXVA01KRM667S: ERROR ReadTimeout HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read
-KORPROINDMISMEI: ERROR ReadTimeout HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read
-BSCICP03KRM665S: ERROR ReadTimeout HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read
-CSCICP03KRM665S: ERROR ReadTimeout HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read
-BSCICP03USM665S: ERROR ReadTimeout HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read
-INDPRO: ERROR ReadTimeout HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read
-PAYEMS: ERROR ReadTimeout HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read
-RSAFS: ERROR ReadTimeout HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read
-UNRATE: ERROR ReadTimeout HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read
-ICSA: ERROR ReadTimeout HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read
-HOUST: ERROR ReadTimeout HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read
-UMCSENT: ERROR ReadTimeout HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read
-PERMIT: ERROR ReadTimeout HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read
-AWHMAN: ERROR ReadTimeout HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read
-NEWORDER: ERROR ReadTimeout HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read
-CFNAI: ERROR ReadTimeout HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read
-BAMLH0A0HYM2: ERROR ReadTimeout HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read
-DTWEXBGS: ERROR ReadTimeout HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read
-KORCPIALLMINMEI: ERROR ReadTimeout HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read
-IRLTLT01KRM156N: ERROR ReadTimeout HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read
+## fred_csv_browserUA ERROR ReadTimeout 40.3s HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=40)
+
+## fred_csv_cosd ERROR ReadTimeout 40.0s HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=40)
+
+## fred_series_page ERROR ReadTimeout 40.1s HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=40)
+
+## alfred ERROR ReadTimeout 40.1s HTTPSConnectionPool(host='alfred.stlouisfed.org', port=443): Read timed out. (read timeout=40)
+
+## dbnomics_bls_unrate [200] 1.3s len=95039
+{"_meta":{"args":{"align_periods":false,"dataset_code":"ln","dimensions":{},"facets":false,"format":"json","limit":1000,"metadata":true,"observations":true,"offset":0,"provider_code":"BLS","q":"","series_code":"LNS14000000"},"version":"22.1.17"},"dat
+...6.9,6.7,6.7,6.4,6.2,6.1,6.1,5.8,5.9,5.4,5.1,4.7,4.5,4.2,3.9,4.0,3.8,3.7,3.7,3.6,3.6,3.5,3.6,3.5,3.6,3.6,3.5,3.5,3.6,3.5,3.4,3.6,3.6,3.5,3.7,3.8,3.9,3.7,3.8,3.7,3.9,3.9,3.9,4.0,4.1,4.2,4.2,4.1,4.1,4.2,4.1,4.0]}],"limit":1000,"num_found":1,"offset":0}}
+
+## dbnomics_oecd_cli_usa [200] 1.0s len=125778
+{"_meta":{"args":{"align_periods":false,"dataset_code":"DSD_STES@DF_CLI","dimensions":{},"facets":false,"format":"json","limit":1000,"metadata":true,"observations":true,"offset":0,"provider_code":"OECD","q":"","series_code":"USA.M.LI...AA...H"},"vers
+...48,99.38548,99.44772,99.55158,99.67272,99.7852,99.85488,99.85856,99.80206,99.70991,99.62578,99.59888,99.62357,99.67068,99.72985,99.81048,99.92305,100.077,100.2648,100.4679,100.6497,100.7964,100.9197,101.0219]}],"limit":1000,"num_found":1,"offset":0}}
+
+## oecd_sdmx_cli [200] 1.2s len=18968
+STRUCTURE,STRUCTURE_ID,STRUCTURE_NAME,ACTION,REF_AREA,Reference area,FREQ,Frequency of observation,MEASURE,Measure,UNIT_MEASURE,Unit of measure,ACTIVITY,Economic activity,ADJUSTMENT,Adjustment,TRANSFORMATION,Transformation,TIME_HORIZ,Time horizon,MET
+...CLI(4.1),Composite leading indicators,I,USA,United States,M,Monthly,LI,Composite leading indicator (CLI),IX,Index,_Z,Not applicable,AA,Amplitude adjusted,IX,Index,_Z,Not applicable,H,OECD harmonised,2026-02,,100.3057,,A,Normal value,0,Units,2,Two,,
+
+
+## fiscaldata_tga [200] 0.6s len=3269
+{"data":[{"record_date":"2026-11-02","account_type":"Treasury General Account (TGA) Opening Balance","close_today_bal":"null","open_today_bal":"951593","open_month_bal":"951593","open_fiscal_year_bal":"984046","table_nbr":"I","table_nm":"Operating Ca
+..."total-count":16746,"total-pages":5582},"links":{"self":"&page%5Bnumber%5D=1&page%5Bsize%5D=3","first":"&page%5Bnumber%5D=1&page%5Bsize%5D=3","prev":null,"next":"&page%5Bnumber%5D=2&page%5Bsize%5D=3","last":"&page%5Bnumber%5D=5582&page%5Bsize%5D=3"}}
+
+## nyfed_rrp [200] 0.2s len=1596
+{ "repo": { "operations": [ { "operationId": "RP 110326 26", "operationDate": "2026-11-03", "operationType": "Reverse Repo", "note": "" ,"totalAmtAccepted": 427000000 }, { "operationId": "RP 110226 26", "operationDate": "2026-11-02", "operationType":
+...ationDate": "2026-10-21", "operationType": "Reverse Repo", "note": "" ,"totalAmtAccepted": 237000000 }, { "operationId": "RP 102026 26", "operationDate": "2026-10-20", "operationType": "Reverse Repo", "note": "" ,"totalAmtAccepted": 227000000 } ] } }
+
+## fed_h41_ddp [200] 0.3s len=0
+
+...
+
+## bls_api_v1 [200] 0.3s len=3152
+{"status":"REQUEST_SUCCEEDED","responseTime":16,"message":[],"Results":{
+"series":
+[{"seriesID":"LNS14000000","data":[{"year":"2026","period":"M09","periodName":"September","latest":"true","value":"4.2","footnotes":[{}]},{"year":"2026","period":"M08"
+...2024","period":"M03","periodName":"March","value":"3.9","footnotes":[{}]},{"year":"2024","period":"M02","periodName":"February","value":"3.9","footnotes":[{}]},{"year":"2024","period":"M01","periodName":"January","value":"3.7","footnotes":[{}]}]}]
+}}
+
+## census_marts [200] 0.5s len=8764
+<html style="font-size: 14px;">
+
+<head>
+    <title>Missing Key</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="assets/styles.css">
+    <script type="text/javascript" src="assets/jq
+.../data-census-gov-release-notes.pdf?#">Release
+                    Notes</a>
+            </div>
+        </footer>
+    </div>
+
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body>
+
+</html>
