@@ -46,7 +46,7 @@ jobs:
         run: |
           git config user.name "mkflow-bot"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add market-flow/data/us market-flow/data/probe_us.txt 2>/dev/null || true
+          git add -A market-flow/data || true
           if git diff --cached --quiet; then echo "바뀐 내용이 없어요."; exit 0; fi
           git commit -m "미국 공식 통계 갱신 $(TZ=Asia/Seoul date +%Y-%m-%d)"
           for i in 1 2 3 4; do

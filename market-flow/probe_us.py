@@ -30,15 +30,27 @@ try:
     out.append("## providers: " + ", ".join(p["code"] for p in json.loads(t)["providers"]["docs"]))
 except Exception:
     out.append("## providers " + t[:300])
-for prov in ["FED", "BEA", "CENSUS", "BLS"]:
+for prov in ["SCSMICH", "ISM", "EIA"]:
     c, t = g(f"{D}/datasets/{prov}", params={"limit": 200})
     try:
         out.append(f"## datasets {prov}: " + " | ".join(f"{d['code']}={d.get('name','')[:40]}" for d in json.loads(t)["datasets"]["docs"]))
     except Exception:
         out.append(f"## datasets {prov} [{c}] {t[:200]}")
 series_search("FED/H41", "total assets")
-series_search("FED/G17", "total index")
+series_search("FED/H41", "reverse repurchase")
+series_search("FED/H41", "Treasury General Account")
+series_search("FED/G17_IP_MAJOR_INDUSTRY_GROUPS", "total index")
+series_search("FED/TIPS", "10-year")
+series_search("FED/TIPS", "5-year")
+series_search("FED/H15", "10-year treasury constant maturity")
+c, t = g(f"{D}/datasets/BEA", params={"limit": 1000})
+try:
+    ds = [d["code"] for d in json.loads(t)["datasets"]["docs"]]
+    out.append("## BEA NIPA datasets with 2080/T20: " + ", ".join(x for x in ds if "T208" in x or "T203" in x or "T50" in x)[:1500])
+except Exception:
+    out.append("## BEA list fail " + t[:200])
 series_search("BEA/NIPA-T20804", "excluding food and energy")
+series_search("BEA/NIPA-T20807", "excluding food and energy")
 series_search("BLS/cu", "all items less food and energy seasonally adjusted")
 for code in ["BLS/ln/LNS14000000", "BLS/ce/CES0000000001", "BLS/cu/CUSR0000SA0", "BLS/cu/CUSR0000SA0L1E",
              "OECD/DSD_STES@DF_CLI/USA.M.LI...AA...H", "OECD/DSD_STES@DF_CLI/KOR.M.LI...AA...H",
@@ -56,4 +68,4 @@ for nm, url in [("umich_sent", "https://www.sca.isr.umich.edu/files/tbcics.csv")
     c, t = g(url)
     out.append(f"## {nm} [{c}] len={len(t)}\n{t[:500]}\n…{t[-300:]}")
 Path(__file__).with_name("data").joinpath("probe_us.txt").write_text("\n".join(out), encoding="utf-8")
-print("\n".join(out)[:3000])
+print("done", len(out))
