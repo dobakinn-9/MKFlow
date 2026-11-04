@@ -1,0 +1,56 @@
+# 미국 공식 통계를 받아 market-flow/data/us/ 에 저장해요.
+# FRED(세인트루이스 연은)는 클라우드 서버에서 접속이 막혀서 DBnomics(BLS·BEA·OECD 공식 자료 거울)·미 재무부·뉴욕 연은에서 직접 받아요.
+name: 미국 공식 통계 받기
+
+on:
+  schedule:
+    - cron: "15 22 * * *"   # UTC 22:15 = 한국 07:15 (매일)
+    - cron: "15 14 * * 1-5" # UTC 14:15 = 한국 23:15 (미국 지표 발표 뒤)
+  push:
+    paths:
+      - market-flow/fetch_us.py
+      - market-flow/probe_us.py
+      - .github/workflows/us_data.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: us-data
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: 패키지 설치
+        run: pip install pandas requests
+      - name: 점검 (임시)
+        if: always()
+        continue-on-error: true
+        working-directory: market-flow
+        run: if [ -f probe_us.py ]; then python probe_us.py; fi
+      - name: 미국 통계 받기
+        if: always()
+        continue-on-error: true
+        working-directory: market-flow
+        run: if [ -f fetch_us.py ]; then python fetch_us.py; fi
+      - name: 저장소에 저장
+        if: always()
+        run: |
+          git config user.name "mkflow-bot"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add market-flow/data/us market-flow/data/probe_us.txt 2>/dev/null || true
+          if git diff --cached --quiet; then echo "바뀐 내용이 없어요."; exit 0; fi
+          git commit -m "미국 공식 통계 갱신 $(TZ=Asia/Seoul date +%Y-%m-%d)"
+          for i in 1 2 3 4; do
+            git pull --rebase origin main && git push && exit 0
+            echo "저장 재시도 $i"; sleep $((i*15))
+          done
+          exit 1
