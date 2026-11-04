@@ -9,7 +9,6 @@ on:
   push:
     paths:
       - market-flow/fetch_us.py
-      - market-flow/probe_us.py
       - .github/workflows/us_data.yml
   workflow_dispatch:
 
@@ -31,16 +30,11 @@ jobs:
           python-version: "3.11"
       - name: 패키지 설치
         run: pip install pandas requests
-      - name: 점검 (임시)
-        if: always()
-        continue-on-error: true
-        working-directory: market-flow
-        run: if [ -f probe_us.py ]; then python probe_us.py; fi
       - name: 미국 통계 받기
         if: always()
         continue-on-error: true
         working-directory: market-flow
-        run: if [ -f fetch_us.py ]; then python fetch_us.py; fi
+        run: python fetch_us.py
       - name: 저장소에 저장
         if: always()
         run: |
