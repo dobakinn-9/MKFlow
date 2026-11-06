@@ -1,33 +1,33 @@
 {
-  "asof": "2026-11-06",
-  "summary": "11/5 'AI 투자 재평가'가 세계 시장을 흔들었어요. 코스피 −5.28%에 이어 뉴욕은 반도체지수 −12.25%, 나스닥 −5.52%로 조정에 들어갔고 VIX는 28.18로 뛰었어요. 하루 전 8% 넘게 빠졌던 유가는 호르무즈 유조선 피해가 이어지며 브렌트 98.29달러(+3.88%)로 반등했어요. 영란은행은 2023년 이후 처음 금리를 4.00%로 올렸고, 미국은 12월 인상 확률이 67%로 내렸어요. 오늘 밤 미국 10월 고용보고서가 나와요.",
+  "asof": "2026-11-07",
+  "summary": "11/6(금) 아시아가 'AI 매도' 충격을 뒤늦게 받아 코스피가 −6.02%(5,059.69)로 서킷브레이커가 걸리고 닛케이는 약 6% 빠져 약세장에 들어갔어요. 밤사이 뉴욕은 반도체 반등으로 S&P 500 +0.31%·나스닥 +1.09%로 숨을 돌렸고, 10월 고용 +16.5만 명으로 경기는 탄탄했지만 12월 인상 확률은 65% 이상으로 높아요. 주말 사이 이란은 카타르 중재안을 검토 중이고 유가는 브렌트 98달러대에서 멈췄어요. 다음 주 11/10 미국 CPI가 핵심이에요.",
   "items": [
     {
       "id": "mideast",
       "region": "중동·원유",
       "icon": "🛢️",
       "tone": "부정",
-      "title": "유가 하루 만에 반등, 브렌트 98.29달러…호르무즈 선박 피해 이어지고 협상은 제자리",
+      "title": "이란, 카타르 '이틀짜리 다리 합의안' 검토…트럼프 '합의냐 공습이냐 곧 결정'",
       "points": [
-        "11/5 브렌트는 98.29달러(+3.88%), WTI는 90.52달러(+2.72%)로 반등했어요. 전날 8% 넘게 빠져 8월 말 이후 최저였던 데서 일부를 되찾았어요.",
-        "영국 해사무역기구(UKMTO)에 따르면 일요일 이후 최소 5척이 피해를 보고했고, 10월에는 35척이 공격받아 전쟁 중 월간 최다였어요. 혁명수비대는 '허가 안 된 항로'를 쓴 유조선 2척과 예인선 1척에 불이 났다고 밝혔어요.",
-        "이란은 미국과의 협상 입장이 바뀌지 않았다고 했고, 아락치 외무장관은 사우디·카타르 외무장관과 외교 진전을 논의했어요. 선거 뒤 트럼프 대통령의 이란 정책은 아직 불확실해요.",
-        "유라시아그룹은 미국의 이란 재공습 가능성을 60%(65%에서 낮춤), 합의 10%(20%에서 낮춤), 교착 지속 30%로 보고, 확전 시 브렌트가 110~125달러까지 갈 수 있다고 봤어요."
+        "AP에 따르면 이란은 11/6 카타르가 낸 중재안을 검토하고 있어요. 첫날 미국이 해상봉쇄를 풀고 동결 자금 일부를 풀며 이란은 IAEA 사찰을 허용하고, 둘째 날 이란·오만 방식으로 호르무즈를 다시 여는 '다리 합의'가 거론됐어요(양측 공식 확인은 없음).",
+        "트럼프 대통령은 11/5 '합의할지, 남은 것을 파괴할 새 공습을 할지 세계가 곧 알게 될 것'이라고 했고, 11/6 카타르 국왕과 통화했어요. 이란은 봉쇄 해제·제재 해제·자산 동결 해제 등 조건이 먼저라는 입장이에요.",
+        "혁명수비대는 11/6 유조선 2척이 해협 안팎에서 기뢰에 부딪혔다고 주장했어요(해사 당국 미확인). 영국 해군 기관 집계로 10월 상선 공격은 최소 30건으로 월간 최다였어요.",
+        "이란은 인도·중국·이라크·카타르 선박은 통행을 허용하고 있다고 밝혔지만, 미국의 이란 항만 봉쇄는 그대로예요. 유가는 11/6 브렌트 98달러대·WTI 90달러대에서 거의 보합이었어요."
       ],
-      "hidden": "선거 결과로 '전쟁이 빨리 끝난다'는 기대가 유가를 끌어내렸지만, 해협 통행은 여전히 막혀 있고 합의 가능성은 오히려 낮아졌다는 분석이 나와요. 유가 하락이 오래가기 어려운 이유예요.",
-      "korea": "브렌트가 다시 100달러 가까이 오르면 한국 물가·무역수지 부담이 되살아나요. 11/5 원/달러는 1,342.1원으로 아직 안정적이에요.",
+      "hidden": "선거 뒤 '전쟁을 빨리 끝내라'는 미국 내 압력(밴스 부통령도 합의 촉구)이 커져 협상 쪽 힘이 실리고 있어요. 다만 이란의 선결 조건이 많아 합의가 늦어지면 공습 재개 위험이 다시 커지는 '양갈래' 국면이에요.",
+      "korea": "합의가 나오면 유가 하락으로 한국 물가·무역수지에 큰 호재예요. 반대로 공습이 재개되면 원/달러(11/6 1,356.6원) 상승과 외국인 매도가 겹칠 수 있어요.",
       "sources": [
         {
-          "title": "Brent crude jumps, settles up over $3 after tanker attacks (Reuters/Yahoo)",
-          "url": "https://ca.finance.yahoo.com/news/oil-falls-fourth-day-expectations-045943628.html"
+          "title": "Iran is reviewing proposals focusing on Tehran's nuclear program, officials say (AP/CP24)",
+          "url": "https://www.cp24.com/news/world/2026/11/06/iran-is-reviewing-proposals-focusing-on-tehrans-nuclear-program-officials-say/"
         },
         {
-          "title": "Oil rebounds from two-month low as uncertainty lingers over Iran war (The National)",
-          "url": "https://www.thenationalnews.com/business/energy/2026/11/05/oil-rebounds-from-two-month-low-as-uncertainty-lingers-over-iran-war/"
+          "title": "Iran War Updates: Trump touts imminent decision on new U.S. strikes (CBS News)",
+          "url": "https://www.cbsnews.com/live-updates/iran-war-trump-us-strait-hormuz-persian-gulf/"
         },
         {
-          "title": "Strait of Hormuz News, November 5, 2026 (Straits Daily Brief)",
-          "url": "https://straits.live/briefs/2026-11-05"
+          "title": "Why is Iran exempting India, China, Qatar, Iraq from Hormuz restrictions? (Al Jazeera)",
+          "url": "https://www.aljazeera.com/news/2026/11/6/why-is-iran-exempting-india-china-qatar-iraq-from-hormuz-restrictions"
         }
       ]
     },
@@ -36,27 +36,27 @@
       "region": "미국·AI 투자",
       "icon": "🤖",
       "tone": "부정",
-      "title": "'AI 규제 공포'에 반도체지수 −12.25%…나스닥 조정 진입, 코스피 −5.28%",
+      "title": "'AI 매도' 아시아로 번져 코스피 −6.02%·서킷브레이커…뉴욕은 하루 만에 반도체 반등",
       "points": [
-        "11/5 반도체지수는 9,011.14(−12.25%)로 폭락했고 나스닥은 24,315.00(−5.52%)으로 18~19개월 만에 가장 크게 내리며 조정에 들어갔어요. S&P 500은 7,353.73(−4.36%)였어요.",
-        "엔비디아 −9.26%, AMD −17.26%, 마벨 −10.62%, 램리서치 −10.44%, 테슬라 −10.8%로 AI·칩 관련주가 투매됐어요. 반면 홈디포 +6.53%, 3M +9.55%처럼 AI와 거리가 먼 종목은 올랐어요.",
-        "원인으로는 민주당 의회의 데이터센터 규제 가능성과 'AI 투자 사이클 재평가'가 꼽혀요. 다만 구체적 법안이 나온 건 아니고, 올해 수익을 지키려는 헤지펀드 매도와 개인 매도(3억 5,800만 달러, 2020년 3월 이후 최대)가 낙폭을 키웠어요.",
-        "한국에서는 같은 날 SK하이닉스 126만 4,000원(−9.46%), 삼성전자 20만 1,500원(−7.57%)으로 급락했고 삼성전기 −15.34%, 반도체 소부장(심텍 −17.97%)도 크게 빠졌어요."
+        "11/6 코스피는 5,059.69(−6.02%)로 이틀간 −10.98% 빠졌어요. SK하이닉스 113만 2,000원(−10.44%), 삼성전자 18만 8,700원(−6.35%)이었고 외국인은 SK하이닉스만 1조 9,205억 원어치 팔았어요.",
+        "마이크로소프트가 네오클라우드(외부 AI 클라우드) 계약을 재검토한다는 보도도 투자심리를 더 나쁘게 했어요.",
+        "같은 날 밤 뉴욕은 AMD +11.04%, 인텔 +7.71%, 엔비디아 +2.78%로 반등했고 나스닥은 24,579.42(+1.09%)였어요. 제프리스는 목요일 급락을 '반사적 매도'로 봤고, 트럼프 대통령은 AI 인프라 확대를 전폭 지지한다고 밝혔어요.",
+        "그래도 한 주 동안 나스닥 −3.4%, 기술 업종(XLK) 약 −7%였고, 골드만삭스는 계획된 미국 데이터센터 용량의 약 45%가 규제 위험에 놓였다고 추정했어요."
       ],
-      "hidden": "실제 규제는 아직 '가능성' 단계인데 주가는 먼저 크게 움직였어요. 그동안 AI 관련주에 쏠렸던 돈이 한꺼번에 빠지는 '포지션 정리' 성격이 커서, 법안·발주 취소 같은 실제 근거가 없으면 되돌림이 나올 수도 있어요.",
-      "korea": "한국 증시는 반도체 비중이 커서 미국 칩 투매에 가장 직접 노출돼 있어요. 11/6 개장 때 밤사이 반도체지수 −12.25%가 추가로 반영될 수 있어요.",
+      "hidden": "미국 칩주는 금요일 목요일 낙폭의 3분의 1 정도만 되찾았어요. 규제 '공포'에서 실제 법안·발주 축소로 넘어가는지가 반등 지속 여부를 가를 거예요.",
+      "korea": "한국은 금요일 미국 반등 전에 장이 끝나 충격만 반영됐어요. 월요일엔 미국 반등이 완충이 될 수 있지만, 외국인이 6거래일 연속 반도체를 팔고 있어 수급 회복이 먼저 확인돼야 해요.",
       "sources": [
         {
-          "title": "Stock Market Today, Nov. 5: Nasdaq Suffers Worst Day in 18 Months (Motley Fool)",
-          "url": "https://www.fool.com/coverage/stock-market-today/2026/11/05/stock-market-today-nov-5-nasdaq-suffers-worst-day-in-18-months-as-ai-trade-comes-under-fire/"
+          "title": "Stock market today: Nasdaq and S&P 500 rebound, Dow slips to cap bruising week for AI stocks (Yahoo Finance)",
+          "url": "https://finance.yahoo.com/markets/live/stock-market-today-friday-november-6-dow-sp-500-nasdaq-jobs-report-earnings-135953863.html"
         },
         {
-          "title": "Stock market today: Dow plunges 1,800 points, Nasdaq enters correction (Yahoo Finance)",
-          "url": "https://finance.yahoo.com/markets/live/stock-market-today-thursday-november-5-dow-sp-500-nasdaq-plunge-chip-stocks-melt-down-193726491.html"
+          "title": "Chip Stocks Bounce Back in the Stock Market Today Live, November 6, 2026 (StockTitan)",
+          "url": "https://www.stocktitan.net/articles/stock-market-today-live-november-6-2026"
         },
         {
-          "title": "코스피 5.28% 급락해 5400선 내줘…코스닥도 5%대 하락 (파이낸셜뉴스)",
-          "url": "https://fnnews.com/news/202611051557099258"
+          "title": "외국인 2조7690억원 매도에 코스피 6.02% 하락…반도체주 동반 급락 (한국면세뉴스)",
+          "url": "https://www.kdfnews.com/news/articleView.html?idxno=190574"
         }
       ]
     },
@@ -122,28 +122,28 @@
       "id": "japan",
       "region": "일본",
       "icon": "🇯🇵",
-      "tone": "중립",
-      "title": "일본은행 1.25% 동결, 인상 반대표 1명…'기조 물가 2% 도달' 판단으로 12월 인상 여지",
+      "tone": "부정",
+      "title": "닛케이 약 6% 급락해 약세장 진입…일본은행 12월 인상 여부가 다음 변수",
       "points": [
-        "일본은행은 10/30 단기 정책금리를 1.25%로 동결했어요. 표결은 8대 1로, 다카타 위원이 인상을 주장했어요.",
-        "기조적 물가가 목표(2%)에 도달했다고 판단하고 물가 전망을 올렸어요. AI 관련 수요로 수출·설비투자 전망도 더 밝게 봤어요.",
-        "보유 ETF 매각 속도를 높여 예상 처분 기간을 112년에서 43년으로 줄였어요. 여전히 매우 느린 속도예요.",
-        "분석가들은 12월 인상을 현실적인 가능성으로 보고 있어요. 다만 미국 금리 상승에 엔화는 11/3 달러당 158.66엔(엔화 −0.47%)으로 오히려 약해졌어요."
+        "11/6 닛케이225는 약 6% 떨어진 57,435 부근에서 마감해 고점 대비 20% 넘게 빠지며 약세장에 들어갔어요. 미국 AI 반도체 급락이 일본 반도체·장비주로 번졌어요.",
+        "일본은행은 10/30 정책금리를 1.25%로 동결했지만(8대 1) 기조 물가가 2%에 도달했다고 판단해 12월 인상 여지를 남겼어요.",
+        "11/10 일본은행 10월 회의 '의견 요약'이 나와요. 위원들이 얼마나 빨리 올리려 하는지 확인할 수 있어요.",
+        "주가 급락 속에 안전자산 선호로 달러 매수가 늘었다는 보도가 나왔어요."
       ],
-      "hidden": "'목표에 도달했다'는 판단은 이제 물가가 너무 오르는 것을 막는 쪽으로 무게가 옮겨갔다는 뜻이에요. 인상 간격이 6개월에서 3개월로 짧아질 수 있다는 관측도 나와요.",
-      "korea": "일본이 12월에 올리면 엔화를 빌려 투자하던 자금(엔 캐리)이 되돌아오며 한국 증시 외국인 자금이 흔들릴 수 있어요.",
+      "hidden": "주가가 이렇게 빠지면 일본은행이 12월 인상을 미룰 명분이 생겨요. 반대로 엔 약세가 이어지면 물가 때문에 올려야 하는 압력도 커서 판단이 더 어려워졌어요.",
+      "korea": "한국과 일본이 같은 날 함께 급락해 아시아 반도체 공급망 전체가 매도 대상이 됐어요. 일본은행 인상 시 엔 캐리 청산은 외국인 자금 흐름에 추가 부담이에요.",
       "sources": [
         {
-          "title": "Analysts react to BOJ decision to keep rates steady (Yahoo Finance/Reuters)",
-          "url": "https://finance.yahoo.com/economy/policy/articles/instant-view-analysts-react-boj-032614967.html"
+          "title": "Nikkei 225 crash today: why Japan stocks are plunging on November 6 (Invezz)",
+          "url": "https://invezz.com/news/2026/11/06/nikkei-225-crash-november-6-2026/"
         },
         {
-          "title": "Sterling-Yen Firm as BoJ Keeps Cautious Policy Stance (Tradingpedia)",
-          "url": "https://www.tradingpedia.com/2026/10/30/sterling-yen-firm-as-boj-keeps-cautious-policy-stance/"
+          "title": "Wall Street's AI Crash Just Hit Asia: Korea Halted, Japan in a Bear Market (24/7 Wall St.)",
+          "url": "https://247wallst.com/investing/2026/11/06/wall-streets-ai-crash-just-hit-asia-korea-halted-japan-in-a-bear-market/"
         },
         {
-          "title": "[뉴욕 금·채권·달러] 미 국채금리 4.96%·달러 동반 상승 (블록미디어)",
-          "url": "https://www.blockmedia.co.kr/archives/1160906"
+          "title": "Newsquawk Week Ahead 9-13th November 2026 (Global-View)",
+          "url": "https://global-view.com/newsquawk-week-ahead-in-focus-9-13th-november-2026/"
         }
       ]
     },
@@ -151,28 +151,28 @@
       "id": "gold",
       "region": "중앙은행·금",
       "icon": "🥇",
-      "tone": "긍정",
-      "title": "금값 4,073.70달러로 3.4% 급반등…선거 뒤 금리·달러 하락",
+      "tone": "중립",
+      "title": "금 4,050달러 안팎에서 숨 고르기…강한 고용에 밀렸다가 기대 인플레이션 하락에 반등",
       "points": [
-        "11/4 금은 온스당 4,073.70달러(+3.38%)로 하루 만에 4,000달러를 되찾았어요. 은 선물도 장 초반 +4.94%(52.21달러)였어요.",
-        "민주당 의회 장악 뒤 미 10년물이 4.90%(−5bp)로 내리고 달러지수도 101.5대로 약해져 이자 없는 금에 유리해졌어요.",
-        "12월 연준 인상 확률은 11/3 기준 약 80%로 여전히 높아, 11/6 고용보고서가 금 방향을 다시 가를 수 있어요.",
+        "11/6 금 현물은 온스당 4,047.71달러(−0.96%) 부근에서 거래됐어요. 고용보고서(+16.5만 명) 직후 저점을 찍은 뒤 일부 되찾았어요.",
+        "미시간대 11월 소비자심리 예비치는 51.0(10월 48.0)으로 올랐고, 1년 기대 인플레이션은 4.3%(10월 4.7%)로 8월 이후 가장 낮았어요.",
+        "강한 고용에 10년물이 4.859%로 오르고 12월 연준 인상 확률이 65% 이상으로 유지돼 이자 없는 금에는 부담이에요.",
         "세계금협회에 따르면 2026년 2분기 중앙은행 등 공공기관은 금을 289톤 순매수해 2분기 기준 사상 최대였어요."
       ],
-      "hidden": "유가가 급락했는데도 금이 오른 건 '전쟁 보험'보다 '달러·정치 불확실성 헤지' 수요가 커졌다는 신호예요. 정부·의회 교착이 길어지면 이 수요가 이어질 수 있어요.",
-      "korea": "한국은행은 금 보유 비중이 낮은 편이라 직접 영향은 작지만, 위험자산 전반의 변동성 확대는 외국인 자금 흐름에 부담이에요.",
+      "hidden": "주식이 크게 빠진 주에도 금이 4,000달러대에 머문 건 중앙은행 매수가 바닥을 받치고 있다는 뜻이에요. 다만 금리 인상 기대가 커지면 단기 상승은 제한될 수 있어요.",
+      "korea": "한국은행의 금 보유 비중은 낮아 직접 영향은 작지만, 위험 회피가 커지면 원화 약세(11/6 1,356.6원)와 함께 나타나는 경우가 많아요.",
       "sources": [
+        {
+          "title": "Gold price trades near $4,050/oz after preliminary Consumer Sentiment rises to 51 (Kitco)",
+          "url": "https://www.kitco.com/news/article/2026-11-06/gold-price-trades-near-4050oz-after-preliminary-consumer-sentiment-rises-51"
+        },
+        {
+          "title": "UMich Sentiment November 2026: 51.0 Beat, Inflation Expectations Fall (Verified Investing)",
+          "url": "https://verifiedinvesting.com/blogs/us-economic-metrics/umich-sentiment-november-2026"
+        },
         {
           "title": "Stock Market Today, Nov. 4: Dow Surges 3% (Motley Fool)",
           "url": "https://www.fool.com/coverage/stock-market-today/2026/11/04/stock-market-today-nov-4-dow-surges-3-in-biggest-post-midterm-rally-in-44-years/"
-        },
-        {
-          "title": "Stock Market Today (Nov. 4, 2026): Stocks rise, oil collapses after Dems sweep midterm elections (TheStreet)",
-          "url": "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-nov-04-2026"
-        },
-        {
-          "title": "코스피, 4% 급락 딛고 5684 마감 (코리아리포트)",
-          "url": "https://www.koreareport.co.kr/news/articleView.html?idxno=54304"
         }
       ]
     }
