@@ -5,8 +5,8 @@
   · KOSDAQ 시세 750일 (2023-10-17 ~ 2026-11-13)
   ✓ flows_KOSDAQ: 새로 3일 · 전체 768일 (2023-09-14 ~ 2026-11-13)
   ✓ index_KOSDAQ: 종가 768일 · 거래대금 19일치
-  ✓ sectors: 79개 업종 · breadth_ALL: 18일치 (최근 상승 2010 / 하락 2065)
+  ✓ sectors: 79개 업종 · breadth_ALL: 18일치 (최근 상승 2276 / 하락 1854)
   ✓ 분야별 수급: 10개 분야 · 43종목 · 130거래일
-  ✓ valuation_KOSPI: PER 8.02 · PBR 1.47 · 추정PER 5.10 · 배당 1.30% · 159종목 · 14일치
-  ✓ valuation_KOSDAQ: PER 21.74 · PBR 3.38 · 추정PER 19.90 · 배당 0.66% · 150종목 · 14일치
+  ✓ valuation_KOSPI: PER 8.10 · PBR 1.48 · 추정PER 5.15 · 배당 1.29% · 159종목 · 14일치
+  ✓ valuation_KOSDAQ: PER 21.98 · PBR 3.41 · 추정PER 20.14 · 배당 0.66% · 150종목 · 14일치
   · VKOSPI: 네이버 증권에 해당 지수 없음 (시도: VKOSPI, VKOSPI200, KPI200VIX, KOSPI200VIX, KVIX, V-KOSPI200) → 앱은 코스피 실제 변동성으로 대신 보여줘요
